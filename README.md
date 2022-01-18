@@ -23,4 +23,4 @@ suggestions are also welcome (please post on the Github Issues page.)
 
 
 <a name="m3gnet-framework"></a>
-# MEGNet framework
+# M3GNet framework
