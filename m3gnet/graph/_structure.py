@@ -14,8 +14,7 @@ from m3gnet.typing import StructureOrMolecule
 
 
 def get_fixed_radius_bonding(
-        structure: StructureOrMolecule, cutoff: float = 5.0,
-        numerical_tol: float = 1e-8
+    structure: StructureOrMolecule, cutoff: float = 5.0, numerical_tol: float = 1e-8
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Get graph representations from structure within cutoff
@@ -32,32 +31,25 @@ def get_fixed_radius_bonding(
             np.array(structure.lattice.matrix), dtype=float
         )
         pbc = np.array([1, 1, 1], dtype=int)
-        cart_coords = np.ascontiguousarray(np.array(structure.cart_coords),
-                                           dtype=float)
+        cart_coords = np.ascontiguousarray(np.array(structure.cart_coords), dtype=float)
     elif isinstance(structure, Molecule):
         lattice_matrix = np.array(
-            [[1000.0, 0.0, 0.0], [0.0, 1000.0, 0.0], [0.0, 0.0, 1000.0]],
-            dtype=float
+            [[1000.0, 0.0, 0.0], [0.0, 1000.0, 0.0], [0.0, 0.0, 1000.0]], dtype=float
         )
         pbc = np.array([0, 0, 0], dtype=int)
-        cart_coords = np.ascontiguousarray(np.array(structure.cart_coords),
-                                           dtype=float)
+        cart_coords = np.ascontiguousarray(np.array(structure.cart_coords), dtype=float)
 
     elif isinstance(structure, Atoms):
         pbc = np.array(structure.pbc, dtype=int)
         if np.all(pbc < 0.1):
             lattice_matrix = np.array(
                 [[1000.0, 0.0, 0.0], [0.0, 1000.0, 0.0], [0.0, 0.0, 1000.0]],
-                dtype=float
+                dtype=float,
             )
         else:
-            lattice_matrix = np.ascontiguousarray(structure.cell[:],
-                                                  dtype=float)
+            lattice_matrix = np.ascontiguousarray(structure.cell[:], dtype=float)
 
-        cart_coords = np.ascontiguousarray(
-            np.array(structure.positions),
-            dtype=float
-        )
+        cart_coords = np.ascontiguousarray(np.array(structure.positions), dtype=float)
 
     else:
         raise ValueError("structure type not supported")
@@ -75,8 +67,7 @@ def get_fixed_radius_bonding(
     neighbor_indices = neighbor_indices.astype(DataType.np_int)
     images = images.astype(DataType.np_int)
     distances = distances.astype(DataType.np_float)
-    exclude_self = (center_indices != neighbor_indices) | (
-            distances > numerical_tol)
+    exclude_self = (center_indices != neighbor_indices) | (distances > numerical_tol)
     return (
         center_indices[exclude_self],
         neighbor_indices[exclude_self],

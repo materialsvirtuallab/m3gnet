@@ -7,8 +7,7 @@ import numpy as np
 
 
 def check_array_equal(
-        array1: Optional[np.ndarray], array2: Optional[np.ndarray],
-        rtol: float = 1e-3
+    array1: Optional[np.ndarray], array2: Optional[np.ndarray], rtol: float = 1e-3
 ) -> bool:
     """
     Check the equality of two arrays
@@ -25,8 +24,7 @@ def check_array_equal(
     return np.allclose(array1, array2, rtol=rtol)
 
 
-def check_shape_consistency(array: Optional[np.ndarray],
-                            shape: Sequence) -> bool:
+def check_shape_consistency(array: Optional[np.ndarray], shape: Sequence) -> bool:
     """
     Check if array complies with shape. Shape is a sequence of
     integer that may end with None. If None is at the end of shape,

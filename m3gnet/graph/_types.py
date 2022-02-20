@@ -122,15 +122,18 @@ class AttributeUpdateMixin:
         for i, j in self.__dict__.items():
             is_equal = check_array_equal(j, other.__dict__[i])
             if not is_equal:
-                print(f"{i} is different, one is ", j,
-                      "and the other is", other.__dict__[i])
+                print(
+                    f"{i} is different, one is ",
+                    j,
+                    "and the other is",
+                    other.__dict__[i],
+                )
                 return False
         return True
 
     def _check_shapes(self, shape_dict):
         checks = [
-            check_shape_consistency(getattr(self, i), j) for i, j in
-            shape_dict.items()
+            check_shape_consistency(getattr(self, i), j) for i, j in shape_dict.items()
         ]
         names = list(shape_dict.keys())
         error_msg = ""
@@ -352,8 +355,7 @@ class MaterialGraph(AttributeUpdateMixin):
         """
 
         graph_list = self.as_list()
-        graph_list_copy = [i.copy() if i is not None else None for i in
-                           graph_list]
+        graph_list_copy = [i.copy() if i is not None else None for i in graph_list]
         return MaterialGraph.from_list(graph_list_copy)
 
 

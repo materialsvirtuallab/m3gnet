@@ -22,6 +22,7 @@ def get_segment_indices_from_n(ns: tf.Tensor) -> tf.Tensor:
     """
     return tf.repeat(tf.range(tf.shape(ns)[0]), repeats=ns)
 
+
 #    n = tf.shape(ns)[0]
 #    max_n = tf.reduce_max(ns)
 #    matrix = tf.range(n)
@@ -79,6 +80,7 @@ def get_length(t):
 def _gather(data, segment_ids, counts=None, axis=0):
     return tf.gather(data, segment_ids)
 
+
 #    if counts is None:
 #        counts = tf.math.bincount(segment_ids)
 #    return tf.repeat(data, repeats=counts, axis=axis)
@@ -105,15 +107,14 @@ def segment_softmax(data, segment_ids, weights=None, counts=None):
     data -= maxes
     exp = tf.exp(data) * tf.squeeze(weights)
     softmax = tf.math.divide_no_nan(
-        exp, _gather(tf.math.segment_sum(exp, segment_ids), segment_ids,
-                     counts)
+        exp, _gather(tf.math.segment_sum(exp, segment_ids), segment_ids, counts)
     )
-    return tf.cast(softmax,
-                   tf.keras.mixed_precision.global_policy().compute_dtype)
+    return tf.cast(softmax, tf.keras.mixed_precision.global_policy().compute_dtype)
 
 
-def unsorted_segment_softmax(data, segment_ids, num_segments, weights=None,
-                             counts=None):
+def unsorted_segment_softmax(
+    data, segment_ids, num_segments, weights=None, counts=None
+):
     """
     Segment softmax
     Args:
@@ -131,12 +132,15 @@ def unsorted_segment_softmax(data, segment_ids, num_segments, weights=None,
     data -= maxes
     exp = tf.exp(data) * tf.squeeze(weights)
 
-    softmax = tf.math.divide_no_nan(exp, _gather(
-                tf.math.unsorted_segment_sum(exp, segment_ids, num_segments),
-                segment_ids,
-                counts))
-    return tf.cast(softmax,
-                   tf.keras.mixed_precision.global_policy().compute_dtype)
+    softmax = tf.math.divide_no_nan(
+        exp,
+        _gather(
+            tf.math.unsorted_segment_sum(exp, segment_ids, num_segments),
+            segment_ids,
+            counts,
+        ),
+    )
+    return tf.cast(softmax, tf.keras.mixed_precision.global_policy().compute_dtype)
 
 
 def unsorted_segment_fraction(data, segment_ids, num_segments, counts=None):
@@ -151,8 +155,7 @@ def unsorted_segment_fraction(data, segment_ids, num_segments, counts=None):
     segment_sum = tf.math.unsorted_segment_sum(data, segment_ids, num_segments)
     sums = _gather(segment_sum, segment_ids, counts)
     data = tf.math.divide_no_nan(data, sums)
-    return tf.cast(data,
-                   tf.keras.mixed_precision.global_policy().compute_dtype)
+    return tf.cast(data, tf.keras.mixed_precision.global_policy().compute_dtype)
 
 
 def append_zeros_to_match(tensor1, tensor2):
@@ -173,6 +176,7 @@ def broadcast_states_to_bonds(graph: List):
 
     """
     from m3gnet.graph import Index
+
     return tf.repeat(graph[Index.STATES], graph[Index.N_BONDS], axis=0)
     #  bond_ids = get_segment_indices_from_n(graph[Index.N_BONDS])
     #  return tf.gather(graph[Index.STATES], bond_ids)
@@ -189,6 +193,7 @@ def broadcast_states_to_atoms(graph: List):
 
     """
     from m3gnet.graph import Index
+
     return tf.repeat(graph[Index.STATES], graph[Index.N_ATOMS], axis=0)
     # atom_ids = get_segment_indices_from_n(graph[Index.N_ATOMS])
     # return tf.gather(graph[Index.STATES], atom_ids)

@@ -8,5 +8,5 @@ __all__ = [
     "get_segment_indices_from_n",
     "check_array_equal",
     "check_shape_consistency",
-    "reshape_array"
+    "reshape_array",
 ]

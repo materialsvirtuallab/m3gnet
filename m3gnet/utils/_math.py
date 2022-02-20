@@ -67,8 +67,7 @@ class Gaussian:
         self.width = width
 
     def __call__(self, r: tf.Tensor) -> tf.Tensor:
-        return tf.exp(
-            -((r[:, None] - self.centers[None, :]) ** 2) / self.width ** 2)
+        return tf.exp(-((r[:, None] - self.centers[None, :]) ** 2) / self.width ** 2)
 
 
 class SphericalBesselFunction:
@@ -77,8 +76,9 @@ class SphericalBesselFunction:
     implementations
     """
 
-    def __init__(self, max_l: int, max_n: int = 5, cutoff: float = 5.0,
-                 smooth: bool = False):
+    def __init__(
+        self, max_l: int, max_n: int = 5, cutoff: float = 5.0, smooth: bool = False
+    ):
         """
         Args:
             max_l: int, max order (excluding l)
@@ -94,8 +94,7 @@ class SphericalBesselFunction:
         else:
             self.funcs = self._calculate_symbolic_funcs()
 
-        self.zeros = tf.cast(get_spherical_bessel_roots(),
-                             dtype=DataType.tf_float)
+        self.zeros = tf.cast(get_spherical_bessel_roots(), dtype=DataType.tf_float)
 
     @lru_cache(maxsize=128)
     def _calculate_symbolic_funcs(self) -> List:
@@ -140,8 +139,7 @@ class SphericalBesselFunction:
         roots = self.zeros[: self.max_l, : self.max_n]
 
         results = []
-        factor = tf.cast(tf.sqrt(2.0 / self.cutoff ** 3),
-                         dtype=DataType.tf_float)
+        factor = tf.cast(tf.sqrt(2.0 / self.cutoff ** 3), dtype=DataType.tf_float)
         for i in range(self.max_l):
             root = roots[i]
             func = self.funcs[i]
@@ -154,8 +152,7 @@ class SphericalBesselFunction:
         return tf.concat(results, axis=1)
 
     @staticmethod
-    def rbf_j0(r: tf.Tensor, cutoff: float = 5.0,
-               max_n: int = 10) -> tf.Tensor:
+    def rbf_j0(r: tf.Tensor, cutoff: float = 5.0, max_n: int = 10) -> tf.Tensor:
         """
         Spherical Bessel function of order 0, ensuring the function value
         vanishes at cutoff
@@ -168,8 +165,7 @@ class SphericalBesselFunction:
         """
         n = tf.cast(tf.range(1, max_n + 1), dtype=DataType.tf_float)[None, :]
         r = r[:, None]
-        return tf.math.sqrt(2.0 / cutoff) * tf.math.sin(
-            n * pi / cutoff * r) / r
+        return tf.math.sqrt(2.0 / cutoff) * tf.math.sin(n * pi / cutoff * r) / r
 
 
 def _y00(theta, phi):
@@ -187,8 +183,7 @@ def _y00(theta, phi):
 
     """
     dtype = theta.dtype
-    return 0.5 * tf.ones_like(theta) * tf.cast(tf.math.sqrt(1.0 / pi),
-                                               dtype=dtype)
+    return 0.5 * tf.ones_like(theta) * tf.cast(tf.math.sqrt(1.0 / pi), dtype=dtype)
 
 
 def _conjugate(x):
@@ -229,8 +224,9 @@ class SphericalHarmonicsFunction:
         funcs = [i.subs({theta: sympy.acos(costheta)}) for i in funcs]
         self.orig_funcs = [sympy.simplify(i).evalf() for i in funcs]
         results = [
-            sympy.lambdify([costheta, phi], i,
-                           [{"conjugate": _conjugate}, "tensorflow"])
+            sympy.lambdify(
+                [costheta, phi], i, [{"conjugate": _conjugate}, "tensorflow"]
+            )
             for i in self.orig_funcs
         ]
         results[0] = _y00
@@ -248,8 +244,7 @@ class SphericalHarmonicsFunction:
         """
         costheta = tf.cast(costheta, dtype=tf.dtypes.complex64)
         phi = tf.cast(phi, dtype=tf.dtypes.complex64)
-        results = tf.stack([func(costheta, phi) for func in self.funcs],
-                           axis=1)
+        results = tf.stack([func(costheta, phi) for func in self.funcs], axis=1)
         results = tf.cast(results, dtype=DataType.tf_float)
         return results
 
@@ -260,14 +255,14 @@ def _block_repeat(array, block_size, repeats):
     start = 0
 
     for i, b in enumerate(block_size):
-        indices.append(tf.tile(col_index[start: start + b], [repeats[i]]))
+        indices.append(tf.tile(col_index[start : start + b], [repeats[i]]))
         start += b
     indices = tf.concat(indices, axis=0)
     return tf.gather(array, indices, axis=1)
 
 
 def combine_sbf_shf(
-        sbf: tf.Tensor, shf: tf.Tensor, max_n: int, max_l: int, use_phi: bool
+    sbf: tf.Tensor, shf: tf.Tensor, max_n: int, max_l: int, use_phi: bool
 ):
     """
     Combine the spherical Bessel function and the spherical Harmonics function
@@ -301,8 +296,7 @@ def combine_sbf_shf(
         block_size = 2 * np.arange(max_l) + 1
         # 2 * tf.range(max_l) + 1
     expanded_sbf = tf.repeat(sbf, repeats=repeats_sbf, axis=1)
-    expanded_shf = _block_repeat(shf, block_size=block_size,
-                                 repeats=[max_n] * max_l)
+    expanded_shf = _block_repeat(shf, block_size=block_size, repeats=[max_n] * max_l)
     shape = max_n * max_l
     if use_phi:
         shape *= max_l
@@ -335,15 +329,14 @@ def spherical_bessel_smooth(r, cutoff: float = 5.0, max_n: int = 10):
     n = tf.cast(tf.range(max_n), dtype=DataType.tf_float)[None, :]
     r = r[:, None]
     fnr = (
-            (-1) ** n
-            * tf.math.sqrt(2.0)
-            * pi
-            / cutoff ** 1.5
-            * (n + 1)
-            * (n + 2)
-            / tf.math.sqrt(2 * n ** 2 + 6 * n + 5)
-            * (sinc(r * (n + 1) * pi / cutoff) + sinc(
-        r * (n + 2) * pi / cutoff))
+        (-1) ** n
+        * tf.math.sqrt(2.0)
+        * pi
+        / cutoff ** 1.5
+        * (n + 1)
+        * (n + 2)
+        / tf.math.sqrt(2 * n ** 2 + 6 * n + 5)
+        * (sinc(r * (n + 1) * pi / cutoff) + sinc(r * (n + 2) * pi / cutoff))
     )
     en = n ** 2 * (n + 2) ** 2 / (4 * (n + 1) ** 4 + 1)
     dn = [tf.constant(1.0)]
@@ -383,18 +376,17 @@ def _get_lambda_func(max_n, cutoff: float = 5.0):
             * (i + 2)
             / sympy.sqrt(1.0 * (i + 1) ** 2 + (i + 2) ** 2)
             * (
-                    sympy.sin(r * (i + 1) * sympy.pi / cutoff)
-                    / (r * (i + 1) * sympy.pi / cutoff)
-                    + sympy.sin(r * (i + 2) * sympy.pi / cutoff)
-                    / (r * (i + 2) * sympy.pi / cutoff)
+                sympy.sin(r * (i + 1) * sympy.pi / cutoff)
+                / (r * (i + 1) * sympy.pi / cutoff)
+                + sympy.sin(r * (i + 2) * sympy.pi / cutoff)
+                / (r * (i + 2) * sympy.pi / cutoff)
             )
         )
 
     gnr = [fnr[0]]
     for i in range(1, max_n):
         gnr.append(
-            1 / sympy.sqrt(dn[i]) * (
-                        fnr[i] + sympy.sqrt(en[i] / dn[i - 1]) * gnr[-1])
+            1 / sympy.sqrt(dn[i]) * (fnr[i] + sympy.sqrt(en[i] / dn[i - 1]) * gnr[-1])
         )
 
     return [sympy.lambdify([r], sympy.simplify(i), "tensorflow") for i in gnr]

@@ -10,16 +10,17 @@ from m3gnet.graph import MaterialGraph, RadiusCutoffGraphConverter, Index
 class TestConverter(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.s1 = Structure(Lattice.cubic(3.17), ["Mo", "Mo"],
-                           [[0, 0, 0], [0.5, 0.5, 0.5]])
-        cls.g1 = RadiusCutoffGraphConverter(
-            cutoff=5.0,threebody_cutoff=4.0).convert(cls.s1)
+        cls.s1 = Structure(
+            Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]]
+        )
+        cls.g1 = RadiusCutoffGraphConverter(cutoff=5.0, threebody_cutoff=4.0).convert(
+            cls.s1
+        )
 
     def test_graph(self):
         self.assertTrue(isinstance(self.g1, MaterialGraph))
         glist = self.g1.as_list()
-        np.testing.assert_array_almost_equal(glist[Index.ATOMS].ravel(),
-                                             [42, 42])
+        np.testing.assert_array_almost_equal(glist[Index.ATOMS].ravel(), [42, 42])
         gstr = str(self.g1)
         self.assertTrue(gstr.startswith("<Material"))
 
@@ -35,6 +36,7 @@ class TestConverter(unittest.TestCase):
         self.assertTrue(self.g1 == g2)
         g3 = self.g1.copy()
         self.assertTrue(self.g1 == g3)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,11 +16,11 @@ class MaterialGraphBatch(Sequence):
     """
 
     def __init__(
-            self,
-            graphs: List[MaterialGraph],
-            targets: Optional[np.ndarray] = None,
-            batch_size: int = 128,
-            shuffle: bool = True,
+        self,
+        graphs: List[MaterialGraph],
+        targets: Optional[np.ndarray] = None,
+        batch_size: int = 128,
+        shuffle: bool = True,
     ):
         """
         Args:
@@ -41,7 +41,7 @@ class MaterialGraphBatch(Sequence):
             self.graph_index = np.random.permutation(self.graph_index)
 
     def __getitem__(
-            self, index
+        self, index
     ) -> Union[MaterialGraph, Tuple[MaterialGraph, np.ndarray]]:
         """
         Get the index-th batch of data. Returns a MaterialGraph object that
@@ -54,8 +54,8 @@ class MaterialGraphBatch(Sequence):
 
         """
         graph_indices = self.graph_index[
-                        index * self.batch_size: (index + 1) * self.batch_size
-                        ]
+            index * self.batch_size : (index + 1) * self.batch_size
+        ]
         graphs = [self.graphs[i] for i in graph_indices]
         new_graph = assemble_material_graph(graphs)
         targets = None if self.targets is None else self.targets[graph_indices]
@@ -80,13 +80,13 @@ class MaterialGraphBatchEnergyForceStress(MaterialGraphBatch):
     """
 
     def __init__(
-            self,
-            graphs: List[MaterialGraph],
-            energies: Union[List, np.ndarray] = None,
-            forces: List[np.ndarray] = None,
-            stresses: List[np.ndarray] = None,
-            batch_size: int = 128,
-            shuffle: bool = True,
+        self,
+        graphs: List[MaterialGraph],
+        energies: Union[List, np.ndarray] = None,
+        forces: List[np.ndarray] = None,
+        stresses: List[np.ndarray] = None,
+        batch_size: int = 128,
+        shuffle: bool = True,
     ):
         """
         Args:
@@ -97,19 +97,20 @@ class MaterialGraphBatchEnergyForceStress(MaterialGraphBatch):
             batch_size (int): batch size
             shuffle (bool): whether to shuffle graphs at the end of each epoch
         """
-        super().__init__(graphs=graphs, targets=energies,
-                         batch_size=batch_size, shuffle=shuffle)
+        super().__init__(
+            graphs=graphs, targets=energies, batch_size=batch_size, shuffle=shuffle
+        )
         self.forces = forces
-        self.stresses = np.array(stresses, dtype='float32') if \
-            stresses is not None else None
+        self.stresses = (
+            np.array(stresses, dtype="float32") if stresses is not None else None
+        )
 
     def __getitem__(self, index):
         graph_indices = self.graph_index[
-                        index * self.batch_size: (index + 1) * self.batch_size
-                        ]
+            index * self.batch_size : (index + 1) * self.batch_size
+        ]
         graphs, energies = super().__getitem__(index)
-        forces = np.concatenate([self.forces[i] for i in graph_indices],
-                                axis=0)
+        forces = np.concatenate([self.forces[i] for i in graph_indices], axis=0)
         forces = np.array(forces, dtype="float32")
         return_values = [graphs, (energies, forces)]
         if self.stresses is not None:
@@ -124,8 +125,7 @@ def _check_none_field(graph_list, field) -> bool:
     return False
 
 
-def _concatenate(list_of_arrays: List, name: AnyStr) -> \
-        Optional[np.ndarray]:
+def _concatenate(list_of_arrays: List, name: AnyStr) -> Optional[np.ndarray]:
     """
     Concatenate list of array on the first dimension
     Args:
@@ -153,8 +153,7 @@ def _concatenate(list_of_arrays: List, name: AnyStr) -> \
     )
 
 
-def assemble_material_graph(graphs: List) -> \
-        Union[MaterialGraph, List]:
+def assemble_material_graph(graphs: List) -> Union[MaterialGraph, List]:
     """
     Collate a list of MaterialGraph and form a single MaterialGraph
 
@@ -179,10 +178,8 @@ def assemble_material_graph(graphs: List) -> \
     n_bond_every = [i.n_bond for i in graphs]
     bond_atom_indices += np.repeat(n_atom_cumsum, n_bond_every)[:, None]
 
-    atom_positions = _concatenate([i.atom_positions for i in graphs],
-                                  "atom_positions")
-    bond_weights = _concatenate([i.bond_weights for i in graphs],
-                                "bond_weights")
+    atom_positions = _concatenate([i.atom_positions for i in graphs], "atom_positions")
+    bond_weights = _concatenate([i.bond_weights for i in graphs], "bond_weights")
     pbc_offsets = _concatenate([i.pbc_offsets for i in graphs], "pbc_offsets")
     lattices = _concatenate([i.lattices for i in graphs], "lattices")
     if graphs[0].has_threebody:
@@ -198,8 +195,7 @@ def assemble_material_graph(graphs: List) -> \
         )
         theta = _concatenate([i.theta for i in graphs], "theta")
         phi = _concatenate([i.phi for i in graphs], "phi")
-        n_triple_ij = _concatenate([i.n_triple_ij for i in graphs],
-                                   "n_triple_ij")
+        n_triple_ij = _concatenate([i.n_triple_ij for i in graphs], "n_triple_ij")
         n_triple_i = _concatenate([i.n_triple_i for i in graphs], "n_triple_i")
 
     else:
@@ -244,28 +240,38 @@ def _assemble_material_graph_list(graphs: List) -> MaterialGraph:
 
     graph = [None] * len(graphs[0])
 
-    for i in ["atoms", "bonds", "states", "bond_atom_indices", "n_atoms",
-              "n_bonds", "atom_positions", "bond_weights", "pbc_offsets",
-              "lattices"]:
+    for i in [
+        "atoms",
+        "bonds",
+        "states",
+        "bond_atom_indices",
+        "n_atoms",
+        "n_bonds",
+        "atom_positions",
+        "bond_weights",
+        "pbc_offsets",
+        "lattices",
+    ]:
         ind = getattr(Index, i.upper())
-        graph[ind] = _concatenate(
-            [g[ind] for g in graphs], i
-        )
+        graph[ind] = _concatenate([g[ind] for g in graphs], i)
     n_atoms = np.concatenate([i[Index.N_ATOMS] for i in graphs[:-1]])
     n_atom_cumsum = np.cumsum(np.concatenate([[0], n_atoms]))
     n_bond_every = [i[Index.BONDS].shape[0] for i in graphs]
-    graph[Index.BOND_ATOM_INDICES] += \
-        np.repeat(n_atom_cumsum, n_bond_every)[:, None]
+    graph[Index.BOND_ATOM_INDICES] += np.repeat(n_atom_cumsum, n_bond_every)[:, None]
 
     if graphs[0][Index.N_TRIPLE_IJ] is not None:
-        for i in ["triple_bond_indices", "n_triple_s", "triple_bond_lengths",
-                  "theta", "phi", "n_triple_ij", "n_triple_i"]:
+        for i in [
+            "triple_bond_indices",
+            "n_triple_s",
+            "triple_bond_lengths",
+            "theta",
+            "phi",
+            "n_triple_ij",
+            "n_triple_i",
+        ]:
             ind = getattr(Index, i.upper())
-            graph[ind] = _concatenate(
-                [g[ind] for g in graphs], i
-            )
+            graph[ind] = _concatenate([g[ind] for g in graphs], i)
         n_bond_cumsum = np.cumsum([0] + n_bond_every[:-1])
         n_triple = np.array([sum(graph[Index.N_TRIPLE_S]) for graph in graphs])
-        graph[Index.TRIPLE_BOND_INDICES] += np.repeat(
-            n_bond_cumsum, n_triple)[:, None]
+        graph[Index.TRIPLE_BOND_INDICES] += np.repeat(n_bond_cumsum, n_triple)[:, None]
     return graph

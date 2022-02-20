@@ -35,11 +35,11 @@ def get_pair_vector_from_graph(graph: List):
             tf.cast(pbc_offsets, DataType.tf_float), lattices
         )
     else:
-        offset_vec = tf.constant([[0., 0., 0.]], dtype=DataType.tf_float)
+        offset_vec = tf.constant([[0.0, 0.0, 0.0]], dtype=DataType.tf_float)
     diff = (
-            tf.gather(atom_positions, bond_atom_indices[:, 1])
-            + offset_vec
-            - tf.gather(atom_positions, bond_atom_indices[:, 0])
+        tf.gather(atom_positions, bond_atom_indices[:, 1])
+        + offset_vec
+        - tf.gather(atom_positions, bond_atom_indices[:, 0])
     )
     return tf.cast(diff, DataType.tf_float)
 
@@ -70,8 +70,9 @@ def tf_compute_distance_angle(graph: List):
     return graph
 
 
-def include_threebody_indices(graph: Union[MaterialGraph, List],
-                              threebody_cutoff: Optional[float] = None):
+def include_threebody_indices(
+    graph: Union[MaterialGraph, List], threebody_cutoff: Optional[float] = None
+):
     """
     Given a graph without threebody indices, add the threebody indices
     according to a threebody cutoff radius
@@ -103,19 +104,19 @@ def include_threebody_indices(graph: Union[MaterialGraph, List],
     if bond_atom_indices.shape[0] > 0:
         bond_indices, n_triple_ij, n_triple_i, n_triple_s = _compute_threebody(
             np.ascontiguousarray(bond_atom_indices, dtype="int32"),
-            np.array(graph[Index.N_ATOMS], dtype="int32")
+            np.array(graph[Index.N_ATOMS], dtype="int32"),
         )
         if ij_reverse_map is not None:
-            n_triple_ij_ = np.zeros(shape=(n_bond,), dtype='int32')
+            n_triple_ij_ = np.zeros(shape=(n_bond,), dtype="int32")
             n_triple_ij_[ij_reverse_map] = n_triple_ij
             n_triple_ij = n_triple_ij_
         bond_indices = original_index[bond_indices]
         bond_indices = np.array(bond_indices, dtype="int32")
     else:
-        bond_indices = np.reshape(np.array([], dtype='int32'), [-1, 2])
-        n_triple_ij = np.array([0], dtype='int32')
-        n_triple_i = np.array([0], dtype='int32')
-        n_triple_s = np.array([0], dtype='int32')
+        bond_indices = np.reshape(np.array([], dtype="int32"), [-1, 2])
+        n_triple_ij = np.array([0], dtype="int32")
+        n_triple_i = np.array([0], dtype="int32")
+        n_triple_s = np.array([0], dtype="int32")
     graph[Index.TRIPLE_BOND_INDICES] = bond_indices
     graph[Index.N_TRIPLE_IJ] = n_triple_ij
     graph[Index.N_TRIPLE_I] = n_triple_i

@@ -68,12 +68,11 @@ class BaseGraphConverter(Converter):
         return states
 
     @abstractmethod
-    def convert(self, structure: StructureOrMolecule,
-                **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
         pass
 
     def convert_many(
-            self, structures: List[StructureOrMolecule], **kwargs
+        self, structures: List[StructureOrMolecule], **kwargs
     ) -> MaterialGraph:
         """
         Convert many structures into one single graph
@@ -82,12 +81,11 @@ class BaseGraphConverter(Converter):
             **kwargs:
         Returns: MaterialGraph
         """
-        graphs = [self.convert(structure, **kwargs) for structure in
-                  structures]
+        graphs = [self.convert(structure, **kwargs) for structure in structures]
         return assemble_material_graph(graphs)
 
     def __call__(
-            self, structure: StructureOrMolecule, *args, **kwargs
+        self, structure: StructureOrMolecule, *args, **kwargs
     ) -> MaterialGraph:
         return self.convert(structure)
 
@@ -99,11 +97,11 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
     """
 
     def __init__(
-            self,
-            cutoff: float = 5.0,
-            has_threebody: bool = True,
-            threebody_cutoff: Optional[float] = None,
-            **kwargs
+        self,
+        cutoff: float = 5.0,
+        has_threebody: bool = True,
+        threebody_cutoff: Optional[float] = None,
+        **kwargs,
     ):
         """
 
@@ -121,15 +119,12 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
             if threebody_cutoff is None:
                 threebody_cutoff = cutoff - 1.0
             if threebody_cutoff > cutoff:
-                raise ValueError(
-                    "Three body cutoff has to be smaller than two "
-                    "body")
+                raise ValueError("Three body cutoff has to be smaller than two " "body")
         self.threebody_cutoff = threebody_cutoff
 
         super().__init__(**kwargs)
 
-    def convert(self, structure: StructureOrMolecule,
-                **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
         """
         Convert the structure into graph
         Args:
@@ -139,15 +134,16 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         """
 
         if isinstance(structure, Atoms):
-            atom_positions = np.asarray(structure.get_positions(),
-                                        dtype=DataType.np_float)
+            atom_positions = np.asarray(
+                structure.get_positions(), dtype=DataType.np_float
+            )
         else:
-            atom_positions = np.array(structure.cart_coords,
-                                      dtype=DataType.np_float)
+            atom_positions = np.array(structure.cart_coords, dtype=DataType.np_float)
         state_attributes = self.get_states(structure)
 
-        sender_indices, receiver_indices, images, distances = \
-            get_fixed_radius_bonding(structure, self.cutoff)
+        sender_indices, receiver_indices, images, distances = get_fixed_radius_bonding(
+            structure, self.cutoff
+        )
 
         if np.size(np.unique(sender_indices)) < len(structure):
             logger.warning("Isolated atoms found in the structure")
@@ -167,8 +163,7 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
 
         n_atom = len(structure)
 
-        atoms = reshape_array(self.get_atom_features(structure),
-                              [n_atom, None])
+        atoms = reshape_array(self.get_atom_features(structure), [n_atom, None])
         if state_attributes is not None:
             state_attributes = reshape_array(state_attributes, [1, None])
 
@@ -183,16 +178,15 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         if isinstance(structure, Structure):
             mg = mg.replace(
                 lattices=np.array(
-                    structure.lattice.matrix.reshape((1, 3, 3)),
-                    dtype=DataType.np_float
+                    structure.lattice.matrix.reshape((1, 3, 3)), dtype=DataType.np_float
                 )
             )
 
         if isinstance(structure, Atoms):
             mg = mg.replace(
-                lattices=np.array(structure.cell[:].reshape((1, 3, 3)),
-                                  dtype=DataType.np_float)
-
+                lattices=np.array(
+                    structure.cell[:].reshape((1, 3, 3)), dtype=DataType.np_float
+                )
             )
 
         if self.has_threebody:
@@ -200,8 +194,10 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         return mg
 
     def __str__(self):
-        s = f"<RadiusCutoffGraphConverter cutoff={self.cutoff}" \
+        s = (
+            f"<RadiusCutoffGraphConverter cutoff={self.cutoff}"
             f" threebody_cutoff={self.threebody_cutoff} >"
+        )
         return s
 
     def __repr__(self):
@@ -214,5 +210,5 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
             "name": self.name,
             "trainable": self.trainable,
             "dtype": self.dtype,
-            "has_threebody": self.has_threebody
+            "has_threebody": self.has_threebody,
         }

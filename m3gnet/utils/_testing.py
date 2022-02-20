@@ -23,8 +23,7 @@ def assert_nested_equal(item1, item2) -> bool:
         if len(item1.keys()) != len(item2.keys()):
             return False
         if any(
-                [not assert_nested_equal(item1[key], item2[key]) for key in
-                 item1.keys()]
+            [not assert_nested_equal(item1[key], item2[key]) for key in item1.keys()]
         ):
             return False
     elif isinstance(item1, (tuple, list, range)):
@@ -54,4 +53,3 @@ def layer_equal(layer1, layer2):
         if not assert_nested_equal(item1, item2):
             return False
     return equal
-
