@@ -57,19 +57,6 @@ def spherical_bessel_roots(max_l: int, max_n: int):
     return np.array(roots)
 
 
-class Gaussian:
-    """
-    Gaussian function
-    """
-
-    def __init__(self, centers: np.ndarray, width: float, **kwargs):
-        self.centers = np.array(centers)
-        self.width = width
-
-    def __call__(self, r: tf.Tensor) -> tf.Tensor:
-        return tf.exp(-((r[:, None] - self.centers[None, :]) ** 2) / self.width ** 2)
-
-
 class SphericalBesselFunction:
     """
     Calculate the spherical Bessel function based on the sympy + tensorflow
@@ -77,7 +64,8 @@ class SphericalBesselFunction:
     """
 
     def __init__(
-        self, max_l: int, max_n: int = 5, cutoff: float = 5.0, smooth: bool = False
+        self, max_l: int, max_n: int = 5, cutoff: float = 5.0,
+            smooth: bool = False
     ):
         """
         Args:
@@ -94,7 +82,8 @@ class SphericalBesselFunction:
         else:
             self.funcs = self._calculate_symbolic_funcs()
 
-        self.zeros = tf.cast(get_spherical_bessel_roots(), dtype=DataType.tf_float)
+        self.zeros = tf.cast(get_spherical_bessel_roots(),
+                             dtype=DataType.tf_float)
 
     @lru_cache(maxsize=128)
     def _calculate_symbolic_funcs(self) -> List:
@@ -119,7 +108,6 @@ class SphericalBesselFunction:
 
     def __call__(self, r: tf.Tensor) -> tf.Tensor:
         """
-
         Args:
             r: tf.Tensor, distance Tensor, 1D
 
@@ -152,7 +140,7 @@ class SphericalBesselFunction:
         return tf.concat(results, axis=1)
 
     @staticmethod
-    def rbf_j0(r: tf.Tensor, cutoff: float = 5.0, max_n: int = 10) -> tf.Tensor:
+    def rbf_j0(r: tf.Tensor, cutoff: float = 5.0, max_n: int = 3) -> tf.Tensor:
         """
         Spherical Bessel function of order 0, ensuring the function value
         vanishes at cutoff
@@ -303,7 +291,7 @@ def combine_sbf_shf(
     return tf.reshape(expanded_sbf * expanded_shf, [-1, shape])
 
 
-def sinc(x):
+def _sinc(x):
     return tf.math.sin(x) / x
 
 
@@ -336,7 +324,7 @@ def spherical_bessel_smooth(r, cutoff: float = 5.0, max_n: int = 10):
         * (n + 1)
         * (n + 2)
         / tf.math.sqrt(2 * n ** 2 + 6 * n + 5)
-        * (sinc(r * (n + 1) * pi / cutoff) + sinc(r * (n + 2) * pi / cutoff))
+        * (_sinc(r * (n + 1) * pi / cutoff) + _sinc(r * (n + 2) * pi / cutoff))
     )
     en = n ** 2 * (n + 2) ** 2 / (4 * (n + 1) ** 4 + 1)
     dn = [tf.constant(1.0)]
@@ -356,7 +344,7 @@ def spherical_bessel_smooth(r, cutoff: float = 5.0, max_n: int = 10):
 @lru_cache(maxsize=128)
 def _get_lambda_func(max_n, cutoff: float = 5.0):
     r = sympy.symbols("r")
-    d0 = 1
+    d0 = 1.0
     en = []
     for i in range(max_n):
         en.append(i ** 2 * (i + 2) ** 2 / (4 * (i + 1) ** 4 + 1))

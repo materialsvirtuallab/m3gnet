@@ -1,7 +1,7 @@
 """
 Collate material graphs
 """
-from typing import List, Optional, AnyStr, Union, Tuple
+from typing import List, Optional, AnyStr, Union, Tuple, overload
 
 import numpy as np
 import tensorflow as tf
@@ -40,6 +40,7 @@ class MaterialGraphBatch(Sequence):
         if self.shuffle:
             self.graph_index = np.random.permutation(self.graph_index)
 
+
     def __getitem__(
         self, index
     ) -> Union[MaterialGraph, Tuple[MaterialGraph, np.ndarray]]:
@@ -57,8 +58,9 @@ class MaterialGraphBatch(Sequence):
             index * self.batch_size : (index + 1) * self.batch_size
         ]
         graphs = [self.graphs[i] for i in graph_indices]
-        new_graph = assemble_material_graph(graphs)
-        targets = None if self.targets is None else self.targets[graph_indices]
+        new_graph: MaterialGraph = assemble_material_graph(graphs)
+        targets: np.ndarray = None if self.targets is None else self.targets[
+            graph_indices]
         if targets is None:
             return new_graph
         return new_graph, targets
@@ -147,13 +149,23 @@ def _concatenate(list_of_arrays: List, name: AnyStr) -> Optional[np.ndarray]:
 
     none_indices = [i for i, j in enumerate(list_of_arrays) if j is None]
     raise ValueError(
-        "The %s properties of the graph indices %s are None "
-        "while the rest graphs are not None. Hence the graphs"
-        " cannot be assembled." % (name, str(none_indices))
+        f"The {name!r} properties of the graph indices {str(none_indices)!r} "
+        f"are None while the rest graphs are not None. Hence the graphs "
+        f"cannot be assembled."
     )
 
 
-def assemble_material_graph(graphs: List) -> Union[MaterialGraph, List]:
+@overload
+def assemble_material_graph(graphs: List[MaterialGraph]) -> MaterialGraph:
+    ...
+
+
+@overload
+def assemble_material_graph(graphs: List[List]) -> List:
+    ...
+
+
+def assemble_material_graph(graphs):
     """
     Collate a list of MaterialGraph and form a single MaterialGraph
 
@@ -228,7 +240,7 @@ def assemble_material_graph(graphs: List) -> Union[MaterialGraph, List]:
     )
 
 
-def _assemble_material_graph_list(graphs: List) -> MaterialGraph:
+def _assemble_material_graph_list(graphs: List[List]) -> List:
     """
     Collate a list of MaterialGraph and form a single MaterialGraph
 

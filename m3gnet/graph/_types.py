@@ -3,7 +3,7 @@ Graph types.
 """
 
 from dataclasses import dataclass, replace
-from typing import Sequence, ClassVar, List, AnyStr, Optional, Union
+from typing import Sequence, ClassVar, List, Optional, Union
 
 import numpy as np
 import tensorflow as tf
@@ -246,7 +246,7 @@ class MaterialGraph(AttributeUpdateMixin):
     n_triple_s: Optional[Union[np.ndarray, tf.Tensor]] = None
 
     # the following are class attributes
-    base_attributes: ClassVar[List[AnyStr]] = [
+    base_attributes: ClassVar[List[str]] = [
         "atoms",
         "bonds",
         "bond_atom_indices",
@@ -254,7 +254,7 @@ class MaterialGraph(AttributeUpdateMixin):
         "n_bonds",
     ]
 
-    graph_with_position_attributes: ClassVar[List[AnyStr]] = [
+    graph_with_position_attributes: ClassVar[List[str]] = [
         "atoms",
         "bond_atom_indices",
         "atom_positions",
@@ -265,7 +265,7 @@ class MaterialGraph(AttributeUpdateMixin):
         "lattices",
     ]
 
-    three_body_attributes: ClassVar[List[AnyStr]] = [
+    three_body_attributes: ClassVar[List[str]] = [
         "triple_bond_indices",
         "triple_bond_lengths",
         "theta",
@@ -307,7 +307,7 @@ class MaterialGraph(AttributeUpdateMixin):
         number of atoms in the graph
         Returns: int or None
         """
-        return self.atoms.shape[0]
+        return None if self.atoms is None else self.atoms.shape[0]
 
     @property
     def n_bond(self) -> Optional[int]:
@@ -315,7 +315,7 @@ class MaterialGraph(AttributeUpdateMixin):
         number of bonds
         Returns: int or None
         """
-        return self.bonds.shape[0]
+        return None if self.bonds is None else self.bonds.shape[0]
 
     @property
     def n_struct(self) -> Optional[int]:
@@ -325,7 +325,9 @@ class MaterialGraph(AttributeUpdateMixin):
         """
         if self.states is not None:
             return self.states.shape[0]
-        return len(self.n_atoms)
+        if self.n_atoms is not None:
+            return len(self.n_atoms)
+        return None
 
     def as_list(self) -> List:
         """

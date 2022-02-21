@@ -3,8 +3,8 @@ Graph package
 """
 
 from ._batch import (
-    MaterialGraphBatch,
     assemble_material_graph,
+    MaterialGraphBatch,
     MaterialGraphBatchEnergyForceStress,
 )
 

@@ -37,9 +37,9 @@ def get_pair_vector_from_graph(graph: List):
     else:
         offset_vec = tf.constant([[0.0, 0.0, 0.0]], dtype=DataType.tf_float)
     diff = (
-        tf.gather(atom_positions, bond_atom_indices[:, 1])
-        + offset_vec
-        - tf.gather(atom_positions, bond_atom_indices[:, 0])
+            tf.gather(atom_positions, bond_atom_indices[:, 1])
+            + offset_vec
+            - tf.gather(atom_positions, bond_atom_indices[:, 0])
     )
     return tf.cast(diff, DataType.tf_float)
 
@@ -71,7 +71,8 @@ def tf_compute_distance_angle(graph: List):
 
 
 def include_threebody_indices(
-    graph: Union[MaterialGraph, List], threebody_cutoff: Optional[float] = None
+        graph: Union[MaterialGraph, List],
+        threebody_cutoff: Optional[float] = None
 ):
     """
     Given a graph without threebody indices, add the threebody indices
@@ -85,11 +86,22 @@ def include_threebody_indices(
     """
     if isinstance(graph, MaterialGraph):
         is_graph = True
-        graph = graph.as_list()
+        graph_list: List = graph.as_list()
     else:
         is_graph = False
-    graph = graph[:]
+        graph_list = graph
 
+    return _list_include_threebody_indices(graph_list,
+                                           threebody_cutoff=threebody_cutoff,
+                                           is_graph=is_graph)
+
+
+def _list_include_threebody_indices(
+        graph: List,
+        threebody_cutoff: Optional[float] = None,
+        is_graph: bool = False
+):
+    graph = graph[:]
     bond_atom_indices = graph[Index.BOND_ATOM_INDICES]
     n_bond = bond_atom_indices.shape[0]
     if n_bond > 0 and threebody_cutoff is not None:
@@ -121,7 +133,6 @@ def include_threebody_indices(
     graph[Index.N_TRIPLE_IJ] = n_triple_ij
     graph[Index.N_TRIPLE_I] = n_triple_i
     graph[Index.N_TRIPLE_S] = n_triple_s
-
     if is_graph:
         graph = MaterialGraph.from_list(graph)
     return graph

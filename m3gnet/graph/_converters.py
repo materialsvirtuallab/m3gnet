@@ -3,7 +3,7 @@ Classes to convert a structure into a graph
 """
 import logging
 from abc import abstractmethod
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 import numpy as np
 import tensorflow as tf
@@ -22,31 +22,13 @@ logger = logging.getLogger(__name__)
 
 
 @register
-class Converter(tf.keras.layers.Layer):
-    """
-    Base converter object, exposing a convert method
-    """
-
-    def convert(self, d):
-        """
-        takes in a Structure or Molecule object and convert it to a graph
-        Args:
-            d:
-
-        Returns:
-
-        """
-        return d
-
-
-@register
-class BaseGraphConverter(Converter):
+class BaseGraphConverter(tf.keras.layers.Layer):
     def __init__(self, default_states=None, **kwargs):
         self.default_states = default_states
         super().__init__(**kwargs)
 
     @staticmethod
-    def get_atom_features(structure):
+    def get_atom_features(structure) -> np.ndarray:
         """
         Get atom features from structure, may be overwritten
         Args:
@@ -154,7 +136,7 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         ).T
         pbc_offsets = images.astype(DataType.np_int)
 
-        mg = MaterialGraph(
+        mg = MaterialGraph(  # type: ignore
             bonds=bonds,
             bond_weights=distances,
             bond_atom_indices=bond_atom_indices,  # noqa
@@ -167,12 +149,14 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         if state_attributes is not None:
             state_attributes = reshape_array(state_attributes, [1, None])
 
+        n_bonds = np.array([mg.bonds.shape[0]],  # type: ignore
+                           dtype=DataType.np_int)
         mg = mg.replace(
             states=state_attributes,
             atoms=atoms,
             atom_positions=atom_positions,
             n_atoms=np.array([n_atom], dtype=DataType.np_int),
-            n_bonds=np.array([mg.bonds.shape[0]], dtype=DataType.np_int),
+            n_bonds=n_bonds,
         )
 
         if isinstance(structure, Structure):
@@ -203,7 +187,12 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
     def __repr__(self):
         return str(self)
 
-    def get_config(self):
+    def get_config(self) -> Dict:
+        """
+        Get serialized dictionary
+        Returns: Dict
+
+        """
         return {
             "cutoff": self.cutoff,
             "threebody_cutoff": self.threebody_cutoff,
