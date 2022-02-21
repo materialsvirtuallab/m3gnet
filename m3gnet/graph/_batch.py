@@ -40,7 +40,6 @@ class MaterialGraphBatch(Sequence):
         if self.shuffle:
             self.graph_index = np.random.permutation(self.graph_index)
 
-
     def __getitem__(
         self, index
     ) -> Union[MaterialGraph, Tuple[MaterialGraph, np.ndarray]]:
@@ -122,7 +121,7 @@ class MaterialGraphBatchEnergyForceStress(MaterialGraphBatch):
 
 
 def _check_none_field(graph_list, field) -> bool:
-    if any([getattr(g, field, None) is None for g in graph_list]):
+    if any(getattr(g, field, None) is None for g in graph_list):
         return True
     return False
 
@@ -141,11 +140,10 @@ def _concatenate(list_of_arrays: List, name: AnyStr) -> Optional[np.ndarray]:
     if num_none == len(list_of_arrays):
         return None
 
-    elif num_none == 0:
+    if num_none == 0:
         if isinstance(list_of_arrays[0], tf.Tensor):
             return tf.concat(list_of_arrays, axis=0)
-        else:
-            return np.concatenate(list_of_arrays, axis=0)
+        return np.concatenate(list_of_arrays, axis=0)
 
     none_indices = [i for i, j in enumerate(list_of_arrays) if j is None]
     raise ValueError(

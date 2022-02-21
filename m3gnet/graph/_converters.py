@@ -23,7 +23,17 @@ logger = logging.getLogger(__name__)
 
 @register
 class BaseGraphConverter(tf.keras.layers.Layer):
+    """
+    Basic graph converter that uses the atomic number as the node feature
+    """
     def __init__(self, default_states=None, **kwargs):
+        """
+        Args:
+            default_states (np.ndarray or tf.Tensor): the default state
+                attributes for a MaterialGraph
+            **kwargs:
+        """
+
         self.default_states = default_states
         super().__init__(**kwargs)
 
@@ -41,9 +51,24 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         return np.array([i.specie.Z for i in structure], dtype=DataType.np_int)
 
     def set_default_states(self, states=None):
+        """
+        set the default states for MaterialGraph
+        Args:
+            states (np.ndarray or tf.Tensor): the state attributes
+        Returns:
+
+        """
         self.default_states = states
 
-    def get_states(self, structure):
+    def get_states(self, structure: StructureOrMolecule):
+        """
+        Get the state attributes from a structure
+        Args:
+            structure (StructureOrMolecule): structure to compute the states
+
+        Returns: tf.Tensor or np.ndarray
+
+        """
         states = getattr(structure, "states", None)
         if states is None:
             states = self.default_states
@@ -51,6 +76,14 @@ class BaseGraphConverter(tf.keras.layers.Layer):
 
     @abstractmethod
     def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
+        """
+        Convert the structure into a graph
+        Args:
+            structure:
+            **kwargs:
+        Returns:
+
+        """
         pass
 
     def convert_many(
@@ -69,6 +102,15 @@ class BaseGraphConverter(tf.keras.layers.Layer):
     def __call__(
         self, structure: StructureOrMolecule, *args, **kwargs
     ) -> MaterialGraph:
+        """
+        A thin wrapper for calling `convert` method
+        Args:
+            structure:
+            *args:
+            **kwargs:
+        Returns:
+
+        """
         return self.convert(structure)
 
 

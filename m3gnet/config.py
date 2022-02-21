@@ -11,6 +11,9 @@ DTYPES = {
 
 
 class DataType:
+    """
+    Tensorflow and numpy data types. Used to choose between float16 and float32
+    """
     np_float = tf.keras.mixed_precision.global_policy().compute_dtype
     np_int = "int32"
     tf_float = tf.keras.mixed_precision.global_policy().compute_dtype

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+math functions and miscellaneous calculations
+"""
+
 import os
 from functools import lru_cache
 from math import pi
@@ -157,7 +161,7 @@ class SphericalBesselFunction:
 
 
 def _y00(theta, phi):
-    """
+    r"""
     Spherical Harmonics with `l=m=0`
 
     ..math::
@@ -197,14 +201,14 @@ class SphericalHarmonicsFunction:
     def _calculate_symbolic_funcs(self):
         funcs = []
         theta, phi = sympy.symbols("theta phi")
-        for l in range(self.max_l):
+        for lval in range(self.max_l):
             if self.use_phi:
-                m_list = range(-l, l + 1)
+                m_list = range(-lval, lval + 1)
             else:
                 m_list = [0]
             for m in m_list:
                 func = sympy.functions.special.spherical_harmonics.Znm(
-                    l, m, theta, phi
+                    lval, m, theta, phi
                 ).expand(func=True)
                 funcs.append(func)
         # replace all theta with cos(theta)

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+Utilities for m3gnet
+"""
+
 from ._tf import get_length, get_segment_indices_from_n, \
     get_range_indices_from_n, repeat_with_n, \
     unsorted_segment_softmax, unsorted_segment_fraction, \
@@ -15,7 +19,6 @@ __all__ = [
     "get_segment_indices_from_n",
     "get_range_indices_from_n",
     "repeat_with_n",
-    "segment_softmax",
     "unsorted_segment_softmax",
     "unsorted_segment_fraction",
     "broadcast_states_to_atoms",

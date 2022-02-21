@@ -8,7 +8,6 @@ from typing import Sequence, ClassVar, List, Optional, Union
 import numpy as np
 import tensorflow as tf
 
-from m3gnet.config import DataType
 from m3gnet.utils import check_array_equal, check_shape_consistency
 
 
@@ -81,6 +80,9 @@ GRAPH_INDEX = {i: j for j, i in enumerate(ALL_FIELDS)}
 
 
 class Index:
+    """
+    Get integer indices for each field in MaterialGraph
+    """
     ATOMS = 0
     BONDS = 1
     STATES = 2
@@ -113,6 +115,14 @@ class AttributeUpdateMixin:
         pass
 
     def replace(self, **kwargs):
+        """
+        Replace a graph field
+        Args:
+            **kwargs: dictionary for replacements
+
+        Returns:
+
+        """
         return replace(self, **kwargs)  # noqa
 
     def __eq__(self, other):
@@ -162,7 +172,7 @@ def _check_n(fields, name, dim=0):
             n_candidates.append(i.shape[dim])
     if len(n_candidates) > 0:
         if len(list(set(n_candidates))) > 1:
-            raise ValueError("%s inconsistent" % name)
+            raise ValueError(f"{name} inconsistent")
         return n_candidates[0]
     return None
 
@@ -285,18 +295,27 @@ class MaterialGraph(AttributeUpdateMixin):
                 attr
                 + " "
                 + str(getattr(self, attr).dtype)[9:-2]
-                + " %s" % str(getattr(self, attr).shape)
+                + f" {str(getattr(self, attr).shape)}"
             )
         string = "\n" + "\n".join(shapes)
         return "<MaterialGraph with the following data shapes: " + string + ">"
 
-    def as_tf(self):
+    def as_tf(self) -> 'MaterialGraph':
+        """
+        Convert each field to tensorflow tensors
+        Returns: tf.Tensor
+        """
         d = {i: _maybe_tensor(getattr(self, i)) for i in ALL_FIELDS}
-        mg = MaterialGraph(**d)
+        mg = MaterialGraph(**d)  # type: ignore
         return mg
 
     @property
-    def has_threebody(self):
+    def has_threebody(self) -> bool:
+        """
+        Whether the graph has threebody indices
+        Returns: boolean value indicator
+
+        """
         if self.n_triple_ij is not None:
             return True
         return False
@@ -348,7 +367,7 @@ class MaterialGraph(AttributeUpdateMixin):
 
         """
         graph_list = [np.array(i) if i is not None else i for i in graph_list]
-        return cls(**{i: j for i, j in zip(ALL_FIELDS, graph_list)})
+        return cls(dict(zip(ALL_FIELDS, graph_list)))
 
     def copy(self) -> "MaterialGraph":
         """
