@@ -58,8 +58,9 @@ class MaterialGraphBatch(Sequence):
         ]
         graphs = [self.graphs[i] for i in graph_indices]
         new_graph: MaterialGraph = assemble_material_graph(graphs)
-        targets: np.ndarray = None if self.targets is None else self.targets[
-            graph_indices]
+        targets: np.ndarray = (
+            None if self.targets is None else self.targets[graph_indices]
+        )
         if targets is None:
             return new_graph
         return new_graph, targets

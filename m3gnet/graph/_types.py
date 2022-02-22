@@ -83,6 +83,7 @@ class Index:
     """
     Get integer indices for each field in MaterialGraph
     """
+
     ATOMS = 0
     BONDS = 1
     STATES = 2
@@ -300,7 +301,7 @@ class MaterialGraph(AttributeUpdateMixin):
         string = "\n" + "\n".join(shapes)
         return "<MaterialGraph with the following data shapes: " + string + ">"
 
-    def as_tf(self) -> 'MaterialGraph':
+    def as_tf(self) -> "MaterialGraph":
         """
         Convert each field to tensorflow tensors
         Returns: tf.Tensor

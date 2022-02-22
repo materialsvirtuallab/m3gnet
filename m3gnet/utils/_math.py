@@ -68,8 +68,7 @@ class SphericalBesselFunction:
     """
 
     def __init__(
-        self, max_l: int, max_n: int = 5, cutoff: float = 5.0,
-            smooth: bool = False
+        self, max_l: int, max_n: int = 5, cutoff: float = 5.0, smooth: bool = False
     ):
         """
         Args:
@@ -86,8 +85,7 @@ class SphericalBesselFunction:
         else:
             self.funcs = self._calculate_symbolic_funcs()
 
-        self.zeros = tf.cast(get_spherical_bessel_roots(),
-                             dtype=DataType.tf_float)
+        self.zeros = tf.cast(get_spherical_bessel_roots(), dtype=DataType.tf_float)
 
     @lru_cache(maxsize=128)
     def _calculate_symbolic_funcs(self) -> List:

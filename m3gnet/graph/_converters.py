@@ -26,6 +26,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
     """
     Basic graph converter that uses the atomic number as the node feature
     """
+
     def __init__(self, default_states=None, **kwargs):
         """
         Args:
@@ -191,8 +192,7 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         if state_attributes is not None:
             state_attributes = reshape_array(state_attributes, [1, None])
 
-        n_bonds = np.array([mg.bonds.shape[0]],  # type: ignore
-                           dtype=DataType.np_int)
+        n_bonds = np.array([mg.bonds.shape[0]], dtype=DataType.np_int)  # type: ignore
         mg = mg.replace(
             states=state_attributes,
             atoms=atoms,
