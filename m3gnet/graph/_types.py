@@ -368,7 +368,7 @@ class MaterialGraph(AttributeUpdateMixin):
 
         """
         graph_list = [np.array(i) if i is not None else i for i in graph_list]
-        return cls(dict(zip(ALL_FIELDS, graph_list)))
+        return cls(**dict(zip(ALL_FIELDS, graph_list)))
 
     def copy(self) -> "MaterialGraph":
         """

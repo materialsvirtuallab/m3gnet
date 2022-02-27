@@ -3,9 +3,13 @@ import unittest
 import numpy as np
 from pymatgen.core import Lattice, Structure
 
-from m3gnet.graph import (MaterialGraph, MaterialGraphBatch,
-                          MaterialGraphBatchEnergyForceStress,
-                          RadiusCutoffGraphConverter, assemble_material_graph)
+from m3gnet.graph import (
+    MaterialGraph,
+    MaterialGraphBatch,
+    MaterialGraphBatchEnergyForceStress,
+    RadiusCutoffGraphConverter,
+    assemble_material_graph,
+)
 
 
 class TestBatch(unittest.TestCase):
@@ -58,7 +62,6 @@ class TestBatch(unittest.TestCase):
     def test_sequential_assemble(self):
         # test stepwise combine
         g3 = assemble_material_graph([self.g1, self.g2])
-        graphs = [self.g1, g3]
         g3 = assemble_material_graph([self.g1, g3])
 
         g4 = assemble_material_graph([self.g1, self.g1, self.g2])
@@ -67,6 +70,7 @@ class TestBatch(unittest.TestCase):
     def test_sequential_assemble_list(self):
         g1 = self.g1.as_list()
         g2 = self.g2.as_list()
+
         g3 = assemble_material_graph([g1, g2])
         g3 = assemble_material_graph([g1, g3])
 

@@ -17,10 +17,8 @@ class TestCore(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         gc = RadiusCutoffGraphConverter(5)
-        s1 = Structure(Lattice.cubic(3.17), ["Mo", "Mo"],
-                       [[0, 0, 0], [0.5, 0.5, 0.5]])
-        s2 = Structure(Lattice.cubic(3), ["Mo", "Fe"],
-                       [[0, 0, 0], [0.5, 0.5, 0.5]])
+        s1 = Structure(Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
+        s2 = Structure(Lattice.cubic(3), ["Mo", "Fe"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         cls.g1 = gc.convert(s1)
         cls.g2 = gc.convert(s2)
         cls.x = np.random.normal(size=(10, 4))
@@ -31,7 +29,7 @@ class TestCore(unittest.TestCase):
         self.assertTrue(np.linalg.norm(self.x ** 8 - y) < 0.001)
 
     def test_mlp(self):
-        layer = MLP(neurons=[10, 3], activations='swish')
+        layer = MLP(neurons=[10, 3], activations="swish")
         out = layer(self.x)
         self.assertTupleEqual(tuple(out.shape), (10, 3))
         out2 = self.x
@@ -40,11 +38,12 @@ class TestCore(unittest.TestCase):
         np.testing.assert_array_almost_equal(out, out2)
 
     def test_gated_mlp(self):
-        layer = GatedMLP(neurons=[10, 3], activations='swish')
+        layer = GatedMLP(neurons=[10, 3], activations="swish")
         self.assertTrue(isinstance(layer.pipe, Pipe))
         self.assertTrue(isinstance(layer.gate, Pipe))
-        self.assertTrue(layer.gate.layers[-1].activation ==
-                        tf.keras.activations.sigmoid)
+        self.assertTrue(
+            layer.gate.layers[-1].activation == tf.keras.activations.sigmoid
+        )
 
     def test_embedding(self):
         emb = Embedding(2, 8)

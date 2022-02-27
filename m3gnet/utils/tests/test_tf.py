@@ -4,11 +4,18 @@ import unittest
 import numpy as np
 import tensorflow as tf
 
-from m3gnet.utils import (broadcast_states_to_atoms, broadcast_states_to_bonds,
-                          get_length, get_range_indices_from_n,
-                          get_segment_indices_from_n, register, register_plain,
-                          repeat_with_n, unsorted_segment_fraction,
-                          unsorted_segment_softmax)
+from m3gnet.utils import (
+    broadcast_states_to_atoms,
+    broadcast_states_to_bonds,
+    get_length,
+    get_range_indices_from_n,
+    get_segment_indices_from_n,
+    register,
+    register_plain,
+    repeat_with_n,
+    unsorted_segment_fraction,
+    unsorted_segment_softmax,
+)
 
 
 class TestTF(unittest.TestCase):

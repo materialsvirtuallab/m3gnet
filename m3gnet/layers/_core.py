@@ -2,7 +2,7 @@
 """
 Core layers provide basic operations, e.g., MLP
 """
-from typing import AnyStr, Dict, List, Union
+from typing import Dict, List, Union
 
 import tensorflow as tf
 
@@ -19,6 +19,7 @@ class Pipe(tf.keras.layers.Layer):
     """
     Simple layer for consecutive layer calls, similar to Sequential
     """
+
     def __init__(self, layers: List, **kwargs):
         """
         Args:
@@ -73,6 +74,7 @@ class Embedding(tf.keras.layers.Embedding):
     """
     Thin wrapper for embedding atomic numbers into feature vectors
     """
+
     def call(self, inputs: List[tf.Tensor]) -> tf.Tensor:
         """
         Implementation of the layer call
@@ -92,13 +94,13 @@ class MLP(tf.keras.layers.Layer):
     """
 
     def __init__(
-            self,
-            neurons: List[int],
-            activations: Union[List, AnyStr, None] = "swish",
-            kernel_regularizers: Union[List, AnyStr, None] = None,
-            use_bias: bool = True,
-            is_output: bool = False,
-            **kwargs,
+        self,
+        neurons: List[int],
+        activations: Union[List, str, None] = "swish",
+        kernel_regularizers: Union[List, str, None] = None,
+        use_bias: bool = True,
+        is_output: bool = False,
+        **kwargs,
     ):
         """
         Multi-layer perceptron implementation
@@ -117,25 +119,26 @@ class MLP(tf.keras.layers.Layer):
         if isinstance(activations, str) or activations is None:
             activation_list = [activations] * len(neurons)
         else:
-            activation_list = activations
+            activation_list = activations  # type: ignore
         if isinstance(kernel_regularizers, str) or kernel_regularizers is None:
             kernel_regularizer_list = [kernel_regularizers] * len(neurons)
         else:
-            kernel_regularizer_list = kernel_regularizers
+            kernel_regularizer_list = kernel_regularizers  # type: ignore
+
         self.neurons = neurons
-        self.activations = activations
-        self.kernel_regularizers = kernel_regularizers
+        self.activations: Union[List, str, None] = activations
+        self.kernel_regularizers: Union[List, str, None] = kernel_regularizers
 
         dense_layers: List[tf.keras.layers.Layer] = [
-            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg,
-                                  use_bias=use_bias)
-            for i, j, reg in
-            zip(neurons, activation_list, kernel_regularizer_list)
+            tf.keras.layers.Dense(
+                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
+            )
+            for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         if is_output:
             dense_layers.append(
-                tf.keras.layers.Activation(None,  dtype="float32",
-                                           name="predictions"))
+                tf.keras.layers.Activation(None, dtype="float32", name="predictions")
+            )
 
         self.pipe = Pipe(layers=dense_layers)
         self.is_output = is_output
@@ -165,7 +168,7 @@ class MLP(tf.keras.layers.Layer):
                 "activations": self.activations,
                 "kernel_regularizers": self.kernel_regularizers,
                 "is_output": self.is_output,
-                "use_bias": self.use_bias
+                "use_bias": self.use_bias,
             }
         )
         return config
@@ -173,18 +176,20 @@ class MLP(tf.keras.layers.Layer):
 
 @register
 class GatedMLP(tf.keras.layers.Layer):
-    """
+    r"""
     Gated MLP implementation. It implements the following
-        `out = MLP(x) * MLP_\sigmoid(x)`
+        `out = MLP(x) * MLP_\\sigmoid(x)`
     where that latter changes the last layer activation function into sigmoid.
     """
+
     def __init__(
-            self,
-            neurons: List[int],
-            activations: Union[List, AnyStr, None] = "swish",
-            kernel_regularizers: Union[List, AnyStr, None] = None,
-            use_bias: bool = True,
-            **kwargs):
+        self,
+        neurons: List[int],
+        activations: Union[List, str, None] = "swish",
+        kernel_regularizers: Union[List, str, None] = None,
+        use_bias: bool = True,
+        **kwargs,
+    ):
         """
 
         Args:
@@ -208,18 +213,18 @@ class GatedMLP(tf.keras.layers.Layer):
         self.activations = activations
         self.kernel_regularizers = kernel_regularizers
         dense_layers = [
-            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg,
-                                  use_bias=use_bias)
-            for i, j, reg in
-            zip(neurons, activation_list, kernel_regularizer_list)
+            tf.keras.layers.Dense(
+                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
+            )
+            for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         self.pipe = Pipe(layers=dense_layers)
         activation_list[-1] = "sigmoid"
         gate_layers = [
-            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg,
-                                  use_bias=use_bias)
-            for i, j, reg in
-            zip(neurons, activation_list, kernel_regularizer_list)
+            tf.keras.layers.Dense(
+                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
+            )
+            for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         self.gate = Pipe(gate_layers)
         self.use_bias = use_bias
@@ -233,8 +238,7 @@ class GatedMLP(tf.keras.layers.Layer):
         Returns: tf.Tensor
 
         """
-        return self.pipe.call(inputs, **kwargs) * \
-            self.gate.call(inputs, **kwargs)
+        return self.pipe.call(inputs, **kwargs) * self.gate.call(inputs, **kwargs)
 
     def get_config(self) -> Dict:
         """
@@ -248,7 +252,7 @@ class GatedMLP(tf.keras.layers.Layer):
                 "neurons": self.neurons,
                 "activations": self.activations,
                 "kernel_regularizers": self.kernel_regularizers,
-                "use_bias": self.use_bias
+                "use_bias": self.use_bias,
             }
         )
         return config

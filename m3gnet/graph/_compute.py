@@ -115,6 +115,7 @@ def _list_include_threebody_indices(
             np.ascontiguousarray(bond_atom_indices, dtype="int32"),
             np.array(graph[Index.N_ATOMS], dtype="int32"),
         )
+
         if ij_reverse_map is not None:
             n_triple_ij_ = np.zeros(shape=(n_bond,), dtype="int32")
             n_triple_ij_[ij_reverse_map] = n_triple_ij

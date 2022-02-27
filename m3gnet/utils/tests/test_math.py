@@ -4,9 +4,14 @@ import unittest
 import numpy as np
 import tensorflow as tf
 
-from m3gnet.utils import (SphericalBesselFunction, SphericalHarmonicsFunction,
-                          combine_sbf_shf, get_spherical_bessel_roots,
-                          spherical_bessel_roots, spherical_bessel_smooth)
+from m3gnet.utils import (
+    SphericalBesselFunction,
+    SphericalHarmonicsFunction,
+    combine_sbf_shf,
+    get_spherical_bessel_roots,
+    spherical_bessel_roots,
+    spherical_bessel_smooth,
+)
 
 
 class TestMath(unittest.TestCase):
