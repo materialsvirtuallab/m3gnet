@@ -1,11 +1,9 @@
 import unittest
 
 import numpy as np
-from m3gnet.utils import (
-    check_shape_consistency,
-    check_array_equal,
-    reshape_array,
-)
+
+from m3gnet.utils import (check_array_equal, check_shape_consistency,
+                          reshape_array)
 
 
 class TestGeneralUtils(unittest.TestCase):

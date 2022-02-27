@@ -5,9 +5,9 @@ Structure related calculations and etc.
 from typing import Tuple
 
 import numpy as np
-from pymatgen.core import Structure, Molecule
-from pymatgen.optimization.neighbors import find_points_in_spheres
 from ase import Atoms
+from pymatgen.core import Molecule, Structure
+from pymatgen.optimization.neighbors import find_points_in_spheres
 
 from m3gnet.config import DataType
 from m3gnet.typing import StructureOrMolecule

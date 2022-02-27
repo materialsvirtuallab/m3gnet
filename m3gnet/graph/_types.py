@@ -3,7 +3,7 @@ Graph types.
 """
 
 from dataclasses import dataclass, replace
-from typing import Sequence, ClassVar, List, Optional, Union
+from typing import ClassVar, List, Optional, Sequence, Union
 
 import numpy as np
 import tensorflow as tf

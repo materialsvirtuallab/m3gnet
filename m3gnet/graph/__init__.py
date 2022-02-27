@@ -2,26 +2,13 @@
 Graph package
 """
 
-from ._batch import (
-    assemble_material_graph,
-    MaterialGraphBatch,
-    MaterialGraphBatchEnergyForceStress,
-)
-
-from ._converters import (
-    BaseGraphConverter,
-    RadiusCutoffGraphConverter,
-)
-
+from ._batch import (MaterialGraphBatch, MaterialGraphBatchEnergyForceStress,
+                     assemble_material_graph)
+from ._compute import (get_pair_vector_from_graph, include_threebody_indices,
+                       tf_compute_distance_angle)
+from ._converters import BaseGraphConverter, RadiusCutoffGraphConverter
 from ._structure import get_fixed_radius_bonding
-from ._types import MaterialGraph, Index
-
-from ._compute import (
-    get_pair_vector_from_graph,
-    tf_compute_distance_angle,
-    include_threebody_indices,
-)
-
+from ._types import Index, MaterialGraph
 
 __all__ = [
     "MaterialGraph",

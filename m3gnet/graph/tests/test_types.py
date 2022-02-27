@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 import tensorflow as tf
-from pymatgen.core import Structure, Lattice
+from pymatgen.core import Lattice, Structure
 
-from m3gnet.graph import MaterialGraph, RadiusCutoffGraphConverter, Index
+from m3gnet.graph import Index, MaterialGraph, RadiusCutoffGraphConverter
 
 
 class TestConverter(unittest.TestCase):

@@ -1,16 +1,11 @@
 import unittest
 
-from pymatgen.core import Structure, Lattice
 import numpy as np
+from pymatgen.core import Lattice, Structure
 
-from m3gnet.graph import (
-    RadiusCutoffGraphConverter,
-    assemble_material_graph,
-    MaterialGraphBatch,
-    MaterialGraphBatchEnergyForceStress,
-)
-
-from m3gnet.graph import MaterialGraph
+from m3gnet.graph import (MaterialGraph, MaterialGraphBatch,
+                          MaterialGraphBatchEnergyForceStress,
+                          RadiusCutoffGraphConverter, assemble_material_graph)
 
 
 class TestBatch(unittest.TestCase):

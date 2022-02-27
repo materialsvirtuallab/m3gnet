@@ -9,8 +9,8 @@ import numpy as np
 import tensorflow as tf
 
 from m3gnet.config import DataType
-from m3gnet.utils import get_length
-from m3gnet.utils import get_segment_indices_from_n
+from m3gnet.utils import get_length, get_segment_indices_from_n
+
 from ._threebody_indices import compute_threebody as _compute_threebody
 from ._types import Index, MaterialGraph
 

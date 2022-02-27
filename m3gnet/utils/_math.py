@@ -13,8 +13,8 @@ import sympy
 import tensorflow as tf
 from scipy.optimize import brentq
 from scipy.special import spherical_jn
-from m3gnet.config import DataType
 
+from m3gnet.config import DataType
 
 CWD = os.path.dirname(os.path.abspath(__file__))
 

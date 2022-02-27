@@ -1,13 +1,13 @@
 """
 Collate material graphs
 """
-from typing import List, Optional, AnyStr, Union, Tuple, overload
+from typing import AnyStr, List, Optional, Tuple, Union, overload
 
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.utils import Sequence
 
-from ._types import MaterialGraph, Index
+from ._types import Index, MaterialGraph
 
 
 class MaterialGraphBatch(Sequence):

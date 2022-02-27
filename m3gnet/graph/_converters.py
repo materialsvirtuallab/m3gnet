@@ -3,15 +3,16 @@ Classes to convert a structure into a graph
 """
 import logging
 from abc import abstractmethod
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
 
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
 from pymatgen.core import Structure
+
 from m3gnet.config import DataType
 from m3gnet.typing import StructureOrMolecule
-from m3gnet.utils import reshape_array, register
+from m3gnet.utils import register, reshape_array
 
 from ._batch import assemble_material_graph
 from ._compute import include_threebody_indices
