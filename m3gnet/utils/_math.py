@@ -6,7 +6,7 @@ math functions and miscellaneous calculations
 import os
 from functools import lru_cache
 from math import pi
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import numpy as np
 import sympy
@@ -178,6 +178,33 @@ def _y00(theta, phi):
 
 def _conjugate(x):
     return tf.math.conj(x)
+
+
+class Gaussian:
+    """
+    Gaussian expansion function
+    """
+
+    def __init__(self, centers: Union[tf.Tensor, np.ndarray], width: float, **kwargs):
+        """
+        Args:
+            centers (tf.Tensor or np.ndarray): Gaussian centers for the
+                expansion
+            width (float): Gaussian width
+            **kwargs:
+        """
+        self.centers = np.array(centers)
+        self.width = width
+
+    def __call__(self, r: tf.Tensor) -> tf.Tensor:
+        """
+        Convert the radial distances into Gaussian functions
+        Args:
+            r (tf.Tensor): radial distances
+        Returns: Gaussian expanded vectors
+
+        """
+        return tf.exp(-((r[:, None] - self.centers[None, :]) ** 2) / self.width ** 2)
 
 
 class SphericalHarmonicsFunction:

@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Installation for m3gnet
+"""
 
 import os
 import re
@@ -20,15 +22,17 @@ with open("m3gnet/__init__.py", encoding="utf-8") as fd:
             item = item
             lines += item + "\n"
     except Exception as exc:
-        raise Exception("Caught exception {}".format(exc))
+        raise Exception(f"Caught exception {exc}")
 
 version = re.search('__version__ = "(.*)"', lines).group(1)
 
 
-extension = [Extension(
-    "m3gnet.graph._threebody_indices",
-    ["m3gnet/graph/_threebody_indices.pyx"],
-)]
+extension = [
+    Extension(
+        "m3gnet.graph._threebody_indices",
+        ["m3gnet/graph/_threebody_indices.pyx"],
+    )
+]
 
 setup(
     name="m3gnet",
@@ -78,4 +82,3 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
 )
-
