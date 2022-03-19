@@ -123,7 +123,7 @@ class PairRadialBasisExpansion(BondNetwork):
 
 
 @register
-class ConcateAtoms(BondNetwork):
+class ConcatAtoms(BondNetwork):
     r"""
     .. math::
         eij^\prime = Update(vi⊕vj⊕eij⊕u)

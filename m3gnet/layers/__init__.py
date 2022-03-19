@@ -8,6 +8,9 @@ from ._core import METHOD_MAPPING, MLP, Embedding, GatedMLP, Pipe
 from ._cutoff import cosine, polynomial
 from ._three_body import SphericalBesselWithHarmonics
 from ._two_body import PairDistance, PairVector
+from ._bond import BondNetwork, PairRadialBasisExpansion, ConcatAtoms, \
+    ThreeDInteraction
+
 
 __all__ = [
     "GraphUpdate",
@@ -23,5 +26,9 @@ __all__ = [
     "PairDistance",
     "PairVector",
     "AtomReduceState",
-    "SphericalBesselWithHarmonics"
+    "SphericalBesselWithHarmonics",
+    "BondNetwork",
+    "PairRadialBasisExpansion",
+    "ConcatAtoms",
+    "ThreeDInteraction"
 ]
