@@ -2,8 +2,8 @@
 from typing import Callable, Union, List
 
 import tensorflow as tf
-from tmegnet.graph import Index
-from tmegnet.utils import get_segment_indices_from_n, register
+from m3gnet.graph import Index
+from m3gnet.utils import get_segment_indices_from_n, register
 
 from ._core import METHOD_MAPPING
 
