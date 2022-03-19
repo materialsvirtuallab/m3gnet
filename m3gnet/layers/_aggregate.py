@@ -39,7 +39,6 @@ class AtomReduceState(tf.keras.layers.Layer):
             graph (list): input graph list representation
             **kwargs:
         Returns:
-
         """
         atom_segment = get_segment_indices_from_n(graph[Index.N_ATOMS])
         return self.method_func(
