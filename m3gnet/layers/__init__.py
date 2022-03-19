@@ -1,8 +1,8 @@
 """
 Graph layers
 """
+from ._base import GraphUpdateFunc, GraphUpdate
 from ._core import METHOD_MAPPING, MLP, Embedding, GatedMLP, Pipe
-
 from ._basis import RadialBasisFunctions
 from ._cutoff import polynomial, cosine
 from ._two_body import PairVector, PairDistance
@@ -11,6 +11,8 @@ from ._aggregate import AtomReduceState
 
 
 __all__ = [
+    "GraphUpdate",
+    "GraphUpdateFunc",
     "METHOD_MAPPING",
     "Pipe",
     "MLP",
