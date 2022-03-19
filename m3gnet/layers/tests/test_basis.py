@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
+
 import numpy as np
 
 from m3gnet.layers import RadialBasisFunctions

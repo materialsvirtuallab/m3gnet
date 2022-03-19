@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import unittest
+
 import numpy as np
 
-from m3gnet.layers import AtomReduceState
 from m3gnet.graph import Index
+from m3gnet.layers import AtomReduceState
 
 
 class TestAgg(unittest.TestCase):

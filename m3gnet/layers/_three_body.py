@@ -6,12 +6,8 @@ from typing import List
 import tensorflow as tf
 
 from m3gnet.graph import Index
-from m3gnet.utils import (
-    SphericalBesselFunction,
-    SphericalHarmonicsFunction,
-    combine_sbf_shf,
-)
-from m3gnet.utils import register
+from m3gnet.utils import (SphericalBesselFunction, SphericalHarmonicsFunction,
+                          combine_sbf_shf, register)
 
 
 @register

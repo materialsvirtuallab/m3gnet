@@ -9,14 +9,13 @@ from typing import List
 
 import tensorflow as tf
 
-from m3gnet.layers import GatedMLP
 from m3gnet.graph import Index
-from m3gnet.utils import register, get_segment_indices_from_n, \
-    broadcast_states_to_bonds
+from m3gnet.layers import GatedMLP
+from m3gnet.utils import (broadcast_states_to_bonds,
+                          get_segment_indices_from_n, register)
 
-from ._basis import RBF_ALLOWED
-from ._basis import RadialBasisFunctions
 from ._base import GraphUpdate
+from ._basis import RBF_ALLOWED, RadialBasisFunctions
 
 
 @register
@@ -25,6 +24,7 @@ class BondNetwork(GraphUpdate):
     Edge network that takes a graph as input and then calculate new
     bond attributes
     """
+
     def update_bonds(self, graph: List) -> tf.Tensor:
         """
         Update bond info in the graph
@@ -61,6 +61,7 @@ class PairRadialBasisExpansion(BondNetwork):
     """
     Expand the radial distance onto a basis
     """
+
     def __init__(self, rbf_type: str = "Gaussian", **kwargs):
         """
 
@@ -127,6 +128,7 @@ class ConcateAtoms(BondNetwork):
     .. math::
         eij^\prime = Update(vi⊕vj⊕eij⊕u)
     """
+
     def __init__(self,
                  neurons: List[int],
                  activation: str = "swish",
@@ -185,6 +187,7 @@ class ThreeDInteraction(tf.keras.layers.Layer):
     """
     Include 3D interactions to the bond update
     """
+
     def __init__(self,
                  update_network: tf.keras.layers.Layer,
                  update_network2: tf.keras.layers.Layer,
@@ -227,7 +230,8 @@ class ThreeDInteraction(tf.keras.layers.Layer):
         basis = three_basis * atoms
         n_bonds = tf.reduce_sum(graph[Index.N_BONDS])
         weights = tf.reshape(tf.gather(three_cutoff,
-                             graph[Index.TRIPLE_BOND_INDICES]), (-1, 2))
+                                       graph[Index.TRIPLE_BOND_INDICES]),
+                             (-1, 2))
         weights = tf.math.reduce_prod(weights, axis=-1)
         basis = basis * weights[:, None]
         new_bonds = tf.math.unsorted_segment_sum(

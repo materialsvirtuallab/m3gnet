@@ -1,7 +1,8 @@
 """Aggregate classes. Aggregating happens when bond attributes """
-from typing import Callable, Union, List
+from typing import Callable, List, Union
 
 import tensorflow as tf
+
 from m3gnet.graph import Index
 from m3gnet.utils import get_segment_indices_from_n, register
 

@@ -3,7 +3,8 @@ import unittest
 import numpy as np
 from pymatgen.core import Lattice, Structure
 
-from m3gnet.graph import BaseGraphConverter, MaterialGraph, RadiusCutoffGraphConverter
+from m3gnet.graph import (BaseGraphConverter, MaterialGraph,
+                          RadiusCutoffGraphConverter)
 
 
 class TestConverter(unittest.TestCase):

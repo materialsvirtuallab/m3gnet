@@ -1,10 +1,11 @@
 import unittest
 
 import numpy as np
-from pymatgen.core import Structure, Lattice, Molecule
+from pymatgen.core import Lattice, Molecule, Structure
+
 from m3gnet.graph import RadiusCutoffGraphConverter, tf_compute_distance_angle
-from m3gnet.layers import PairVector, PairDistance
-from m3gnet.layers import SphericalBesselWithHarmonics
+from m3gnet.layers import (PairDistance, PairVector,
+                           SphericalBesselWithHarmonics)
 
 
 class TestTwoBody(unittest.TestCase):

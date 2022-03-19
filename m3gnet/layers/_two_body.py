@@ -6,7 +6,7 @@ from typing import List
 import tensorflow as tf
 
 from m3gnet.graph import get_pair_vector_from_graph
-from m3gnet.utils import register, get_length
+from m3gnet.utils import get_length, register
 
 
 @register

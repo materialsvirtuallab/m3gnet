@@ -1,14 +1,13 @@
 """
 Graph layers
 """
-from ._base import GraphUpdateFunc, GraphUpdate
-from ._core import METHOD_MAPPING, MLP, Embedding, GatedMLP, Pipe
-from ._basis import RadialBasisFunctions
-from ._cutoff import polynomial, cosine
-from ._two_body import PairVector, PairDistance
-from ._three_body import SphericalBesselWithHarmonics
 from ._aggregate import AtomReduceState
-
+from ._base import GraphUpdate, GraphUpdateFunc
+from ._basis import RadialBasisFunctions
+from ._core import METHOD_MAPPING, MLP, Embedding, GatedMLP, Pipe
+from ._cutoff import cosine, polynomial
+from ._three_body import SphericalBesselWithHarmonics
+from ._two_body import PairDistance, PairVector
 
 __all__ = [
     "GraphUpdate",
