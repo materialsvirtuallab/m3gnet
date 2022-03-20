@@ -191,8 +191,7 @@ class Set2Set(ReadOut):
             eit = field * tf.repeat(qt, repeats=counts, axis=0)
             ait = unsorted_segment_softmax(eit,
                                            indices,
-                                           num_segments=n_struct,
-                                           counts=counts)
+                                           num_segments=n_struct)
             rt = tf.math.unsorted_segment_sum(
                 ait * field, indices, num_segments=n_struct
             )
@@ -259,8 +258,7 @@ class WeightedReadout(ReadOut):
         n_structs = tf.shape(n_field)[0]
         factor = unsorted_segment_fraction(weights[:, 0],
                                            indices,
-                                           num_segments=n_structs,
-                                           counts=n_field)
+                                           num_segments=n_structs)
         return tf.math.segment_sum(factor[:, None] * updated_field, indices)
 
     def get_config(self):
