@@ -10,6 +10,8 @@ from ._three_body import SphericalBesselWithHarmonics
 from ._two_body import PairDistance, PairVector
 from ._bond import BondNetwork, PairRadialBasisExpansion, ConcatAtoms, \
     ThreeDInteraction
+from ._atom import AtomNetwork, GatedAtomUpdate
+from ._state import StateNetwork, ConcatBondAtomState
 
 
 __all__ = [
@@ -30,5 +32,9 @@ __all__ = [
     "BondNetwork",
     "PairRadialBasisExpansion",
     "ConcatAtoms",
-    "ThreeDInteraction"
+    "ThreeDInteraction",
+    "AtomNetwork",
+    "GatedAtomUpdate",
+    "StateNetwork",
+    "ConcatBondAtomState"
 ]
