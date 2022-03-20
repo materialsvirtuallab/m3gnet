@@ -19,22 +19,22 @@ class TestAgg(unittest.TestCase):
         mol = Molecule(["C", "O"], [[0, 0, 0], [1.1, 0, 0]])
         rc = RadiusCutoffGraphConverter(cutoff=4.0, has_threebody=True,
                                         threebody_cutoff=4.0)
-        cls.struct_graph = tf_compute_distance_angle(rc.convert(s).as_list())
-        cls.mol_graph = tf_compute_distance_angle(rc.convert(mol).as_list())
+        cls.struct_graph = rc.convert(s).as_list()
+        cls.mol_graph = rc.convert(mol).as_list()
 
     def test_bond_network(self):
         prb = PairRadialBasisExpansion(rbf_type="Gaussian",
                                        centers=np.linspace(0, 4, 10),
                                        width=0.5)
-        graph = prb(self.mol_graph)
-        self.assertTupleEqual(graph[Index.BONDS].shape, (10, 10))
+        graph = prb(self.struct_graph)
+        self.assertTupleEqual(tuple(graph[Index.BONDS].shape), (28, 10))
         prb = PairRadialBasisExpansion(rbf_type="SphericalBessel",
                                        max_n=3,
                                        max_l=3,
                                        cutoff=4.0,
                                        smooth=False)
-        graph = prb(self.mol_graph)
-        self.assertTupleEqual(graph[Index.BONDS].shape, (10, 9))
+        graph = prb(self.struct_graph)
+        self.assertTupleEqual(tuple(graph[Index.BONDS].shape), (28, 9))
 
 
 if __name__ == "__main__":
