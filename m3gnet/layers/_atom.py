@@ -112,5 +112,5 @@ class GatedAtomUpdate(AtomNetwork):
         """
         config = super().get_config()
         config.update(neurons=self.neurons,
-                      merge=self.merge, activation=self.activation)
+                      activation=self.activation)
         return config
