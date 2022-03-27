@@ -1,7 +1,9 @@
 """
 The core m3gnet model
 """
-from typing import List
+from typing import List, Optional
+import os
+import json
 
 import numpy as np
 import tensorflow as tf
@@ -25,8 +27,14 @@ from m3gnet.layers import (
 )
 from m3gnet.layers import ThreeDInteraction, ConcatAtoms
 from m3gnet.layers import polynomial
+from m3gnet.layers import BaseAtomRef, AtomRef
 from m3gnet.utils import register_plain
+from m3gnet.utils.constants import MODEL_NAME
 from ._base import GraphModelMixin
+
+CWD = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_NAMES = {"EFS2021": os.path.join(CWD, "../../pretrained/EFS2021")}
 
 
 @register_plain
@@ -43,13 +51,14 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             units: int = 64,
             cutoff: float = 5.0,
             threebody_cutoff: float = 4.0,
-            n_atom_types: int = 95,
+            n_atom_types: int = 94,
             include_states: bool = False,
             readout: str = "weighted_atom",
             task_type: str = "regression",
             is_intensive: bool = True,
             mean: float = 0.0,
             std: float = 1.0,
+            element_refs: Optional[np.ndarray] = None,
             **kwargs
     ):
         r"""
@@ -69,6 +78,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             is_intensive (bool): whether the prediction is intensive
             mean (float): optional `mean` value of the target
             std (float): optional `std` of the target
+            element_refs (np.ndarray): element reference values for each
+                element
             **kwargs:
         """
         super().__init__(**kwargs)
@@ -181,6 +192,12 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             final_layers.append(ReduceReadOut(method="sum", field="atoms"))
             self.final = Pipe(layers=final_layers)
 
+        if element_refs is None:
+            self.element_ref_calc = BaseAtomRef()
+        else:
+            self.element_ref_calc = AtomRef(
+                property_per_element=element_refs,
+                max_z=n_atom_types)
         self.max_n = max_n
         self.max_l = max_l
         self.n_blocks = n_blocks
@@ -195,6 +212,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         self.kwargs = kwargs
         self.mean = mean
         self.std = std
+        self.element_refs = element_refs
 
     def call(self, graph: List, **kwargs) -> tf.Tensor:
         """
@@ -205,6 +223,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
 
         """
         graph = tf_compute_distance_angle(graph)
+        property_offset = self.element_ref_calc(graph)
         three_basis = self.basis_expansion(graph)
         three_cutoff = polynomial(graph[Index.BONDS], self.threebody_cutoff)
         g = self.featurizer(graph)
@@ -214,6 +233,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             g = self.graph_layers[i](g)
         g = self.final(g)
         g = g * self.std + self.mean
+        g += property_offset
         return g
 
     def get_config(self):
@@ -236,7 +256,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 "task_type": self.task_type,
                 "is_intensive": self.is_intensive,
                 "mean": self.mean,
-                "std": self.std
+                "std": self.std,
+                "element_refs": self.element_refs
             }
         )
         return config
@@ -250,3 +271,68 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         Returns: new M3GNet instance
         """
         return cls(**config)
+
+    def save(self, dirname: str):
+        """
+        Save the model to a directory
+        Args:
+            dirname (str): directory to save the model
+        Returns:
+
+        """
+        model_serialized = self.to_json()
+        model_name = os.path.join(dirname, MODEL_NAME)
+        self.save_weights(model_name)
+        if not os.path.isdir(dirname):
+            os.mkdir(dirname)
+        fname = os.path.join(dirname, MODEL_NAME + ".json")
+        with open(fname, "w") as f:
+            json.dump(model_serialized, f)
+        return True
+
+    @classmethod
+    def from_dir(cls, dirname: str, custom_objects: Optional[dict] = None):
+        """
+        load the model from a directory
+        Args:
+            dirname (str): directory to save the model
+            custom_objects (dict): dictionary for custom object
+        Returns:
+
+        """
+        custom_objects = custom_objects or {}
+        model_name = os.path.join(dirname, MODEL_NAME)
+        fname = os.path.join(dirname, MODEL_NAME + ".json")
+        if not os.path.isfile(fname):
+            raise ValueError("Model does not exists")
+        with open(fname, "r") as f:
+            model_serialized = json.load(f)
+        # model_serialized = _replace_compatibility(model_serialized)
+        model = tf.keras.models.model_from_json(model_serialized,
+                                                custom_objects=custom_objects)
+        model.load_weights(model_name)
+        return model
+
+    def set_element_refs(self, element_refs: np.ndarray):
+        """
+        Set element reference for the property
+        Args:
+            element_refs (np.ndarray): element reference value for the
+                extensive property
+        Returns:
+        """
+        self.element_refs = element_refs
+        self.element_ref_calc = AtomRef(property_per_element=element_refs)
+
+    @classmethod
+    def load(cls, model_name: str = "EFS2021"):
+        """
+        Load the model weights from pre-trained model
+        Args:
+            model_name (str): model name
+        Returns:
+        """
+        if model_name in MODEL_NAMES:
+            return cls.from_dir(MODEL_NAMES[model_name])
+        raise ValueError(f"{model_name} not found in vail"
+                         f"able pretrained {list(MODEL_NAMES.keys())}")

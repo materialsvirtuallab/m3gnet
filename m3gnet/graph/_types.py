@@ -27,7 +27,7 @@ BONDS = "bonds"
 STATES = "states"
 GRAPH_FEATURES = (ATOMS, BONDS, STATES)
 
-# atom positions, some models may need explicit
+# atom positions, some pretrained may need explicit
 # atom positions
 ATOM_POSITIONS = "atom_positions"
 BOND_WEIGHTS = "bond_weights"

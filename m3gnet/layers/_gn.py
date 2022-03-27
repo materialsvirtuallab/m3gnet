@@ -94,7 +94,7 @@ def _get_bond_featurizer(
             raise ValueError(
                 "If the bond attributes are single float values, "
                 "we expect the value to be expanded before passing "
-                "to the models. Therefore, `centers` and `width` for "
+                "to the pretrained. Therefore, `centers` and `width` for "
                 "Gaussian basis expansion are needed"
             )
         # bond attributes are distances
@@ -167,7 +167,7 @@ class GraphFeaturizer(GraphNetworkLayer):
                 raise ValueError("Either specify nfeat_atom or "
                                  "n_atom_types and atom_embedding_dim")
             atom_network = GraphFieldEmbedding(
-                nvocal=n_atom_types,
+                nvocal=n_atom_types + 1,
                 embedding_dim=atom_embedding_dim,
                 field="atoms",
                 name="atom_embedding",

@@ -15,6 +15,7 @@ from ._state import StateNetwork, ConcatBondAtomState
 from ._readout import ReadOut, WeightedReadout, Set2Set, ReduceReadOut, \
     MultiFieldReadout
 from ._gn import GraphNetworkLayer, GraphFeaturizer, GraphFieldEmbedding
+from ._atom_ref import AtomRef, BaseAtomRef
 
 
 __all__ = [
@@ -47,5 +48,7 @@ __all__ = [
     "WeightedReadout",
     "GraphNetworkLayer",
     "GraphFeaturizer",
-    "GraphFieldEmbedding"
+    "GraphFieldEmbedding",
+    "AtomRef",
+    "BaseAtomRef"
 ]
