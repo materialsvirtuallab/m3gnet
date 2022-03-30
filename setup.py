@@ -47,14 +47,14 @@ setup(
     install_requires=["numpy", "scikit-learn", "pymatgen>=2019.10.4", "monty"],
     extras_require={
         "model_saving": ["h5py"],
-        "molecules": ["openbabel", "rdkit"],
-        "tensorflow": ["tensorflow>=2.1"],
-        "tensorflow with gpu": ["tensorflow-gpu>=2.1"],
+        "tensorflow": ["tensorflow>=2.7"],
+        "tensorflow with gpu": ["tensorflow-gpu>=2.7"],
     },
     packages=find_packages(),
     package_data={
         "m3gnet": ["*.json", "*.md"],
     },
+    include_package_data=True,
     ext_modules=cythonize(extension),
     include_dirs=np.get_include(),
     keywords=[
@@ -66,6 +66,8 @@ setup(
         "graph",
         "networks",
         "neural",
+        "force field",
+        "interatomic potential"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

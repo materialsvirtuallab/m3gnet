@@ -49,7 +49,8 @@ class BaseGraphConverter(tf.keras.layers.Layer):
             List of atomic numbers
         """
         if isinstance(structure, Atoms):
-            return structure.get_atomic_numbers()
+            return np.array(structure.get_atomic_numbers(),
+                            dtype=DataType.np_int)
         return np.array([i.specie.Z for i in structure], dtype=DataType.np_int)
 
     def set_default_states(self, states=None):

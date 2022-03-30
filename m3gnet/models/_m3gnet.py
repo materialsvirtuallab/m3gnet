@@ -329,10 +329,14 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         """
         Load the model weights from pre-trained model
         Args:
-            model_name (str): model name
+            model_name (str): model name or the path for saved model
         Returns:
         """
         if model_name in MODEL_NAMES:
             return cls.from_dir(MODEL_NAMES[model_name])
+        if os.path.isdir(model_name):
+            if 'm3gnet.json' in os.listdir(model_name):
+                return cls.from_dir(model_name)
+
         raise ValueError(f"{model_name} not found in vail"
                          f"able pretrained {list(MODEL_NAMES.keys())}")
