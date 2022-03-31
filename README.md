@@ -145,8 +145,9 @@ Time[ps]      Etot[eV]     Epot[eV]     Ekin[eV]    T[K]
 The MD run takes less than 1 minute. 
 
 <a name="datasets"></a>
-#Datasets
-The training data `MPF.2021.2.8` is hosted on figshare.
+# Datasets
+The training data `MPF.2021.2.8` is hosted on [figshare](https://figshare.com/articles/dataset/MPF_2021_2_8/19470599) 
+with DOI `10.6084/m9.figshare.19470599`.
 
 
 <a name="references"></a>
