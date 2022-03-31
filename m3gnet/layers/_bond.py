@@ -74,7 +74,7 @@ class PairRadialBasisExpansion(BondNetwork):
         rbf_kwds = {}
         keys = []
         for k in kwargs.keys():
-            if k in RBF_ALLOWED[rbf_type]["params"]:
+            if k in RBF_ALLOWED[rbf_type]["params"]:  # type: ignore
                 keys.append(k)
         for k in keys:
             rbf_kwds.update({k: kwargs.pop(k)})

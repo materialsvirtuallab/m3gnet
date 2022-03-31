@@ -126,7 +126,7 @@ class ReduceReadOut(ReadOut):
         """
         field = graph[getattr(Index, self.field.upper())]
         n_field = graph[getattr(Index, f"n_{self.field}".upper())]
-        return self.method_func(
+        return self.method_func(  # type: ignore
             field,
             get_segment_indices_from_n(n_field),
             num_segments=tf.shape(n_field)[0],

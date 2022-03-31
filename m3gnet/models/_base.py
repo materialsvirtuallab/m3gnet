@@ -77,7 +77,7 @@ class GraphModelMixin(tf.keras.layers.Layer):
         predicted = []
         for i in range(n_steps):
             graphs = graph_list[batch_size * i: batch_size * (i + 1)]
-            graph = assemble_material_graph(graphs)
+            graph = assemble_material_graph(graphs)  # type: ignore
             if use_graph:
                 results = self.call(graph.as_list())
             else:
