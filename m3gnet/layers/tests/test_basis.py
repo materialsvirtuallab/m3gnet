@@ -13,9 +13,22 @@ class TestRBF(unittest.TestCase):
                                             centers=np.linspace(0, 5, 10),
                                             width=0.5)
         rbf = rbf_gaussian(r)
-        self.assertTupleEqual(rbf.shape, (11, 10))
+        self.assertTupleEqual(tuple(rbf.shape), (11, 10))
+        rbf_sb = RadialBasisFunctions(rbf_type="SphericalBessel",
+                                      max_n=3,
+                                      max_l=3,
+                                      cutoff=5.0,
+                                      smooth=False)
+        rbf = rbf_sb(r)
+        self.assertTupleEqual(tuple(rbf.shape), (11, 9))
 
-        rbf_sb = r
+        rbf_sb = RadialBasisFunctions(rbf_type="SphericalBessel",
+                                      max_n=3,
+                                      max_l=3,
+                                      cutoff=5.0,
+                                      smooth=True)
+        rbf = rbf_sb(r)
+        self.assertTupleEqual(tuple(rbf.shape), (11, 3))
 
 
 if __name__ == "__main__":

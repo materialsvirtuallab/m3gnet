@@ -21,7 +21,7 @@ class TestMath(unittest.TestCase):
         width = 0.5
         gf = Gaussian(centers=centers, width=width)
         r = np.linspace(1.0, 4.0, 10)
-        self.assertTupleEqual(gf(r).shape, (10, 10))
+        self.assertTupleEqual(gf(r).numpy().shape, (10, 10))
 
     def test_spherical_bessel_harmonics_function(self):
         r = tf.random.normal(shape=(10,))
