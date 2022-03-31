@@ -232,7 +232,7 @@ class MolecularDynamics:
 
     def __init__(self,
                  atoms: Atoms,
-                 potential: Potential,
+                 potential: Optional[Union[Potential, str]] = None,
                  ensemble: str = 'nvt',
                  temperature: int = 300,
                  timestep: float = 1.0,
@@ -263,6 +263,11 @@ class MolecularDynamics:
             loginterval (int): write to log file every interval steps
             append_trajectory (bool): Whether to append to prev trajectory
         """
+
+        if isinstance(potential, str):
+            potential = Potential(M3GNet.load(potential))
+        if potential is None:
+            potential = Potential(M3GNet.load())
 
         if isinstance(atoms, (Structure, Molecule)):
             atoms = AseAtomsAdaptor().get_atoms(atoms)

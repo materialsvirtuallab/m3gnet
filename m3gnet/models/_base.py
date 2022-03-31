@@ -12,7 +12,7 @@ from pymatgen.core import Structure, Molecule
 from m3gnet.config import DataType
 from m3gnet.graph import MaterialGraph, assemble_material_graph, Index
 from m3gnet.typing import StructureOrMolecule
-from m3gnet.utils import repeat_with_n, register, register_plain
+from m3gnet.utils import repeat_with_n, register
 
 
 @register
@@ -84,97 +84,6 @@ class GraphModelMixin(tf.keras.layers.Layer):
                 results = self.call(graph)
             predicted.append(results)
         return tf.concat(predicted, axis=0)
-
-
-@register_plain
-class PipeModel(GraphModelMixin, tf.keras.models.Model):
-    """
-    Model pipeline of layers
-    """
-
-    def __init__(self, all_layers=None, graph_converter=None, **kwargs):
-        """
-        Args:
-            all_layers (list): a list of keras layers
-            graph_converter (BaseGraphConverter): graph converter
-            **kwargs:
-        """
-        super().__init__(**kwargs)
-        self.graph_converter = graph_converter
-        self.all_layers = all_layers or []
-
-    def get_config(self) -> dict:
-        """
-        Get layer config for serialization
-        Returns: config dict
-        """
-
-        return {"name": self.name,
-                "graph_converter": tf.keras.layers.serialize(
-                    self.graph_converter),
-                "all_layers": [tf.keras.layers.serialize(i) for i in
-                               self.all_layers]}
-
-    def call(self, graph: Union[List, MaterialGraph], **kwargs) -> tf.Tensor:
-        """
-        Call the model in serial
-        Args:
-            graph (Union[List, MaterialGraph]): graph repr in list or object
-            **kwargs:
-        Returns:
-        """
-        if isinstance(graph, MaterialGraph):
-            graph = graph.as_list()
-        out = graph
-        for g in self.all_layers:
-            out = g(out)
-        return out
-
-    def add(self, layer: tf.keras.layers.Layer):
-        """
-        Add more layers
-        Args:
-            layer (tf.keras.layers.Layer): layer to add to the pipe model
-        Returns:
-        """
-        self.all_layers.append(layer)
-
-    @classmethod
-    def from_config(cls, config: dict, custom_objects=None) -> "PipeModel":
-        """
-        Deserialize model from config file
-        Args:
-            config (dict): model config file
-            custom_objects (dict): custom objects from user defined layers
-        Returns:
-
-        """
-        graph_converter = tf.keras.layers.deserialize(
-            config.pop("graph_converter"))
-        if "name" in config:
-            name = config["name"]
-            build_input_shape = config.get("build_input_shape")
-            layer_configs = config["all_layers"]
-        else:
-            name = None
-            build_input_shape = None
-            layer_configs = config
-
-        model = cls(graph_converter=graph_converter, name=name)
-        layers = []
-        for layer_config in layer_configs:
-            layer = tf.keras.layers.deserialize(
-                layer_config, custom_objects=custom_objects
-            )
-            layers.append(layer)
-        model.all_layers = layers
-        if (
-                not model.inputs
-                and build_input_shape
-                and isinstance(build_input_shape, (tuple, list))
-        ):
-            model.build(build_input_shape)
-        return model
 
 
 @register

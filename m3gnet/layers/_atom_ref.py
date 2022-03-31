@@ -11,7 +11,7 @@ from pymatgen.core import Structure, Molecule
 
 from m3gnet.graph import Index
 from m3gnet.config import DataType
-from m3gnet.utils import register
+from m3gnet.utils import register, get_segment_indices_from_n
 
 
 @register
@@ -138,10 +138,11 @@ class AtomRef(BaseAtomRef):
         Returns:
         """
         atomic_numbers = graph[Index.ATOMS][:, 0]
-        features = tf.math.bincount(atomic_numbers,
-                                    minlength=self.max_z + 1)
-        features = tf.cast(features, DataType.tf_float)
-        return tf.math.reduce_sum(self.property_per_element * features)
+        atom_energies = tf.gather(
+            tf.cast(self.property_per_element, DataType.tf_float),
+            atomic_numbers)
+        return tf.math.segment_sum(
+            atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS]))
 
     def set_property_per_element(self, property_per_element):
         """
