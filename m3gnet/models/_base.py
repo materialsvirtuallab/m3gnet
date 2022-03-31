@@ -11,7 +11,7 @@ from pymatgen.core import Structure, Molecule
 
 from m3gnet.config import DataType
 from m3gnet.graph import MaterialGraph, assemble_material_graph, Index
-from m3gnet.typing import StructureOrMolecule
+from m3gnet.type import StructureOrMolecule
 from m3gnet.utils import repeat_with_n, register
 
 

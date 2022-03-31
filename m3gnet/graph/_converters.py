@@ -11,7 +11,7 @@ from ase import Atoms
 from pymatgen.core import Structure
 
 from m3gnet.config import DataType
-from m3gnet.typing import StructureOrMolecule
+from m3gnet.type import StructureOrMolecule
 from m3gnet.utils import register, reshape_array
 
 from ._batch import assemble_material_graph

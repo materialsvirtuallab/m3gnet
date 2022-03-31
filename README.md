@@ -7,8 +7,6 @@ A universal material graph interatomic potential with three-body interactions
 * [Installation](#installation)
 * [Demo](#demo)
 * [Datasets](#datasets)
-
-* [Contributors](#contributors)
 * [References](#references)
 
 <a name="introduction"></a>
@@ -17,7 +15,6 @@ A universal material graph interatomic potential with three-body interactions
 This repository contains the `M3GNet` interatomic potential for the periodic 
 table. The model has been developed for inorganic crystals using the 
 Materials Project relaxation trajectory as training data.
-
 
 
 <a name="systemreq"></a>
@@ -51,14 +48,9 @@ monty==2022.3.12
 sympy==1.9
 ase==3.22.0
 cython==0.29.26
-sympy==1.8
 ```
 
-`m3gnet` can be installed via pip
-```{python}
-pip install m3gnet
-```
-or via source code installation by cloning the code from github
+`m3gnet` can be installed via source code installation by cloning the code from github
 
 ```
 git clone https://github.com/materialsvirtuallab/m3gnet.git
@@ -66,6 +58,8 @@ cd m3gnet
 pip install -r requirements.txt
 python setup.py install
 ```
+
+The installation time should be less than 1 minute.
 
 <a name="demo"></a>
 # Demo
@@ -98,11 +92,12 @@ Relaxed lattice parameter is  3.169 Å
 Final energy is -10.859 eV/atom
 ```
 The original lattice parameter of 
-`3.3 Å` was successfully relaxed to `3.169 Å`, close to the DFT value of `3.
-168 Å`. 
+`3.3 Å` was successfully relaxed to `3.169 Å`, close to the DFT value of `3.168 Å`. 
 
 The final energy `-10.859 eV/atom` is also close to DFT value of [`-10.8456 
 eV/atom`](https://materialsproject.org/materials/mp-129/).
+
+The relaxation takes less than 20 seconds.
 
 ## Molecular Dynamics
 
@@ -129,7 +124,7 @@ md = MolecularDynamics(
 md.run(steps=1000)
 ```
 
-After the run, `mo.log` contains a thermodynamic information similar to the 
+After the run, `mo.log` contains thermodynamic information similar to the 
 following 
 
 ```angular2html
@@ -145,4 +140,19 @@ Time[ps]      Etot[eV]     Epot[eV]     Ekin[eV]    T[K]
 0.8000         -20.8804     -21.1638       0.2835  1096.4
 0.9000         -20.8770     -21.0695       0.1925   744.5
 1.0000         -20.8908     -21.0772       0.1864   721.2
+```
+
+The MD run takes less than 1 minute. 
+
+<a name="datasets"></a>
+#Datasets
+The training data `MPF.2021.2.8` is hosted on figshare.
+
+
+<a name="references"></a>
+
+# Reference
+This package is the result from our recent [paper](https://arxiv.org/abs/2202.02450)
+```angular2html
+Chen, Chi, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." arXiv preprint arXiv:2202.02450 (2022).
 ```
