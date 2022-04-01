@@ -154,5 +154,5 @@ with DOI `10.6084/m9.figshare.19470599`.
 # Reference
 This package is the result from our recent [paper](https://arxiv.org/abs/2202.02450)
 ```angular2html
-Chen, Chi, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." arXiv preprint arXiv:2202.02450 (2022).
+Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." arXiv preprint arXiv:2202.02450 (2022).
 ```
