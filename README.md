@@ -26,13 +26,12 @@ For model training, the GPU memory needs to be > 18 Gb for a batch size of
 GPU for model training. 
 
 ## Software requirements
-This package is supported for macOS and Linux. The package has been tested on the following systems:
+The package has been tested on the following systems:
 
 - macOS: Monterey 12.1 
 - Linux: Ubuntu 18.04 (with tensorflow==2.7.0)
+- Windows: 11
 
-
-The software was built and tested on MacOS and Linux OS systems. 
 
 <a name="Installation"></a>
 # Installation
