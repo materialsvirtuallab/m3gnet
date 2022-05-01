@@ -14,6 +14,7 @@ class AtomReduceState(tf.keras.layers.Layer):
     """
     Reduce atom attributes to states via sum or mean
     """
+
     def __init__(self, method: Union[Callable, str] = "mean", **kwargs):
         """
 

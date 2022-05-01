@@ -13,15 +13,10 @@ class TestAgg(unittest.TestCase):
         graph[Index.ATOMS] = np.random.normal(size=(10, 3))
         graph[Index.N_ATOMS] = np.array([5, 5])
         graph[Index.STATES] = np.random.normal(size=(2, 5))
-        guf = GraphUpdateFunc(
-            update_func=lambda x: x * 100,
-            update_field="atoms"
-        )
+        guf = GraphUpdateFunc(update_func=lambda x: x * 100, update_field="atoms")
         graph2 = guf(graph)
-        self.assertTrue(np.allclose(graph2[Index.ATOMS],
-                                    graph[Index.ATOMS] * 100))
+        self.assertTrue(np.allclose(graph2[Index.ATOMS], graph[Index.ATOMS] * 100))
 
 
 if __name__ == "__main__":
     unittest.main()
-

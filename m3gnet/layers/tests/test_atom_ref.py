@@ -9,9 +9,8 @@ from m3gnet.layers import AtomRef
 
 class TestRef(unittest.TestCase):
     def test_ref(self):
-        ar = AtomRef(property_per_element=np.random.normal(size=(94, )))
-        s1 = Structure(Lattice.cubic(3), ['Mo', 'Mo'], [[0, 0, 0],
-                                                        [0.5, 0.5, 0.5]])
+        ar = AtomRef(property_per_element=np.random.normal(size=(94,)))
+        s1 = Structure(Lattice.cubic(3), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         s2 = s1 * [1, 2, 1]
         ar.fit([s1, s2], [-10, -20])
         self.assertAlmostEqual(ar.property_per_element[42], -5.0)
@@ -24,4 +23,3 @@ class TestRef(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

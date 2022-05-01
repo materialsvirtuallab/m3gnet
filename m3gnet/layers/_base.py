@@ -34,11 +34,11 @@ class GraphUpdateFunc(GraphUpdate):
     """
 
     def __init__(
-            self,
-            update_func: Callable,
-            update_field: str,
-            input_fields: Optional[List[str]] = None,
-            **kwargs,
+        self,
+        update_func: Callable,
+        update_field: str,
+        input_fields: Optional[List[str]] = None,
+        **kwargs,
     ):
         """
 

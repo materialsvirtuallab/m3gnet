@@ -2,16 +2,19 @@
 atomic reference. Used for predicting extensive properties.
 """
 # -*- coding: utf-8 -*-
+import logging
 from typing import List, Optional
 
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Structure, Molecule
+from pymatgen.core import Structure, Molecule, Element
 
-from m3gnet.graph import Index
 from m3gnet.config import DataType
+from m3gnet.graph import Index
 from m3gnet.utils import register, get_segment_indices_from_n
+
+logger = logging.getLogger(__name__)
 
 
 @register
@@ -40,10 +43,12 @@ class AtomRef(BaseAtomRef):
     -50.0 for the atom reference energy for H2O
     """
 
-    def __init__(self,
-                 property_per_element: Optional[np.ndarray] = None,
-                 max_z: int = 94,
-                 **kwargs):
+    def __init__(
+        self,
+        property_per_element: Optional[np.ndarray] = None,
+        max_z: int = 94,
+        **kwargs
+    ):
         """
         Args:
             property_per_element (np.ndarray): element reference value
@@ -52,7 +57,7 @@ class AtomRef(BaseAtomRef):
         """
         super().__init__(**kwargs)
         if property_per_element is None:
-            self.property_per_element = np.zeros(shape=(max_z,))
+            self.property_per_element = np.zeros(shape=(max_z + 1,))
         else:
             self.property_per_element = np.array(property_per_element).ravel()
         self.max_z = max_z
@@ -69,8 +74,7 @@ class AtomRef(BaseAtomRef):
                 atomic_numbers = s.get_atomic_numbers()
             else:
                 atomic_numbers = s.atoms[:, 0]
-            features[i] = np.bincount(atomic_numbers,
-                                      minlength=self.max_z + 1)
+            features[i] = np.bincount(atomic_numbers, minlength=self.max_z + 1)
         return features
 
     def fit(self, structs_or_graphs, properties):
@@ -82,10 +86,14 @@ class AtomRef(BaseAtomRef):
         Returns:
         """
         features = self._get_feature_matrix(structs_or_graphs)
-        self.property_per_element = np.linalg.pinv(features.T.dot(
-            features)).dot(
+        self.property_per_element = np.linalg.pinv(features.T.dot(features)).dot(
             features.T.dot(properties)
         )
+        string_prop = ""
+        for i, j in enumerate(self.property_per_element):
+            if abs(j) > 1e-5:
+                string_prop += f"{str(Element.from_Z(i))}: {j:.5f}"
+        logger.info("Property offset values: " + string_prop)
         return True
 
     def transform(self, structs_or_graphs, properties):
@@ -113,8 +121,7 @@ class AtomRef(BaseAtomRef):
         """
         properties = np.array(properties)
         property_atoms = self.predict_properties(structs_or_graphs)
-        final_properties = properties + np.reshape(property_atoms,
-                                                   properties.shape)
+        final_properties = properties + np.reshape(property_atoms, properties.shape)
         return final_properties
 
     def predict_properties(self, structs_or_graphs):
@@ -139,10 +146,12 @@ class AtomRef(BaseAtomRef):
         """
         atomic_numbers = graph[Index.ATOMS][:, 0]
         atom_energies = tf.gather(
-            tf.cast(self.property_per_element, DataType.tf_float),
-            atomic_numbers)
-        return tf.math.segment_sum(
-            atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS]))
+            tf.cast(self.property_per_element, DataType.tf_float), atomic_numbers
+        )
+        res = tf.math.segment_sum(
+            atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS])
+        )
+        return tf.reshape(res, (-1, 1))
 
     def set_property_per_element(self, property_per_element):
         """
@@ -160,8 +169,7 @@ class AtomRef(BaseAtomRef):
         Returns (dict):
         """
         config = super().get_config()
-        config.update(**{
-            "property_per_element": self.property_per_element,
-            "max_z": self.max_z
-        })
+        config.update(
+            **{"property_per_element": self.property_per_element, "max_z": self.max_z}
+        )
         return config

@@ -8,23 +8,19 @@ import json
 import numpy as np
 import tensorflow as tf
 
-from m3gnet.graph import RadiusCutoffGraphConverter, Index, \
-    tf_compute_distance_angle
+from m3gnet.graph import RadiusCutoffGraphConverter, Index, tf_compute_distance_angle
 from m3gnet.layers import AtomReduceState
 from m3gnet.layers import ConcatBondAtomState, StateNetwork
 from m3gnet.layers import GatedAtomUpdate
 from m3gnet.layers import GatedMLP, MLP, Pipe
-from m3gnet.layers import GraphNetworkLayer, GraphFeaturizer, \
-    GraphUpdateFunc
+from m3gnet.layers import GraphNetworkLayer, GraphFeaturizer, GraphUpdateFunc
 from m3gnet.layers import (
     Set2Set,
     WeightedReadout,
     ReduceReadOut,
     MultiFieldReadout,
 )
-from m3gnet.layers import (
-    SphericalBesselWithHarmonics
-)
+from m3gnet.layers import SphericalBesselWithHarmonics
 from m3gnet.layers import ThreeDInteraction, ConcatAtoms
 from m3gnet.layers import polynomial
 from m3gnet.layers import BaseAtomRef, AtomRef
@@ -44,22 +40,22 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
     """
 
     def __init__(
-            self,
-            max_n: int = 3,
-            max_l: int = 3,
-            n_blocks: int = 3,
-            units: int = 64,
-            cutoff: float = 5.0,
-            threebody_cutoff: float = 4.0,
-            n_atom_types: int = 94,
-            include_states: bool = False,
-            readout: str = "weighted_atom",
-            task_type: str = "regression",
-            is_intensive: bool = True,
-            mean: float = 0.0,
-            std: float = 1.0,
-            element_refs: Optional[np.ndarray] = None,
-            **kwargs
+        self,
+        max_n: int = 3,
+        max_l: int = 3,
+        n_blocks: int = 3,
+        units: int = 64,
+        cutoff: float = 5.0,
+        threebody_cutoff: float = 4.0,
+        n_atom_types: int = 94,
+        include_states: bool = False,
+        readout: str = "weighted_atom",
+        task_type: str = "regression",
+        is_intensive: bool = True,
+        mean: float = 0.0,
+        std: float = 1.0,
+        element_refs: Optional[np.ndarray] = None,
+        **kwargs,
     ):
         r"""
         Args:
@@ -84,14 +80,16 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         """
         super().__init__(**kwargs)
         self.graph_converter = RadiusCutoffGraphConverter(
-            cutoff=cutoff, threebody_cutoff=threebody_cutoff)
+            cutoff=cutoff, threebody_cutoff=threebody_cutoff
+        )
 
         if include_states:
-            self.graph_converter.set_default_states(np.array([[0., 0.]],
-                                                             dtype="float32"))
+            self.graph_converter.set_default_states(
+                np.array([[0.0, 0.0]], dtype="float32")
+            )
 
         if task_type.lower() == "classification":
-            act_final = 'sigmoid'
+            act_final = "sigmoid"
         else:
             act_final = None
 
@@ -102,7 +100,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             max_n=max_n,
             max_l=max_l,
             cutoff=cutoff,
-            smooth=True
+            smooth=True,
         )
 
         self.feature_adjust = GraphUpdateFunc(
@@ -117,29 +115,26 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         self.three_interactions = [
             ThreeDInteraction(
                 update_network=MLP([update_size], activations=["sigmoid"]),
-                update_network2=GatedMLP([units], activations=["swish"],
-                                         use_bias=False)
-            ) for _ in range(n_blocks)
+                update_network2=GatedMLP(
+                    [units], activations=["swish"], use_bias=False
+                ),
+            )
+            for _ in range(n_blocks)
         ]
 
         self.graph_layers = []
 
         for i in range(n_blocks):
-            atom_network = GatedAtomUpdate(neurons=[units, units],
-                                           activation="swish")
+            atom_network = GatedAtomUpdate(neurons=[units, units], activation="swish")
 
-            bond_network = ConcatAtoms(
-                neurons=[units, units], activation="swish"
-            )
+            bond_network = ConcatAtoms(neurons=[units, units], activation="swish")
 
             if include_states:
                 atom_agg_func = AtomReduceState()
                 state_network = ConcatBondAtomState(
-                    update_func=MLP([units, units],
-                                    activations=["swish",
-                                                 "swish"]),
+                    update_func=MLP([units, units], activations=["swish", "swish"]),
                     atom_agg_func=atom_agg_func,
-                    bond_agg_func=None
+                    bond_agg_func=None,
                 )
             else:
                 state_network = StateNetwork()
@@ -147,7 +142,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             layer = GraphNetworkLayer(
                 atom_network=atom_network,
                 bond_network=bond_network,
-                state_network=state_network
+                state_network=state_network,
             )
             self.graph_layers.append(layer)
 
@@ -156,8 +151,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 atom_readout = Set2Set(units=units, num_steps=2, field="atoms")
 
             elif readout == "weighted_atom":
-                atom_readout = WeightedReadout(neurons=[units, units],
-                                               field="atoms")
+                atom_readout = WeightedReadout(neurons=[units, units], field="atoms")
             else:
                 atom_readout = ReduceReadOut("mean", field="atoms")
 
@@ -165,8 +159,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 atom_readout=atom_readout, include_states=include_states
             )
 
-            mlp = MLP([units, units, 1], ["swish", "swish", act_final],
-                      is_output=True)
+            mlp = MLP([units, units, 1], ["swish", "swish", act_final], is_output=True)
 
             self.final = Pipe(layers=[readout_nn, mlp])
 
@@ -178,17 +171,22 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 final_layers.append(
                     GraphNetworkLayer(
                         atom_network=GatedAtomUpdate(
-                            neurons=[units], activation="swish")
+                            neurons=[units], activation="swish"
+                        )
                     )
                 )
 
-            final_layers.append(GraphNetworkLayer(
-                atom_network=GraphUpdateFunc(
-                    update_func=GatedMLP(neurons=[units, units, 1],
-                                         activations=["swish", "swish",
-                                                      None]),
-                    update_field="atoms")
-            ))
+            final_layers.append(
+                GraphNetworkLayer(
+                    atom_network=GraphUpdateFunc(
+                        update_func=GatedMLP(
+                            neurons=[units, units, 1],
+                            activations=["swish", "swish", None],
+                        ),
+                        update_field="atoms",
+                    )
+                )
+            )
             final_layers.append(ReduceReadOut(method="sum", field="atoms"))
             self.final = Pipe(layers=final_layers)
 
@@ -196,8 +194,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             self.element_ref_calc = BaseAtomRef()
         else:
             self.element_ref_calc = AtomRef(
-                property_per_element=element_refs,
-                max_z=n_atom_types)
+                property_per_element=element_refs, max_z=n_atom_types
+            )
         self.max_n = max_n
         self.max_l = max_l
         self.n_blocks = n_blocks
@@ -257,13 +255,13 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 "is_intensive": self.is_intensive,
                 "mean": self.mean,
                 "std": self.std,
-                "element_refs": self.element_refs
+                "element_refs": self.element_refs,
             }
         )
         return config
 
     @classmethod
-    def from_config(cls, config: dict) -> 'M3GNet':
+    def from_config(cls, config: dict) -> "M3GNet":
         r"""
         Construct the model from a config dict
         Args:
@@ -308,8 +306,9 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         with open(fname, "r") as f:
             model_serialized = json.load(f)
         # model_serialized = _replace_compatibility(model_serialized)
-        model = tf.keras.models.model_from_json(model_serialized,
-                                                custom_objects=custom_objects)
+        model = tf.keras.models.model_from_json(
+            model_serialized, custom_objects=custom_objects
+        )
         model.load_weights(model_name)
         return model
 
@@ -335,8 +334,10 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         if model_name in MODEL_NAMES:
             return cls.from_dir(MODEL_NAMES[model_name])
         if os.path.isdir(model_name):
-            if 'm3gnet.json' in os.listdir(model_name):
+            if "m3gnet.json" in os.listdir(model_name):
                 return cls.from_dir(model_name)
 
-        raise ValueError(f"{model_name} not found in vail"
-                         f"able pretrained {list(MODEL_NAMES.keys())}")
+        raise ValueError(
+            f"{model_name} not found in vail"
+            f"able pretrained {list(MODEL_NAMES.keys())}"
+        )

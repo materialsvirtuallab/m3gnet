@@ -12,5 +12,5 @@ __all__ = [
     "M3GNet",
     "M3GNetCalculator",
     "Relaxer",
-    "MolecularDynamics"
+    "MolecularDynamics",
 ]

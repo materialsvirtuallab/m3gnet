@@ -7,8 +7,12 @@ import tensorflow as tf
 
 from m3gnet.config import DataType
 from m3gnet.graph import Index
-from m3gnet.utils import get_segment_indices_from_n, register, \
-    unsorted_segment_softmax, unsorted_segment_fraction
+from m3gnet.utils import (
+    get_segment_indices_from_n,
+    register,
+    unsorted_segment_softmax,
+    unsorted_segment_fraction,
+)
 from ._core import METHOD_MAPPING, MLP
 
 
@@ -36,12 +40,12 @@ class MultiFieldReadout(ReadOut):
     """
 
     def __init__(
-            self,
-            bond_readout: Optional[ReadOut] = None,
-            atom_readout: Optional[ReadOut] = None,
-            include_states: bool = True,
-            merge: Optional[tf.keras.layers.Layer] = None,
-            **kwargs,
+        self,
+        bond_readout: Optional[ReadOut] = None,
+        atom_readout: Optional[ReadOut] = None,
+        include_states: bool = True,
+        merge: Optional[tf.keras.layers.Layer] = None,
+        **kwargs,
     ):
         """
 
@@ -160,8 +164,7 @@ class Set2Set(ReadOut):
         super().__init__(**kwargs)
         self.units = units
         self.num_steps = num_steps
-        self.lstm = tf.keras.layers.LSTM(units=units, stateful=False,
-                                         return_state=True)
+        self.lstm = tf.keras.layers.LSTM(units=units, stateful=False, return_state=True)
         self.dense = tf.keras.layers.Dense(units=units)
         self.field = field
 
@@ -189,9 +192,7 @@ class Set2Set(ReadOut):
             )
             h = [state_h, state_c]
             eit = field * tf.repeat(qt, repeats=counts, axis=0)
-            ait = unsorted_segment_softmax(eit,
-                                           indices,
-                                           num_segments=n_struct)
+            ait = unsorted_segment_softmax(eit, indices, num_segments=n_struct)
             rt = tf.math.unsorted_segment_sum(
                 ait * field, indices, num_segments=n_struct
             )
@@ -205,8 +206,7 @@ class Set2Set(ReadOut):
         """
         d = super().get_config()
         d.update(
-            {"units": self.units, "num_steps": self.num_steps,
-             "field": self.field}
+            {"units": self.units, "num_steps": self.num_steps, "field": self.field}
         )
         return d
 
@@ -218,11 +218,9 @@ class WeightedReadout(ReadOut):
     from this layer
     """
 
-    def __init__(self,
-                 neurons: List[int],
-                 activation="swish",
-                 field: str = "atoms",
-                 **kwargs):
+    def __init__(
+        self, neurons: List[int], activation="swish", field: str = "atoms", **kwargs
+    ):
         """
 
         Args:
@@ -256,9 +254,9 @@ class WeightedReadout(ReadOut):
         weights = self.weight(field)
         indices = get_segment_indices_from_n(n_field)
         n_structs = tf.shape(n_field)[0]
-        factor = unsorted_segment_fraction(weights[:, 0],
-                                           indices,
-                                           num_segments=n_structs)
+        factor = unsorted_segment_fraction(
+            weights[:, 0], indices, num_segments=n_structs
+        )
         return tf.math.segment_sum(factor[:, None] * updated_field, indices)
 
     def get_config(self):
@@ -267,6 +265,11 @@ class WeightedReadout(ReadOut):
         Returns: dict
         """
         config = super().get_config()
-        config.update({"neurons": self.neurons,
-                       "activation": self.activation, "field": self.field})
+        config.update(
+            {
+                "neurons": self.neurons,
+                "activation": self.activation,
+                "field": self.field,
+            }
+        )
         return config

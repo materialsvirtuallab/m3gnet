@@ -31,12 +31,12 @@ class TestReadout(unittest.TestCase):
         self.assertTrue(res.shape == (1, 6))
 
     def test_atomreduce(self):
-        ar = ReduceReadOut(method="mean", field='atoms')
+        ar = ReduceReadOut(method="mean", field="atoms")
         result = ar(self.graph.as_list())
         self.assertTrue(result.shape == (1, 1))
 
     def test_multifield(self):
-        atom = ReduceReadOut(method="mean", field='atoms')
+        atom = ReduceReadOut(method="mean", field="atoms")
         bond = Set2Set(units=3, num_steps=2, field="bonds")
         multi = MultiFieldReadout(bond_readout=bond, atom_readout=atom)
         graph = self.graph.copy()

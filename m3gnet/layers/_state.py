@@ -48,15 +48,15 @@ class StateNetwork(GraphUpdate):
 @register
 class ConcatBondAtomState(StateNetwork):
     r"""
-        u^\prime = Update(\bar e^\prime⊕\bar v^\prime⊕u)
+    u^\prime = Update(\bar e^\prime⊕\bar v^\prime⊕u)
     """
 
     def __init__(
-            self,
-            update_func: Callable,
-            bond_agg_func: Callable = None,
-            atom_agg_func: Callable = None,
-            **kwargs
+        self,
+        update_func: Callable,
+        bond_agg_func: Callable = None,
+        atom_agg_func: Callable = None,
+        **kwargs
     ):
         """
         Args:

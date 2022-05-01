@@ -6,8 +6,12 @@ from typing import List
 import tensorflow as tf
 
 from m3gnet.graph import Index
-from m3gnet.utils import (SphericalBesselFunction, SphericalHarmonicsFunction,
-                          combine_sbf_shf, register)
+from m3gnet.utils import (
+    SphericalBesselFunction,
+    SphericalHarmonicsFunction,
+    combine_sbf_shf,
+    register,
+)
 
 
 @register
@@ -18,13 +22,13 @@ class SphericalBesselWithHarmonics(tf.keras.layers.Layer):
     """
 
     def __init__(
-            self,
-            max_n: int,
-            max_l: int,
-            cutoff: float = 5.0,
-            use_phi: bool = False,
-            smooth: bool = False,
-            **kwargs
+        self,
+        max_n: int,
+        max_l: int,
+        cutoff: float = 5.0,
+        use_phi: bool = False,
+        smooth: bool = False,
+        **kwargs
     ):
         """
 
@@ -39,8 +43,9 @@ class SphericalBesselWithHarmonics(tf.keras.layers.Layer):
             **kwargs:
         """
         super().__init__(**kwargs)
-        self.sbf = SphericalBesselFunction(max_l=max_l, max_n=max_n,
-                                           cutoff=cutoff, smooth=smooth)
+        self.sbf = SphericalBesselFunction(
+            max_l=max_l, max_n=max_n, cutoff=cutoff, smooth=smooth
+        )
         self.shf = SphericalHarmonicsFunction(max_l=max_l, use_phi=use_phi)
         self.max_n = max_n
         self.max_l = max_l

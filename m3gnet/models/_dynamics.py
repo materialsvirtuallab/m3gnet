@@ -26,28 +26,32 @@ from pymatgen.io.ase import AseAtomsAdaptor
 from ._base import Potential
 from ._m3gnet import M3GNet
 
-OPTIMIZERS = {"FIRE": FIRE,
-              "BFGS": BFGS,
-              "LBFGS": LBFGS,
-              "LBFGSLineSearch": LBFGSLineSearch,
-              "MDMin": MDMin,
-              "SciPyFminCG": SciPyFminCG,
-              "SciPyFminBFGS": SciPyFminBFGS,
-              "BFGSLineSearch": BFGSLineSearch
-              }
+OPTIMIZERS = {
+    "FIRE": FIRE,
+    "BFGS": BFGS,
+    "LBFGS": LBFGS,
+    "LBFGSLineSearch": LBFGSLineSearch,
+    "MDMin": MDMin,
+    "SciPyFminCG": SciPyFminCG,
+    "SciPyFminBFGS": SciPyFminBFGS,
+    "BFGSLineSearch": BFGSLineSearch,
+}
 
 
 class M3GNetCalculator(Calculator):
     """
     M3GNet calculator based on ase Calculator
     """
-    implemented_properties = ['energy', "free_energy", 'forces', 'stress']
 
-    def __init__(self,
-                 potential: Potential,
-                 compute_stress: bool = True,
-                 stress_weight: float = 1.0,
-                 **kwargs):
+    implemented_properties = ["energy", "free_energy", "forces", "stress"]
+
+    def __init__(
+        self,
+        potential: Potential,
+        compute_stress: bool = True,
+        stress_weight: float = 1.0,
+        **kwargs
+    ):
         """
 
         Args:
@@ -61,10 +65,12 @@ class M3GNetCalculator(Calculator):
         self.compute_stress = compute_stress
         self.stress_weight = stress_weight
 
-    def calculate(self,
-                  atoms: Optional[Atoms] = None,
-                  properties: Optional[list] = None,
-                  system_changes: Optional[list] = None):
+    def calculate(
+        self,
+        atoms: Optional[Atoms] = None,
+        properties: Optional[list] = None,
+        system_changes: Optional[list] = None,
+    ):
         """
         Args:
             atoms (ase.Atoms): ase Atoms object
@@ -75,21 +81,24 @@ class M3GNetCalculator(Calculator):
         Returns:
 
         """
-        properties = properties or ['energy']
+        properties = properties or ["energy"]
         system_changes = system_changes or all_changes
-        super().calculate(atoms=atoms, properties=properties,
-                          system_changes=system_changes)
+        super().calculate(
+            atoms=atoms, properties=properties, system_changes=system_changes
+        )
 
         graph = self.potential.graph_converter(atoms)
         graph_list = graph.as_tf().as_list()
         results = self.potential.get_efs_tensor(
-            graph_list, include_stresses=self.compute_stress)
-        self.results.update(energy=results[0].numpy().ravel(),
-                            free_energy=results[0].numpy().ravel(),
-                            forces=results[1].numpy())
+            graph_list, include_stresses=self.compute_stress
+        )
+        self.results.update(
+            energy=results[0].numpy().ravel(),
+            free_energy=results[0].numpy().ravel(),
+            forces=results[1].numpy(),
+        )
         if self.compute_stress:
-            self.results.update(
-                stress=results[2].numpy()[0] * self.stress_weight)
+            self.results.update(stress=results[2].numpy()[0] * self.stress_weight)
 
 
 class Relaxer:
@@ -97,11 +106,13 @@ class Relaxer:
     Relaxer is a class for structural relaxation
     """
 
-    def __init__(self,
-                 potential: Optional[Union[Potential, str]] = None,
-                 optimizer: Union[Optimizer, str] = "FIRE",
-                 relax_cell: bool = True,
-                 stress_weight: float = 0.01):
+    def __init__(
+        self,
+        potential: Optional[Union[Potential, str]] = None,
+        optimizer: Union[Optimizer, str] = "FIRE",
+        relax_cell: bool = True,
+        stress_weight: float = 0.01,
+    ):
         """
 
         Args:
@@ -126,19 +137,22 @@ class Relaxer:
             optimizer_obj = optimizer
 
         self.opt_class: Optimizer = optimizer_obj
-        self.calculator = M3GNetCalculator(potential=potential,
-                                           stress_weight=stress_weight)
+        self.calculator = M3GNetCalculator(
+            potential=potential, stress_weight=stress_weight
+        )
         self.relax_cell = relax_cell
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
 
-    def relax(self,
-              atoms: Atoms,
-              fmax: float = 0.1,
-              steps: int = 500,
-              traj_file: str = None,
-              interval=1,
-              **kwargs):
+    def relax(
+        self,
+        atoms: Atoms,
+        fmax: float = 0.1,
+        steps: int = 500,
+        traj_file: str = None,
+        interval=1,
+        **kwargs
+    ):
         """
 
         Args:
@@ -165,8 +179,10 @@ class Relaxer:
             obs.save(traj_file)
         if isinstance(atoms, ExpCellFilter):
             atoms = atoms.atoms
-        return {"final_structure": self.ase_adaptor.get_structure(atoms),
-                "trajectory": obs}
+        return {
+            "final_structure": self.ase_adaptor.get_structure(atoms),
+            "trajectory": obs,
+        }
 
 
 class TrajectoryObserver:
@@ -215,13 +231,15 @@ class TrajectoryObserver:
         """
         with open(filename, "wb") as f:
             pickle.dump(
-                {"energy": self.energies,
-                 "forces": self.forces,
-                 "stresses": self.stresses,
-                 "atom_positions": self.atom_positions,
-                 "cell": self.cells,
-                 "atomic_number": self.atoms.get_atomic_numbers()},
-                f
+                {
+                    "energy": self.energies,
+                    "forces": self.forces,
+                    "stresses": self.stresses,
+                    "atom_positions": self.atom_positions,
+                    "cell": self.cells,
+                    "atomic_number": self.atoms.get_atomic_numbers(),
+                },
+                f,
             )
 
 
@@ -230,20 +248,22 @@ class MolecularDynamics:
     Molecular dynamics class
     """
 
-    def __init__(self,
-                 atoms: Atoms,
-                 potential: Optional[Union[Potential, str]] = None,
-                 ensemble: str = 'nvt',
-                 temperature: int = 300,
-                 timestep: float = 1.0,
-                 pressure: float = 1.01325 * units.bar,
-                 taut: Optional[float] = None,
-                 taup: Optional[float] = None,
-                 compressibility_au: Optional[float] = None,
-                 trajectory: Optional[Union[str, Trajectory]] = None,
-                 logfile: Optional[str] = None,
-                 loginterval: int = 1,
-                 append_trajectory: bool = False):
+    def __init__(
+        self,
+        atoms: Atoms,
+        potential: Optional[Union[Potential, str]] = None,
+        ensemble: str = "nvt",
+        temperature: int = 300,
+        timestep: float = 1.0,
+        pressure: float = 1.01325 * units.bar,
+        taut: Optional[float] = None,
+        taup: Optional[float] = None,
+        compressibility_au: Optional[float] = None,
+        trajectory: Optional[Union[str, Trajectory]] = None,
+        logfile: Optional[str] = None,
+        loginterval: int = 1,
+        append_trajectory: bool = False,
+    ):
         """
 
         Args:
@@ -280,25 +300,31 @@ class MolecularDynamics:
             taup = 1000 * timestep * units.fs
 
         if ensemble.lower() == "nvt":
-            self.dyn = NVTBerendsen(self.atoms, timestep * units.fs,
-                                    temperature_K=temperature,
-                                    taut=taut,
-                                    trajectory=trajectory,
-                                    logfile=logfile,
-                                    loginterval=loginterval,
-                                    append_trajectory=append_trajectory)
+            self.dyn = NVTBerendsen(
+                self.atoms,
+                timestep * units.fs,
+                temperature_K=temperature,
+                taut=taut,
+                trajectory=trajectory,
+                logfile=logfile,
+                loginterval=loginterval,
+                append_trajectory=append_trajectory,
+            )
 
         elif ensemble.lower() == "npt":
-            self.dyn = NPTBerendsen(self.atoms, timestep * units.fs,
-                                    temperature_K=temperature,
-                                    pressure=pressure,
-                                    taut=taut,
-                                    taup=taup,
-                                    compressibility_au=compressibility_au,
-                                    trajectory=trajectory,
-                                    logfile=logfile,
-                                    loginterval=loginterval,
-                                    append_trajectory=append_trajectory)
+            self.dyn = NPTBerendsen(
+                self.atoms,
+                timestep * units.fs,
+                temperature_K=temperature,
+                pressure=pressure,
+                taut=taut,
+                taup=taup,
+                compressibility_au=compressibility_au,
+                trajectory=trajectory,
+                logfile=logfile,
+                loginterval=loginterval,
+                append_trajectory=append_trajectory,
+            )
         else:
             raise ValueError("Ensemble not supported")
 

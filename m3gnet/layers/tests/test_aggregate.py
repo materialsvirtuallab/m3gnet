@@ -13,14 +13,11 @@ class TestAgg(unittest.TestCase):
         graph[Index.ATOMS] = np.random.normal(size=(10, 3))
         graph[Index.N_ATOMS] = np.array([5, 5])
         graph[Index.STATES] = np.random.normal(size=(2, 5))
-        ars = AtomReduceState(method='mean')
+        ars = AtomReduceState(method="mean")
         res = ars(graph)
-        self.assertTrue(np.allclose(res[0],
-                        np.mean(graph[Index.ATOMS][:5], axis=0)))
-        self.assertTrue(np.allclose(res[1],
-                        np.mean(graph[Index.ATOMS][5:], axis=0)))
+        self.assertTrue(np.allclose(res[0], np.mean(graph[Index.ATOMS][:5], axis=0)))
+        self.assertTrue(np.allclose(res[1], np.mean(graph[Index.ATOMS][5:], axis=0)))
 
 
 if __name__ == "__main__":
     unittest.main()
-

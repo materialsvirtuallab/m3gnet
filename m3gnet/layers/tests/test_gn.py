@@ -19,8 +19,9 @@ class TestGN(unittest.TestCase):
         )
         s.states = np.array([[0.1, 0.2, 0.3, 0.4, 0.5]])
         mol = Molecule(["C", "O"], [[0, 0, 0], [1.1, 0, 0]])
-        rc = RadiusCutoffGraphConverter(cutoff=4.0, has_threebody=True,
-                                        threebody_cutoff=4.0)
+        rc = RadiusCutoffGraphConverter(
+            cutoff=4.0, has_threebody=True, threebody_cutoff=4.0
+        )
         cls.struct_graph = rc.convert(s).as_list()
         cls.mol_graph = rc.convert(mol).as_list()
 
@@ -31,7 +32,7 @@ class TestGN(unittest.TestCase):
         gn = GraphNetworkLayer(
             bond_network=bond_network,
             atom_network=atom_network,
-            state_network=state_network
+            state_network=state_network,
         )
 
         gf = GraphFeaturizer(
@@ -42,7 +43,7 @@ class TestGN(unittest.TestCase):
             max_n=3,
             max_l=3,
             cutoff=4.0,
-            smooth=False
+            smooth=False,
         )
 
         g1 = gf(self.struct_graph)

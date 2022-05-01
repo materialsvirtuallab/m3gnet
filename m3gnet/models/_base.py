@@ -35,9 +35,9 @@ class GraphModelMixin(tf.keras.layers.Layer):
         """
         return self.predict_graph(self.graph_converter(structure))
 
-    def predict_structures(self,
-                           structures: List[StructureOrMolecule],
-                           batch_size: int = 128) -> tf.Tensor:
+    def predict_structures(
+        self, structures: List[StructureOrMolecule], batch_size: int = 128
+    ) -> tf.Tensor:
         """
         predict properties from structures
         Args:
@@ -60,9 +60,9 @@ class GraphModelMixin(tf.keras.layers.Layer):
             graph = graph.as_list()
         return self.call(graph)
 
-    def predict_graphs(self,
-                       graph_list: List[Union[MaterialGraph, List]],
-                       batch_size: int = 128) -> tf.Tensor:
+    def predict_graphs(
+        self, graph_list: List[Union[MaterialGraph, List]], batch_size: int = 128
+    ) -> tf.Tensor:
         """
         predict properties from graphs
         Args:
@@ -76,7 +76,7 @@ class GraphModelMixin(tf.keras.layers.Layer):
         n_steps = math.ceil(n / batch_size)
         predicted = []
         for i in range(n_steps):
-            graphs = graph_list[batch_size * i: batch_size * (i + 1)]
+            graphs = graph_list[batch_size * i : batch_size * (i + 1)]
             graph = assemble_material_graph(graphs)  # type: ignore
             if use_graph:
                 results = self.call(graph.as_list())
@@ -120,8 +120,7 @@ class BasePotential(tf.keras.Model, ABC):
         """
         return self.get_efs(graph)[2]
 
-    def get_ef(self, obj: Union[StructureOrMolecule, MaterialGraph, List]) \
-            -> tuple:
+    def get_ef(self, obj: Union[StructureOrMolecule, MaterialGraph, List]) -> tuple:
         """
         get energy and force from a Structure, a graph or a list repr of a
         graph
@@ -142,9 +141,11 @@ class BasePotential(tf.keras.Model, ABC):
         """
         return self.get_efs_tensor(graph, include_stresses=False)
 
-    def get_efs(self,
-                obj: Union[StructureOrMolecule, MaterialGraph, List],
-                include_stresses: bool = True):
+    def get_efs(
+        self,
+        obj: Union[StructureOrMolecule, MaterialGraph, List],
+        include_stresses: bool = True,
+    ):
         """
         get energy and force from a Structure, a graph or a list repr of a
         graph
@@ -161,9 +162,9 @@ class BasePotential(tf.keras.Model, ABC):
         return self.get_efs_tensor(obj, include_stresses=include_stresses)
 
     @tf.function(experimental_relax_shapes=True)
-    def get_efs_tensor(self,
-                       graph: List[tf.Tensor],
-                       include_stresses: bool = False) -> tuple:
+    def get_efs_tensor(
+        self, graph: List[tf.Tensor], include_stresses: bool = True
+    ) -> tuple:
         """
         get energy and force from a list repr of a
         graph
@@ -184,8 +185,7 @@ class BasePotential(tf.keras.Model, ABC):
 
                 strain_augment = repeat_with_n(strain, graph[Index.N_ATOMS])
                 graph[Index.ATOM_POSITIONS] = tf.keras.backend.batch_dot(
-                    graph[Index.ATOM_POSITIONS],
-                    (tf.eye(3)[None, ...] + strain_augment)
+                    graph[Index.ATOM_POSITIONS], (tf.eye(3)[None, ...] + strain_augment)
                 )
                 volume = tf.linalg.det(graph[Index.LATTICES])
             energies = self.get_energies(graph)
@@ -193,28 +193,25 @@ class BasePotential(tf.keras.Model, ABC):
             if include_stresses:
                 derivatives["stresses"] = strain  # type: ignore
 
-            derivatives = tape.gradient(
-                energies,
-                derivatives
-            )
+            derivatives = tape.gradient(energies, derivatives)
 
         forces = -derivatives["forces"]
         forces = tf.cast(tf.convert_to_tensor(forces), DataType.tf_float)
         results: tuple = (energies, forces)
         # eV/A^3 to GPa
         if include_stresses:
-            stresses = 1 / volume[:, None, None] * derivatives["stresses"] * \
-                160.21766208
-            stresses = tf.cast(tf.convert_to_tensor(stresses),
-                               DataType.tf_float)
+            stresses = (
+                1 / volume[:, None, None] * derivatives["stresses"] * 160.21766208
+            )
+            stresses = tf.cast(tf.convert_to_tensor(stresses), DataType.tf_float)
             results += (stresses,)
         return results
 
     def call(
-            self,
-            graph: Union[MaterialGraph, Structure, Molecule, List],
-            include_forces: bool = True,
-            include_stresses: bool = True,
+        self,
+        graph: Union[MaterialGraph, Structure, Molecule, List],
+        include_forces: bool = True,
+        include_stresses: bool = True,
     ):
         """
         Apply the potential to a graph

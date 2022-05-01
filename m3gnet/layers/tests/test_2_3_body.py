@@ -4,8 +4,7 @@ import numpy as np
 from pymatgen.core import Lattice, Molecule, Structure
 
 from m3gnet.graph import RadiusCutoffGraphConverter, tf_compute_distance_angle
-from m3gnet.layers import (PairDistance, PairVector,
-                           SphericalBesselWithHarmonics)
+from m3gnet.layers import PairDistance, PairVector, SphericalBesselWithHarmonics
 
 
 class TestTwoBody(unittest.TestCase):
@@ -15,8 +14,9 @@ class TestTwoBody(unittest.TestCase):
             Lattice.cubic(4.0), ["Mo", "S"], [[0.0, 0.0, 0.0], [0.5, 0.5, 0.5]]
         )
         mol = Molecule(["C", "O"], [[0, 0, 0], [1.1, 0, 0]])
-        rc = RadiusCutoffGraphConverter(cutoff=4.0, has_threebody=True,
-                                        threebody_cutoff=4.0)
+        rc = RadiusCutoffGraphConverter(
+            cutoff=4.0, has_threebody=True, threebody_cutoff=4.0
+        )
         cls.struct_graph = rc.convert(s).as_list()
         cls.mol_graph = rc.convert(mol).as_list()
 

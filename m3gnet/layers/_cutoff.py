@@ -18,8 +18,7 @@ def polynomial(r: tf.Tensor, cutoff: float) -> tf.Tensor:
     """
     ratio = r / cutoff
     return tf.where(
-        r <= cutoff, 1 - 6 * ratio ** 5 + 15 * ratio ** 4 - 10 * ratio ** 3,
-        0.0
+        r <= cutoff, 1 - 6 * ratio ** 5 + 15 * ratio ** 4 - 10 * ratio ** 3, 0.0
     )
 
 

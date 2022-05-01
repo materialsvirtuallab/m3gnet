@@ -22,6 +22,7 @@ class AtomNetwork(GraphUpdate):
     Atom network that takes a graph as input and then calculate new
     atom attributes
     """
+
     def update_atoms(self, graph: List) -> tf.Tensor:
         """
         Take a graph input and calculate the updated atom attributes
@@ -53,10 +54,8 @@ class GatedAtomUpdate(AtomNetwork):
     Take the neighbor atom attributes and bond attributes, update them to the
     center atom
     """
-    def __init__(self,
-                 neurons: List[int],
-                 activation: str = "swish",
-                 **kwargs):
+
+    def __init__(self, neurons: List[int], activation: str = "swish", **kwargs):
         """
         Args:
             neurons (list): number of neurons in each layer
@@ -65,16 +64,16 @@ class GatedAtomUpdate(AtomNetwork):
         """
         super().__init__(**kwargs)
         self.neurons = neurons
-        self.bond_dense = GatedMLP(neurons=neurons,
-                                   activations=[activation] * len(neurons))
-        self.weight_update = tf.keras.layers.Dense(neurons[-1],
-                                                   activation=activation,
-                                                   use_bias=False)
+        self.bond_dense = GatedMLP(
+            neurons=neurons, activations=[activation] * len(neurons)
+        )
+        self.weight_update = tf.keras.layers.Dense(
+            neurons[-1], activation=activation, use_bias=False
+        )
         self.activation = activation
 
     def _get_reduced(self, graph: List):
-        atoms_left = tf.gather(graph[Index.ATOMS],
-                               graph[Index.BOND_ATOM_INDICES][:, 0])
+        atoms_left = tf.gather(graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES][:, 0])
         atoms_right = tf.gather(
             graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES][:, 1]
         )
@@ -86,7 +85,8 @@ class GatedAtomUpdate(AtomNetwork):
 
         reduced = tf.concat(atoms, axis=-1)
         reduced = self.bond_dense(reduced) * self.weight_update(
-            graph[Index.BOND_WEIGHTS])
+            graph[Index.BOND_WEIGHTS]
+        )
         return reduced
 
     def update_atoms(self, graph: List) -> tf.Tensor:
@@ -111,6 +111,5 @@ class GatedAtomUpdate(AtomNetwork):
         Returns: dict
         """
         config = super().get_config()
-        config.update(neurons=self.neurons,
-                      activation=self.activation)
+        config.update(neurons=self.neurons, activation=self.activation)
         return config

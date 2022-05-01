@@ -23,11 +23,11 @@ class GraphNetworkLayer(GraphUpdate):
     """
 
     def __init__(
-            self,
-            bond_network: Optional[GraphUpdate] = None,
-            atom_network: Optional[GraphUpdate] = None,
-            state_network: Optional[GraphUpdate] = None,
-            **kwargs
+        self,
+        bond_network: Optional[GraphUpdate] = None,
+        atom_network: Optional[GraphUpdate] = None,
+        state_network: Optional[GraphUpdate] = None,
+        **kwargs
     ):
         """
 
@@ -69,7 +69,7 @@ class GraphNetworkLayer(GraphUpdate):
 
 
 def _get_bond_featurizer(
-        nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs
+    nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs
 ):
     # bond network settings for the featurization layer
     # no need for bond network
@@ -109,8 +109,11 @@ def _get_bond_featurizer(
         cutoff = kwargs.pop("cutoff")
         smooth = kwargs.pop("smooth", False)
         return PairRadialBasisExpansion(
-            rbf_type="SphericalBessel", max_l=max_l, max_n=max_n,
-            cutoff=cutoff, smooth=smooth
+            rbf_type="SphericalBessel",
+            max_l=max_l,
+            max_n=max_n,
+            cutoff=cutoff,
+            smooth=smooth,
         )
     raise ValueError("Cannot derive bond network type")
 
@@ -124,18 +127,18 @@ class GraphFeaturizer(GraphNetworkLayer):
     """
 
     def __init__(
-            self,
-            nfeat_bond: Optional[int] = None,
-            nfeat_atom: Optional[int] = None,
-            nfeat_state: Optional[int] = None,
-            n_bond_types: Optional[int] = None,
-            n_atom_types: Optional[int] = None,
-            n_state_types: Optional[int] = None,
-            bond_embedding_dim: Optional[int] = None,
-            atom_embedding_dim: Optional[int] = None,
-            state_embedding_dim: Optional[int] = None,
-            rbf_type="SpherialBessel",
-            **kwargs
+        self,
+        nfeat_bond: Optional[int] = None,
+        nfeat_atom: Optional[int] = None,
+        nfeat_state: Optional[int] = None,
+        n_bond_types: Optional[int] = None,
+        n_atom_types: Optional[int] = None,
+        n_state_types: Optional[int] = None,
+        bond_embedding_dim: Optional[int] = None,
+        atom_embedding_dim: Optional[int] = None,
+        state_embedding_dim: Optional[int] = None,
+        rbf_type="SpherialBessel",
+        **kwargs
     ):
         """
 
@@ -164,8 +167,10 @@ class GraphFeaturizer(GraphNetworkLayer):
         # atom network for the featurization layer
         if nfeat_atom is None:
             if n_atom_types is None or atom_embedding_dim is None:
-                raise ValueError("Either specify nfeat_atom or "
-                                 "n_atom_types and atom_embedding_dim")
+                raise ValueError(
+                    "Either specify nfeat_atom or "
+                    "n_atom_types and atom_embedding_dim"
+                )
             atom_network = GraphFieldEmbedding(
                 nvocal=n_atom_types + 1,
                 embedding_dim=atom_embedding_dim,
@@ -178,8 +183,10 @@ class GraphFeaturizer(GraphNetworkLayer):
         # state network for the featurization layer
         if nfeat_state is None and state_embedding_dim is not None:
             if n_state_types is None:
-                raise ValueError("Either specify nfeat_state or "
-                                 "n_state_types and state_embedding_dim")
+                raise ValueError(
+                    "Either specify nfeat_state or "
+                    "n_state_types and state_embedding_dim"
+                )
             state_network = GraphFieldEmbedding(
                 nvocal=n_state_types,
                 embedding_dim=state_embedding_dim,
@@ -235,11 +242,7 @@ class GraphFieldEmbedding(GraphUpdateFunc):
     """
 
     def __init__(
-            self,
-            nvocal: int = 95,
-            embedding_dim: int = 16,
-            field: str = "atoms",
-            **kwargs
+        self, nvocal: int = 95, embedding_dim: int = 16, field: str = "atoms", **kwargs
     ):
         """
 
@@ -254,8 +257,7 @@ class GraphFieldEmbedding(GraphUpdateFunc):
         self.field = field
         self.kwargs = kwargs
         self.embedding = Embedding(nvocal, embedding_dim, **kwargs)
-        super().__init__(update_func=self.embedding, update_field=field,
-                         **kwargs)
+        super().__init__(update_func=self.embedding, update_field=field, **kwargs)
 
     def get_config(self) -> dict:
         """

@@ -4,9 +4,12 @@ import numpy as np
 import tensorflow as tf
 from pymatgen.core import Lattice, Structure
 
-from m3gnet.graph import (Index, RadiusCutoffGraphConverter,
-                          get_pair_vector_from_graph,
-                          tf_compute_distance_angle)
+from m3gnet.graph import (
+    Index,
+    RadiusCutoffGraphConverter,
+    get_pair_vector_from_graph,
+    tf_compute_distance_angle,
+)
 
 
 def _loop_indices(bond_atom_indices, pair_dist, cutoff=4.0):

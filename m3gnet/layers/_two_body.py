@@ -15,6 +15,7 @@ class PairDistance(tf.keras.layers.Layer):
     Compute pair distances from atom positions, bond indices, lattices and
     periodic offsets.
     """
+
     def call(self, graph: List, **kwargs):
         """
         Calculate the pair distance from a MaterialGraph.

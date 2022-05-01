@@ -34,8 +34,7 @@ class RadialBasisFunctions(tf.keras.layers.Layer):
                 allowed_kwargs.update({i: j})
                 keys.append(i)
 
-        missing_keys: set[str] = \
-            set(RBF_ALLOWED[rbf_type]["params"]) - set(keys)  # type: ignore
+        missing_keys: set[str] = set(RBF_ALLOWED[rbf_type]["params"]) - set(keys)  # type: ignore
         if len(missing_keys) > 0:
             raise ValueError("kwargs ", missing_keys, " not present")
         self.allowed_kwargs = allowed_kwargs
