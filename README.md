@@ -6,6 +6,7 @@ A universal material graph interatomic potential with three-body interactions
 * [System requirements](#systemreq)
 * [Installation](#installation)
 * [Demo](#demo)
+* [Model training](#training)
 * [Datasets](#datasets)
 * [References](#references)
 
@@ -143,6 +144,56 @@ Time[ps]      Etot[eV]     Epot[eV]     Ekin[eV]    T[K]
 
 The MD run takes less than 1 minute. 
 
+<a name="training"></a>
+# Model training
+
+The potential model can be trained using the `PotentialTrainer` in `m3gnet.
+trainers`.
+The training dataset can be
+
+- structures, a list of pymatgen Structures
+- energies, a list of energy floats
+- forces, a list of nx3 force matrix, where `n` is the number of atom in 
+  each structure. `n` does not need to be the same for all structures.
+- stresses, a list of 3x3 stress matrix. 
+
+For the `stresses`, we use the convention that compressive stress gives 
+negative values. `VASP` stress should change signs to work directly with 
+the model.
+
+We use validation dataset to select the stopping epoch number. The dataset 
+has similar format as the training dataset. 
+
+A minimal example of model training is shown below.
+
+```python
+from m3gnet.models import M3GNet, Potential
+from m3gnet.trainers import PotentialTrainer
+
+import tensorflow as tf
+
+m3gnet = M3GNet(is_intensive=False)
+potential = Potential(model=m3gnet)
+
+trainer = PotentialTrainer(
+    potential=potential, optimizer=tf.keras.optimizers.Adam(1e-3)
+)
+
+
+trainer.train(
+    structures,
+    energies,
+    forces,
+    stresses,
+    validation_graphs_or_structures=val_structures,
+    val_energies=val_energies,
+    val_forces=val_forces,
+    val_stresses=val_stresses,
+    epochs=100,
+    fit_per_element_offset=True,
+    save_checkpoint=False,
+)
+```
 <a name="datasets"></a>
 # Datasets
 The training data `MPF.2021.2.8` is hosted on [figshare](https://figshare.com/articles/dataset/MPF_2021_2_8/19470599) 
