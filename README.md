@@ -147,8 +147,7 @@ The MD run takes less than 1 minute.
 <a name="training"></a>
 # Model training
 
-The potential model can be trained using the `PotentialTrainer` in `m3gnet.
-trainers`.
+The potential model can be trained using the `PotentialTrainer` in `m3gnet.trainers`.
 The training dataset can be
 
 - structures, a list of pymatgen Structures
@@ -156,6 +155,8 @@ The training dataset can be
 - forces, a list of nx3 force matrix, where `n` is the number of atom in 
   each structure. `n` does not need to be the same for all structures.
 - stresses, a list of 3x3 stress matrix. 
+
+where the `stresses` is optional. 
 
 For the `stresses`, we use the convention that compressive stress gives 
 negative values. `VASP` stress should change signs to work directly with 
