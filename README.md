@@ -99,7 +99,7 @@ eV/atom`](https://materialsproject.org/materials/mp-129/).
 
 The relaxation takes less than 20 seconds.
 
-## Molecular Dynamics
+## Molecular dynamics
 
 Molecular dynamics simulations can be easily performed as well.
 
