@@ -52,7 +52,6 @@ class TestTrainer(unittest.TestCase):
                 epochs=2,
                 train_metrics=["mae"],
             )
-        rmtree(os.path.join(DIR, "final_model"))
         self.assertTrue(
             m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
         )
@@ -85,7 +84,6 @@ class TestTrainer(unittest.TestCase):
         self.assertTrue(
             m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
         )
-        rmtree(os.path.join(DIR, "final_model"))
 
     def test_train_energy_offset(self):
         m3gnet = M3GNet(n_blocks=1, units=5, is_intensive=False)

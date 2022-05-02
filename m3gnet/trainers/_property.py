@@ -302,5 +302,3 @@ class Trainer:
             best_model_weights = best_model_weights.rsplit(".", 1)[0]
             self.model.load_weights(best_model_weights)
             self.model.save("best_model")
-        else:
-            self.model.save("final_model")
