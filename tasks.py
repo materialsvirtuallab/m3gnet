@@ -77,7 +77,7 @@ def release_github(ctx):
     desc = toks[1].strip()
     payload = {
         "tag_name": "v" + NEW_VER,
-        "target_commitish": "master",
+        "target_commitish": "main",
         "name": "v" + NEW_VER,
         "body": desc,
         "draft": False,
