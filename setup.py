@@ -44,7 +44,6 @@ setup(
     author_email="chen08013@gmail.com",
     download_url="https://github.com/materialsvirtuallab/m3gnet",
     license="BSD",
-    install_requires=["numpy", "scikit-learn", "pymatgen>=2019.10.4", "monty"],
     extras_require={
         "model_saving": ["h5py"],
         "tensorflow": ["tensorflow>=2.7"],
