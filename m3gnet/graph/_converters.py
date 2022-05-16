@@ -11,7 +11,7 @@ from ase import Atoms
 from pymatgen.core import Structure
 
 from m3gnet.config import DataType
-from m3gnet.typing import StructureOrMolecule
+from m3gnet.type import StructureOrMolecule
 from m3gnet.utils import register, reshape_array
 
 from ._batch import assemble_material_graph
@@ -49,7 +49,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
             List of atomic numbers
         """
         if isinstance(structure, Atoms):
-            return structure.get_atomic_numbers()
+            return np.array(structure.get_atomic_numbers(), dtype=DataType.np_int)
         return np.array([i.specie.Z for i in structure], dtype=DataType.np_int)
 
     def set_default_states(self, states=None):

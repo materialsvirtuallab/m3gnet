@@ -26,7 +26,7 @@ jobs:
       run: |
         pip install --upgrade pip
         # pip install mypy --upgrade --quiet
-        mypy m3gnet
+        mypy m3gnet/*.py m3gnet/*/*.py
     - name: flake8
       run: |
         # pip install flake8-black --upgrade --quiet

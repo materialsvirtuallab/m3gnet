@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Installation for m3gnet
+"""
 
 import os
 import re
@@ -20,15 +22,17 @@ with open("m3gnet/__init__.py", encoding="utf-8") as fd:
             item = item
             lines += item + "\n"
     except Exception as exc:
-        raise Exception("Caught exception {}".format(exc))
+        raise Exception(f"Caught exception {exc}")
 
 version = re.search('__version__ = "(.*)"', lines).group(1)
 
 
-extension = [Extension(
-    "m3gnet.graph._threebody_indices",
-    ["m3gnet/graph/_threebody_indices.pyx"],
-)]
+extension = [
+    Extension(
+        "m3gnet.graph._threebody_indices",
+        ["m3gnet/graph/_threebody_indices.pyx"],
+    )
+]
 
 setup(
     name="m3gnet",
@@ -40,17 +44,16 @@ setup(
     author_email="chen08013@gmail.com",
     download_url="https://github.com/materialsvirtuallab/m3gnet",
     license="BSD",
-    install_requires=["numpy", "scikit-learn", "pymatgen>=2019.10.4", "monty"],
     extras_require={
         "model_saving": ["h5py"],
-        "molecules": ["openbabel", "rdkit"],
-        "tensorflow": ["tensorflow>=2.1"],
-        "tensorflow with gpu": ["tensorflow-gpu>=2.1"],
+        "tensorflow": ["tensorflow>=2.7"],
+        "tensorflow with gpu": ["tensorflow-gpu>=2.7"],
     },
     packages=find_packages(),
     package_data={
         "m3gnet": ["*.json", "*.md"],
     },
+    include_package_data=True,
     ext_modules=cythonize(extension),
     include_dirs=np.get_include(),
     keywords=[
@@ -62,6 +65,8 @@ setup(
         "graph",
         "networks",
         "neural",
+        "force field",
+        "interatomic potential"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -78,4 +83,3 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
 )
-

@@ -9,8 +9,7 @@
 # to your local ".git/hooks" directory
 
 status=0
-files=$(git diff --diff-filter=d --cached --name-only | grep -E 'm3gnet.*\.
-(py)$' | sed '/test_/d')
+files=$(git diff --diff-filter=d --cached --name-only | grep -E 'm3gnet.*\.py$' | sed '/test_/d')
 files=`echo $files | tr '\n' ' '`
 if [ "$files" != " " ]; then
     for cmd in pydocstyle mypy flake8 pylint

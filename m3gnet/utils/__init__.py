@@ -5,6 +5,7 @@ Utilities for m3gnet
 
 from ._general import check_array_equal, check_shape_consistency, reshape_array
 from ._math import (
+    Gaussian,
     SphericalBesselFunction,
     SphericalHarmonicsFunction,
     combine_sbf_shf,
@@ -41,6 +42,7 @@ __all__ = [
     "reshape_array",
     "get_spherical_bessel_roots",
     "spherical_bessel_roots",
+    "Gaussian",
     "SphericalBesselFunction",
     "SphericalHarmonicsFunction",
     "combine_sbf_shf",

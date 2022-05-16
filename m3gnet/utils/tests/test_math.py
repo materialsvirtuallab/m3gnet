@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 
 from m3gnet.utils import (
+    Gaussian,
     SphericalBesselFunction,
     SphericalHarmonicsFunction,
     combine_sbf_shf,
@@ -19,6 +20,13 @@ class TestMath(unittest.TestCase):
         roots = spherical_bessel_roots(max_l=1, max_n=5)
         roots2 = get_spherical_bessel_roots()
         self.assertTrue(np.allclose(roots2[0, :5], roots.ravel()))
+
+    def test_gaussian(self):
+        centers = np.linspace(1.0, 5.0, 10)
+        width = 0.5
+        gf = Gaussian(centers=centers, width=width)
+        r = np.linspace(1.0, 4.0, 10)
+        self.assertTupleEqual(gf(r).numpy().shape, (10, 10))
 
     def test_spherical_bessel_harmonics_function(self):
         r = tf.random.normal(shape=(10,))

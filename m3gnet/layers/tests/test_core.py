@@ -24,9 +24,9 @@ class TestCore(unittest.TestCase):
         cls.x = np.random.normal(size=(10, 4))
 
     def test_pipe(self):
-        pipe = Pipe(layers=[_Layer(), _Layer(), _Layer()])
+        pipe = Pipe(layers=[_Layer(), _Layer()])
         y = pipe(self.x)
-        self.assertTrue(np.linalg.norm(self.x**8 - y) < 0.001)
+        self.assertTrue(np.linalg.norm(self.x ** 4 - y) < 0.001)
 
     def test_mlp(self):
         layer = MLP(neurons=[10, 3], activations="swish")
