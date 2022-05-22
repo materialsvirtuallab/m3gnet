@@ -1,15 +1,19 @@
 """
 The core m3gnet model
 """
-from typing import List, Optional
-import os
 import json
+import logging
+import os
+import urllib.request
+from typing import List, Optional
 
 import numpy as np
 import tensorflow as tf
 
-from m3gnet.graph import RadiusCutoffGraphConverter, Index, tf_compute_distance_angle
+from m3gnet.graph import RadiusCutoffGraphConverter, Index, \
+    tf_compute_distance_angle
 from m3gnet.layers import AtomReduceState
+from m3gnet.layers import BaseAtomRef, AtomRef
 from m3gnet.layers import ConcatBondAtomState, StateNetwork
 from m3gnet.layers import GatedAtomUpdate
 from m3gnet.layers import GatedMLP, MLP, Pipe
@@ -23,14 +27,44 @@ from m3gnet.layers import (
 from m3gnet.layers import SphericalBesselWithHarmonics
 from m3gnet.layers import ThreeDInteraction, ConcatAtoms
 from m3gnet.layers import polynomial
-from m3gnet.layers import BaseAtomRef, AtomRef
 from m3gnet.utils import register_plain
 from m3gnet.utils.constants import MODEL_NAME
 from ._base import GraphModelMixin
 
+logger = logging.getLogger(__file__)
+
 CWD = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_NAMES = {"EFS2021": os.path.join(CWD, "../../pretrained/EFS2021")}
+
+GITHUB_RAW_LINK = ("https://raw.githubusercontent.com/materialsvirtuallab"
+                   "/m3gnet/main/pretrained/EFS2021/{filename}")
+
+MODEL_URLS = {"EFS2021": {
+    "checkpoint": GITHUB_RAW_LINK.format(filename="checkpoint"),
+    "m3gnet.json": GITHUB_RAW_LINK.format(filename="m3gnet.json"),
+    "m3gnet.index": GITHUB_RAW_LINK.format(filename="m3gnet.index"),
+    "m3gnet.data-00000-of-00001":
+        GITHUB_RAW_LINK.format(filename="m3gnet.data-00000-of-00001")}}
+
+
+def _download_file(url: str, target: str):
+    logger.info(f"Downloading {target} from {url} ... ")
+    if not os.path.isfile(target):
+        urllib.request.urlretrieve(url, target)
+
+
+def _download_model_to_dir(model_name: str = "EFS2021",
+                           dirname: str = "EFS2021"):
+    if model_name not in MODEL_URLS:
+        raise ValueError(f"{model_name} not supported. Currently we only "
+                         f"have {MODEL_URLS.keys()}")
+    full_dirname = os.path.join(CWD, dirname)
+    for name, link in MODEL_URLS[model_name].items():
+        if not os.path.isdir(full_dirname):
+            os.mkdir(full_dirname)
+        _download_file(link, os.path.join(full_dirname, name))
+    logger.info(f"Model {model_name} downloaded to {full_dirname}")
 
 
 @register_plain
@@ -40,22 +74,22 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
     """
 
     def __init__(
-        self,
-        max_n: int = 3,
-        max_l: int = 3,
-        n_blocks: int = 3,
-        units: int = 64,
-        cutoff: float = 5.0,
-        threebody_cutoff: float = 4.0,
-        n_atom_types: int = 94,
-        include_states: bool = False,
-        readout: str = "weighted_atom",
-        task_type: str = "regression",
-        is_intensive: bool = True,
-        mean: float = 0.0,
-        std: float = 1.0,
-        element_refs: Optional[np.ndarray] = None,
-        **kwargs,
+            self,
+            max_n: int = 3,
+            max_l: int = 3,
+            n_blocks: int = 3,
+            units: int = 64,
+            cutoff: float = 5.0,
+            threebody_cutoff: float = 4.0,
+            n_atom_types: int = 94,
+            include_states: bool = False,
+            readout: str = "weighted_atom",
+            task_type: str = "regression",
+            is_intensive: bool = True,
+            mean: float = 0.0,
+            std: float = 1.0,
+            element_refs: Optional[np.ndarray] = None,
+            **kwargs,
     ):
         r"""
         Args:
@@ -125,14 +159,17 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         self.graph_layers = []
 
         for i in range(n_blocks):
-            atom_network = GatedAtomUpdate(neurons=[units, units], activation="swish")
+            atom_network = GatedAtomUpdate(neurons=[units, units],
+                                           activation="swish")
 
-            bond_network = ConcatAtoms(neurons=[units, units], activation="swish")
+            bond_network = ConcatAtoms(neurons=[units, units],
+                                       activation="swish")
 
             if include_states:
                 atom_agg_func = AtomReduceState()
                 state_network = ConcatBondAtomState(
-                    update_func=MLP([units, units], activations=["swish", "swish"]),
+                    update_func=MLP([units, units],
+                                    activations=["swish", "swish"]),
                     atom_agg_func=atom_agg_func,
                     bond_agg_func=None,
                 )
@@ -151,7 +188,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 atom_readout = Set2Set(units=units, num_steps=2, field="atoms")
 
             elif readout == "weighted_atom":
-                atom_readout = WeightedReadout(neurons=[units, units], field="atoms")
+                atom_readout = WeightedReadout(neurons=[units, units],
+                                               field="atoms")
             else:
                 atom_readout = ReduceReadOut("mean", field="atoms")
 
@@ -159,7 +197,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 atom_readout=atom_readout, include_states=include_states
             )
 
-            mlp = MLP([units, units, 1], ["swish", "swish", act_final], is_output=True)
+            mlp = MLP([units, units, 1], ["swish", "swish", act_final],
+                      is_output=True)
 
             self.final = Pipe(layers=[readout_nn, mlp])
 
@@ -332,7 +371,12 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         Returns:
         """
         if model_name in MODEL_NAMES:
-            return cls.from_dir(MODEL_NAMES[model_name])
+            try:
+                return cls.from_dir(MODEL_NAMES[model_name])
+            except ValueError:
+                _download_model_to_dir(model_name, model_name)
+                return cls.load(os.path.join(CWD, model_name))
+
         if os.path.isdir(model_name):
             if "m3gnet.json" in os.listdir(model_name):
                 return cls.from_dir(model_name)
