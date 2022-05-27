@@ -63,6 +63,29 @@ python setup.py install
 
 The installation time should be less than 1 minute.
 
+## Apple Silicon Installation
+
+Apple silicon has extremely powerful ML capabilities. But there are some special installation requirements.
+Here are the recommended steps to get m3gnet working on Apple Silicon devices.
+
+1. Ensure that you already have XCode and CLI installed.
+2. Install Miniconda. 
+3. Create an Python 3.9 environment,
+```bash
+conda create --name m3gnet python=3.9
+conda activate m3gnet
+```
+4. First install tensorflow with the metal plugin for Apple Silicon.
+```bash
+conda install -c apple tensorflow-deps
+pip install tensorflow-macos
+pip install tensorflow-metal
+```
+5. Install m3gnet.
+```bash
+pip install m3gnet
+```
+
 <a name="demo"></a>
 # Demo
 
