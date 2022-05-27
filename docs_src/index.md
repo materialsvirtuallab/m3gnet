@@ -12,15 +12,12 @@ A universal material graph interatomic potential with three-body interactions
 * [Datasets](#datasets)
 * [References](#references)
 
-<a name="introduction"></a>
 # Introduction
 
 This repository contains the `M3GNet` interatomic potential for the periodic 
 table. The model has been developed for inorganic crystals using the 
 Materials Project relaxation trajectory as training data.
 
-
-<a name="systemreq"></a>
 # System requirements
 ## Hardware requirements
 Inferences using the pre-trained models can be ran on any standard computer.
@@ -35,8 +32,6 @@ The package has been tested on the following systems:
 - Linux: Ubuntu 18.04 (with tensorflow==2.7.0)
 - Windows: 11
 
-
-<a name="Installation"></a>
 # Installation
 
 The following dependencies are needed 
@@ -86,7 +81,6 @@ pip install tensorflow-metal
 pip install m3gnet
 ```
 
-<a name="demo"></a>
 # Demo
 
 ## Structure relaxation
@@ -230,6 +224,7 @@ with DOI `10.6084/m9.figshare.19470599`.
 
 # Reference
 This package is the result from our recent [paper](https://arxiv.org/abs/2202.02450)
-```angular2html
-Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." arXiv preprint arXiv:2202.02450 (2022).
+```bash
+Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." 
+arXiv preprint arXiv:2202.02450 (2022).
 ```
