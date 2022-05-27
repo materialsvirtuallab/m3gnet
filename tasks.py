@@ -51,9 +51,8 @@ def make_doc(ctx):
         # ctx.run("cp _static/* ../docs/html/_static")
 
     with cd("docs"):
-        ctx.run("cp -r html/* .")
-        ctx.run("rm -r html")
-        ctx.run("rm -r doctrees")
+        ctx.run("rm -r .doctrees")
+        ctx.run("rm *tests*.html")
         ctx.run("rm -r _sources")
 
         # This makes sure pymatgen.org works to redirect to the Gihub page
