@@ -6,3 +6,4 @@ monty==2022.3.12
 sympy==1.10.1
 ase==3.22.0
 cython==0.29.26
+protobuf==3.20.0
