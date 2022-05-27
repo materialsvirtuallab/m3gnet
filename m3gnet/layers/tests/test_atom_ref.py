@@ -2,8 +2,8 @@
 import unittest
 
 import numpy as np
+from pymatgen.core import Lattice, Structure
 
-from pymatgen.core import Structure, Lattice
 from m3gnet.layers import AtomRef
 
 

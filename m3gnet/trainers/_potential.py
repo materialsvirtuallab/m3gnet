@@ -5,12 +5,10 @@ from typing import List, Optional
 
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Structure, Molecule
+from pymatgen.core import Molecule, Structure
 
 from m3gnet.callbacks import ManualStop
-from m3gnet.graph import Index
-from m3gnet.graph import MaterialGraph
-from m3gnet.graph import MaterialGraphBatchEnergyForceStress
+from m3gnet.graph import Index, MaterialGraph, MaterialGraphBatchEnergyForceStress
 from m3gnet.layers import AtomRef
 from m3gnet.models import Potential
 
@@ -19,6 +17,7 @@ class PotentialTrainer:
     """
     Trainer for M3GNet potential
     """
+
     def __init__(self, potential: Potential, optimizer: tf.keras.optimizers.Optimizer):
         """
         Args:

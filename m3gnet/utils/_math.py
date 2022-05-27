@@ -129,7 +129,7 @@ class SphericalBesselFunction:
         roots = self.zeros[: self.max_l, : self.max_n]
 
         results = []
-        factor = tf.cast(tf.sqrt(2.0 / self.cutoff ** 3), dtype=DataType.tf_float)
+        factor = tf.cast(tf.sqrt(2.0 / self.cutoff**3), dtype=DataType.tf_float)
         for i in range(self.max_l):
             root = roots[i]
             func = self.funcs[i]
@@ -204,7 +204,7 @@ class Gaussian:
         Returns: Gaussian expanded vectors
 
         """
-        return tf.exp(-((r[:, None] - self.centers[None, :]) ** 2) / self.width ** 2)
+        return tf.exp(-((r[:, None] - self.centers[None, :]) ** 2) / self.width**2)
 
 
 class SphericalHarmonicsFunction:
@@ -349,13 +349,13 @@ def spherical_bessel_smooth(r, cutoff: float = 5.0, max_n: int = 10):
         (-1) ** n
         * tf.math.sqrt(2.0)
         * pi
-        / cutoff ** 1.5
+        / cutoff**1.5
         * (n + 1)
         * (n + 2)
-        / tf.math.sqrt(2 * n ** 2 + 6 * n + 5)
+        / tf.math.sqrt(2 * n**2 + 6 * n + 5)
         * (_sinc(r * (n + 1) * pi / cutoff) + _sinc(r * (n + 2) * pi / cutoff))
     )
-    en = n ** 2 * (n + 2) ** 2 / (4 * (n + 1) ** 4 + 1)
+    en = n**2 * (n + 2) ** 2 / (4 * (n + 1) ** 4 + 1)
     dn = [tf.constant(1.0)]
     for i in range(1, max_n):
         dn.append(1 - en[0, i] / dn[-1])
@@ -376,7 +376,7 @@ def _get_lambda_func(max_n, cutoff: float = 5.0):
     d0 = 1.0
     en = []
     for i in range(max_n):
-        en.append(i ** 2 * (i + 2) ** 2 / (4 * (i + 1) ** 4 + 1))
+        en.append(i**2 * (i + 2) ** 2 / (4 * (i + 1) ** 4 + 1))
 
     dn = [d0]
     for i in range(1, max_n):
@@ -388,7 +388,7 @@ def _get_lambda_func(max_n, cutoff: float = 5.0):
             (-1) ** i
             * sympy.sqrt(2.0)
             * sympy.pi
-            / cutoff ** 1.5
+            / cutoff**1.5
             * (i + 1)
             * (i + 2)
             / sympy.sqrt(1.0 * (i + 1) ** 2 + (i + 2) ** 2)

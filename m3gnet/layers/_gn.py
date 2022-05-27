@@ -2,11 +2,12 @@
 Materials Graph Network
 """
 from copy import deepcopy
-from typing import Optional, List
+from typing import List, Optional
 
 import tensorflow as tf
 
 from m3gnet.utils import register
+
 from ._atom import AtomNetwork
 from ._base import GraphUpdate, GraphUpdateFunc
 from ._bond import BondNetwork, PairRadialBasisExpansion

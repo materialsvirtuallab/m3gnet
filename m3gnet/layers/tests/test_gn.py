@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from pymatgen.core import Molecule, Structure, Lattice
 import numpy as np
-from m3gnet.graph import RadiusCutoffGraphConverter, MaterialGraph
+from pymatgen.core import Lattice, Molecule, Structure
+
+from m3gnet.graph import MaterialGraph, RadiusCutoffGraphConverter
 from m3gnet.layers import MLP
 from m3gnet.layers._atom import GatedAtomUpdate
 from m3gnet.layers._bond import ConcatAtoms
-from m3gnet.layers._gn import GraphNetworkLayer, GraphFeaturizer
+from m3gnet.layers._gn import GraphFeaturizer, GraphNetworkLayer
 from m3gnet.layers._state import ConcatBondAtomState
 
 

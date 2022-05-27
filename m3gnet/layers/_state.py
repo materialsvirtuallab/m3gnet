@@ -8,6 +8,7 @@ global attributes
 from typing import Callable, List
 
 import tensorflow as tf
+
 from m3gnet.graph import Index
 from m3gnet.utils import register
 

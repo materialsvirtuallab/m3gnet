@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-import os
 import json
+import os
 import unittest
 
 import numpy as np
+
 from m3gnet.graph import MaterialGraph
-from m3gnet.layers import (
-    Set2Set,
-    ReduceReadOut,
-    MultiFieldReadout,
-)
+from m3gnet.layers import MultiFieldReadout, ReduceReadOut, Set2Set
 
 CWD = os.path.abspath(os.path.dirname(__file__))
 

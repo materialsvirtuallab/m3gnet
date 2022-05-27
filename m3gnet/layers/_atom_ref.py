@@ -8,11 +8,11 @@ from typing import List, Optional
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Structure, Molecule, Element
+from pymatgen.core import Element, Molecule, Structure
 
 from m3gnet.config import DataType
 from m3gnet.graph import Index
-from m3gnet.utils import register, get_segment_indices_from_n
+from m3gnet.utils import get_segment_indices_from_n, register
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ class AtomRef(BaseAtomRef):
         self,
         property_per_element: Optional[np.ndarray] = None,
         max_z: int = 94,
-        **kwargs
+        **kwargs,
     ):
         """
         Args:

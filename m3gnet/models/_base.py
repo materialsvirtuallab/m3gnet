@@ -4,15 +4,15 @@ Base model
 
 import math
 from abc import ABC
-from typing import Union, List
+from typing import List, Union
 
 import tensorflow as tf
-from pymatgen.core import Structure, Molecule
+from pymatgen.core import Molecule, Structure
 
 from m3gnet.config import DataType
-from m3gnet.graph import MaterialGraph, assemble_material_graph, Index
+from m3gnet.graph import Index, MaterialGraph, assemble_material_graph
 from m3gnet.type import StructureOrMolecule
-from m3gnet.utils import repeat_with_n, register
+from m3gnet.utils import register, repeat_with_n
 
 
 @register

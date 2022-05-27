@@ -41,7 +41,9 @@ def make_doc(ctx):
                         else:
                             if not clean.endswith("tests"):
                                 suboutput.append(line)
-                            if clean.startswith("m3gnet") and not clean.endswith("tests"):
+                            if clean.startswith("m3gnet") and not clean.endswith(
+                                "tests"
+                            ):
                                 newoutput.extend(suboutput)
                                 subpackage = False
                                 suboutput = []
@@ -94,7 +96,9 @@ def release_github(ctx):
 
 @task
 def update_changelog(ctx):
-    output = subprocess.check_output(["git", "log", "--pretty=format:%s", "v%s..HEAD" % CURRENT_VER])
+    output = subprocess.check_output(
+        ["git", "log", "--pretty=format:%s", "v%s..HEAD" % CURRENT_VER]
+    )
     lines = ["* " + l for l in output.decode("utf-8").strip().split("\n")]
     with open("CHANGES.rst") as f:
         contents = f.read()

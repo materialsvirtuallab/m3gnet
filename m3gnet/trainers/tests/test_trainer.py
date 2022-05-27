@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
+import json
 import os
 import unittest
-import json
+from shutil import rmtree
+
+import numpy as np
+import tensorflow as tf
+from monty.tempfile import ScratchDir
 from pymatgen.core import Structure
 
 from m3gnet.models import M3GNet, Potential
-from m3gnet.trainers import Trainer, PotentialTrainer
-import tensorflow as tf
-from monty.tempfile import ScratchDir
-from shutil import rmtree
-import numpy as np
-
+from m3gnet.trainers import PotentialTrainer, Trainer
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 

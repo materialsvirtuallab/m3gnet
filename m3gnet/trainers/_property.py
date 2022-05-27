@@ -9,13 +9,14 @@ from typing import List, Optional, Union
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Structure, Molecule
+from pymatgen.core import Molecule, Structure
 
 from m3gnet.callbacks import ManualStop
-from m3gnet.graph import MaterialGraphBatch, MaterialGraph
+from m3gnet.graph import MaterialGraph, MaterialGraphBatch
 from m3gnet.layers import AtomRef
 from m3gnet.models import M3GNet
-from ._metrics import _get_metric, _get_metric_string, MONITOR_MAPPING
+
+from ._metrics import MONITOR_MAPPING, _get_metric, _get_metric_string
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -110,8 +111,7 @@ class Trainer:
 
         if train_metrics is not None:
             train_metrics = [_get_metric(metric) for metric in train_metrics]
-            train_metric_names = [f"{_get_metric_string(i) }" for i in
-                                  train_metrics]
+            train_metric_names = [f"{_get_metric_string(i) }" for i in train_metrics]
             has_train_metrics = True
         else:
             train_metric_names = []
@@ -119,8 +119,7 @@ class Trainer:
 
         if val_metrics is not None:
             val_metrics = [_get_metric(metric) for metric in val_metrics]
-            val_metric_names = [f"val_{_get_metric_string(i)}" for i in
-                                val_metrics]
+            val_metric_names = [f"val_{_get_metric_string(i)}" for i in val_metrics]
             has_val_metrics = True
         else:
             val_metric_names = []
@@ -252,10 +251,10 @@ class Trainer:
             train_targets = tf.concat(train_targets, axis=0)
             if has_train_metrics:
                 for index, metric_name in enumerate(train_metric_names):
-                    train_metric_values[metric_name] = \
-                        train_metrics[index](  # type: ignore
-                            train_targets.numpy().ravel(),
-                            train_predictions.numpy().ravel()
+                    train_metric_values[metric_name] = train_metrics[
+                        index
+                    ](  # type: ignore
+                        train_targets.numpy().ravel(), train_predictions.numpy().ravel()
                     )
                 epoch_log.update(
                     **{
@@ -280,14 +279,12 @@ class Trainer:
                 val_targets = tf.concat(val_targets, axis=0)
                 if has_val_metrics:
                     for index, metric_name in enumerate(val_metric_names):
-                        val_metric_values[metric_name] = \
-                            val_metrics[index](
+                        val_metric_values[metric_name] = val_metrics[index](
                             val_targets.numpy().ravel(),  # type: ignore
-                            val_predictions.numpy().ravel()  # type: ignore
+                            val_predictions.numpy().ravel(),  # type: ignore
                         )
                     val_logs = {
-                        metric_name:
-                            val_metric_values[metric_name].numpy()
+                        metric_name: val_metric_values[metric_name].numpy()
                         for metric_name in val_metric_names
                     }
                     epoch_log.update(**val_logs)

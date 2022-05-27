@@ -2,10 +2,10 @@
 import unittest
 
 import numpy as np
+from pymatgen.core import Lattice, Molecule, Structure
 
-from pymatgen.core import Molecule, Structure, Lattice
 from m3gnet.graph import Index, RadiusCutoffGraphConverter, tf_compute_distance_angle
-from m3gnet.layers import PairRadialBasisExpansion, ConcatAtoms, ThreeDInteraction
+from m3gnet.layers import ConcatAtoms, PairRadialBasisExpansion, ThreeDInteraction
 
 
 class TestAgg(unittest.TestCase):

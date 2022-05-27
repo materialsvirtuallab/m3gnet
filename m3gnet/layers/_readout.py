@@ -1,7 +1,7 @@
 """
 Readout compress a graph into a vector
 """
-from typing import Optional, List
+from typing import List, Optional
 
 import tensorflow as tf
 
@@ -10,9 +10,10 @@ from m3gnet.graph import Index
 from m3gnet.utils import (
     get_segment_indices_from_n,
     register,
-    unsorted_segment_softmax,
     unsorted_segment_fraction,
+    unsorted_segment_softmax,
 )
+
 from ._core import METHOD_MAPPING, MLP
 
 

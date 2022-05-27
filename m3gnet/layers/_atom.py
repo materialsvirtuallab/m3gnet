@@ -10,8 +10,8 @@ from typing import List
 import tensorflow as tf
 
 from m3gnet.graph import Index
-from m3gnet.utils import broadcast_states_to_bonds
-from m3gnet.utils import register
+from m3gnet.utils import broadcast_states_to_bonds, register
+
 from ._base import GraphUpdate
 from ._core import GatedMLP
 

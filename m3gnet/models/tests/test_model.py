@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-import unittest
 import os
-import numpy as np
+import unittest
 
-from m3gnet.models import Potential, M3GNet, Relaxer, MolecularDynamics
-from pymatgen.core import Structure, Lattice, Molecule
+import numpy as np
 from monty.tempfile import ScratchDir
+from pymatgen.core import Lattice, Molecule, Structure
+
+from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer
 
 
 class TestModel(unittest.TestCase):

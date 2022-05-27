@@ -3,10 +3,10 @@ The dynamics calculations using M3GNet
 """
 # -*- coding: utf-8 -*-
 import pickle
-from typing import Union, Optional
+from typing import Optional, Union
 
 import numpy as np
-from ase import units, Atoms
+from ase import Atoms, units
 from ase.calculators.calculator import Calculator, all_changes
 from ase.constraints import ExpCellFilter
 from ase.io import Trajectory
@@ -18,9 +18,8 @@ from ase.optimize.fire import FIRE
 from ase.optimize.lbfgs import LBFGS, LBFGSLineSearch
 from ase.optimize.mdmin import MDMin
 from ase.optimize.optimize import Optimizer
-from ase.optimize.sciopt import SciPyFminBFGS
-from ase.optimize.sciopt import SciPyFminCG
-from pymatgen.core import Structure, Molecule
+from ase.optimize.sciopt import SciPyFminBFGS, SciPyFminCG
+from pymatgen.core import Molecule, Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 
 from ._base import Potential

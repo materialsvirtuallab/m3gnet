@@ -38,7 +38,7 @@ setup(
     name="m3gnet",
     version=version,
     install_requires=[
-        "pymatgen>=2019.10.4",
+        "pymatgen>=2022.1.1",
         "pandas",
         "tensorflow",
         "numpy",
