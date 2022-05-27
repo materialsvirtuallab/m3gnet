@@ -37,6 +37,15 @@ extension = [
 setup(
     name="m3gnet",
     version=version,
+    install_requires=[
+        "pymatgen>=2019.10.4",
+        "pandas",
+        "tensorflow",
+        "numpy",
+        "monty",
+        "sympy",
+        "ase",
+    ],
     description="Materials Graph with Three-body Interactions",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -66,7 +75,7 @@ setup(
         "networks",
         "neural",
         "force field",
-        "interatomic potential"
+        "interatomic potential",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
