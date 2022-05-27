@@ -22,6 +22,7 @@ NEW_VER = m3gnet.__version__
 
 @task
 def make_doc(ctx):
+    ctx.run("cp README.md docs_src/index.md")
     with cd("docs_src"):
         ctx.run("rm *tests*.rst", warn=True)
         ctx.run("sphinx-apidoc --separate -d 6 -o . -f ../m3gnet")
@@ -49,7 +50,7 @@ def make_doc(ctx):
                     fid.write("".join(newoutput))
     ctx.run("sphinx-build -b html docs_src docs")
 
-        # ctx.run("cp _static/* ../docs/html/_static")
+    # ctx.run("cp _static/* ../docs/html/_static")
 
     with cd("docs"):
         ctx.run("rm -r .doctrees")

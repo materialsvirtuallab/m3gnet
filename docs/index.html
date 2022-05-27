@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Welcome to m3gnet’s documentation! &#8212; m3gnet  documentation</title>
+    <title>m3gnet &#8212; m3gnet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -31,18 +31,238 @@
 
           <div class="body" role="main">
             
-  <section id="welcome-to-m3gnet-s-documentation">
-<h1>Welcome to m3gnet’s documentation!<a class="headerlink" href="#welcome-to-m3gnet-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
+  <p><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/materialsvirtuallab/m3gnet" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg"><img alt="Linting" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg"><img alt="Testing" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg" /></a><a class="reference external" href="https://pepy.tech/project/m3gnet"><img alt="Downloads" src="https://pepy.tech/badge/m3gnet" /></a></p>
+<section id="m3gnet">
+<h1>m3gnet<a class="headerlink" href="#m3gnet" title="Permalink to this headline">¶</a></h1>
+<p>A universal material graph interatomic potential with three-body interactions</p>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<section id="table-of-contents">
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p><span class="xref myst">Introduction</span></p></li>
+<li><p><span class="xref myst">System requirements</span></p></li>
+<li><p><span class="xref myst">Installation</span></p></li>
+<li><p><span class="xref myst">Demo</span></p></li>
+<li><p><span class="xref myst">Model training</span></p></li>
+<li><p><span class="xref myst">Datasets</span></p></li>
+<li><p><span class="xref myst">References</span></p></li>
 </ul>
+<p><a name="introduction"></a></p>
+</section>
+<section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This repository contains the <code class="docutils literal notranslate"><span class="pre">M3GNet</span></code> interatomic potential for the periodic
+table. The model has been developed for inorganic crystals using the
+Materials Project relaxation trajectory as training data.</p>
+<p><a name="systemreq"></a></p>
+</section>
+<section id="system-requirements">
+<h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
+<section id="hardware-requirements">
+<h2>Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Inferences using the pre-trained models can be ran on any standard computer.
+For model training, the GPU memory needs to be &gt; 18 Gb for a batch size of
+32 using the crystal training data. In our work, we used single RTX 3090
+GPU for model training.</p>
+</section>
+<section id="software-requirements">
+<h2>Software requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The package has been tested on the following systems:</p>
+<ul class="simple">
+<li><p>macOS: Monterey 12.1</p></li>
+<li><p>Linux: Ubuntu 18.04 (with tensorflow==2.7.0)</p></li>
+<li><p>Windows: 11</p></li>
+</ul>
+<p><a name="Installation"></a></p>
+</section>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The following dependencies are needed</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pymatgen</span><span class="o">==</span><span class="mf">2022.2.10</span>
+<span class="n">pandas</span><span class="o">==</span><span class="mf">1.4.1</span>
+<span class="n">tensorflow</span><span class="o">==</span><span class="mf">2.7.0</span>
+<span class="n">numpy</span><span class="o">==</span><span class="mf">1.22.2</span>
+<span class="n">monty</span><span class="o">==</span><span class="mf">2022.3.12</span>
+<span class="n">sympy</span><span class="o">==</span><span class="mf">1.9</span>
+<span class="n">ase</span><span class="o">==</span><span class="mf">3.22.0</span>
+<span class="n">cython</span><span class="o">==</span><span class="mf">0.29.26</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">m3gnet</span></code> can be installed via source code installation by cloning the code from github</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">materialsvirtuallab</span><span class="o">/</span><span class="n">m3gnet</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">m3gnet</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>The installation time should be less than 1 minute.</p>
+<section id="apple-silicon-installation">
+<h2>Apple Silicon Installation<a class="headerlink" href="#apple-silicon-installation" title="Permalink to this headline">¶</a></h2>
+<p>Apple silicon has extremely powerful ML capabilities. But there are some special installation requirements.
+Here are the recommended steps to get m3gnet working on Apple Silicon devices.</p>
+<ol class="arabic simple">
+<li><p>Ensure that you already have XCode and CLI installed.</p></li>
+<li><p>Install Miniconda.</p></li>
+<li><p>Create an Python 3.9 environment,</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create --name m3gnet <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+conda activate m3gnet
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>First install tensorflow with the metal plugin for Apple Silicon.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c apple tensorflow-deps
+pip install tensorflow-macos
+pip install tensorflow-metal
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Install m3gnet.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install m3gnet
+</pre></div>
+</div>
+<p><a name="demo"></a></p>
+</section>
+</section>
+<section id="demo">
+<h1>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
+<section id="structure-relaxation">
+<h2>Structure relaxation<a class="headerlink" href="#structure-relaxation" title="Permalink to this headline">¶</a></h2>
+<p>Here is an example of how to run <code class="docutils literal notranslate"><span class="pre">m3gnet</span></code> relaxation of any crystals.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Structure</span><span class="p">,</span> <span class="n">Lattice</span>
+<span class="kn">from</span> <span class="nn">m3gnet.models</span> <span class="kn">import</span> <span class="n">Relaxer</span>
+
+<span class="c1"># Init a Mo structure with stretched lattice (DFT lattice constant ~ 3.168)</span>
+<span class="n">mo</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">Lattice</span><span class="o">.</span><span class="n">cubic</span><span class="p">(</span><span class="mf">3.3</span><span class="p">),</span> 
+               <span class="p">[</span><span class="s2">&quot;Mo&quot;</span><span class="p">,</span> <span class="s2">&quot;Mo&quot;</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+
+<span class="n">relaxer</span> <span class="o">=</span> <span class="n">Relaxer</span><span class="p">()</span>  <span class="c1"># this loads the default model</span>
+
+<span class="n">relax_results</span> <span class="o">=</span> <span class="n">relaxer</span><span class="o">.</span><span class="n">relax</span><span class="p">(</span><span class="n">mo</span><span class="p">)</span>
+
+<span class="n">final_structure</span> <span class="o">=</span> <span class="n">relax_results</span><span class="p">[</span><span class="s1">&#39;final_structure&#39;</span><span class="p">]</span>
+<span class="n">final_energy</span> <span class="o">=</span> <span class="n">relax_results</span><span class="p">[</span><span class="s1">&#39;trajectory&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relaxed lattice parameter is </span><span class="si">{</span><span class="n">final_structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .3f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final energy is </span><span class="si">{</span><span class="n">final_energy</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2"> .3f</span><span class="si">}</span><span class="s2"> eV/atom&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will see output</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Relaxed</span> <span class="n">lattice</span> <span class="n">parameter</span> <span class="ow">is</span>  <span class="mf">3.169</span> <span class="n">Å</span>
+<span class="n">Final</span> <span class="n">energy</span> <span class="ow">is</span> <span class="o">-</span><span class="mf">10.859</span> <span class="n">eV</span><span class="o">/</span><span class="n">atom</span>
+</pre></div>
+</div>
+<p>The original lattice parameter of
+<code class="docutils literal notranslate"><span class="pre">3.3</span> <span class="pre">Å</span></code> was successfully relaxed to <code class="docutils literal notranslate"><span class="pre">3.169</span> <span class="pre">Å</span></code>, close to the DFT value of <code class="docutils literal notranslate"><span class="pre">3.168</span> <span class="pre">Å</span></code>.</p>
+<p>The final energy <code class="docutils literal notranslate"><span class="pre">-10.859</span> <span class="pre">eV/atom</span></code> is also close to DFT value of <a class="reference external" href="https://materialsproject.org/materials/mp-129/"><code class="docutils literal notranslate"><span class="pre">-10.8456</span>&#160; <span class="pre">eV/atom</span></code></a>.</p>
+<p>The relaxation takes less than 20 seconds.</p>
+</section>
+<section id="molecular-dynamics">
+<h2>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this headline">¶</a></h2>
+<p>Molecular dynamics simulations can be easily performed as well.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Structure</span><span class="p">,</span> <span class="n">Lattice</span>
+<span class="kn">from</span> <span class="nn">m3gnet.models</span> <span class="kn">import</span> <span class="n">MolecularDynamics</span>
+
+<span class="c1"># Init a Mo structure with stretched lattice (DFT lattice constant ~ 3.168)</span>
+<span class="n">mo</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">Lattice</span><span class="o">.</span><span class="n">cubic</span><span class="p">(</span><span class="mf">3.3</span><span class="p">),</span> 
+               <span class="p">[</span><span class="s2">&quot;Mo&quot;</span><span class="p">,</span> <span class="s2">&quot;Mo&quot;</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+
+<span class="n">md</span> <span class="o">=</span> <span class="n">MolecularDynamics</span><span class="p">(</span>
+    <span class="n">atoms</span><span class="o">=</span><span class="n">mo</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># 1000 K</span>
+    <span class="n">ensemble</span><span class="o">=</span><span class="s1">&#39;nvt&#39;</span><span class="p">,</span>  <span class="c1"># NVT ensemble</span>
+    <span class="n">timestep</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># 1fs,</span>
+    <span class="n">trajectory</span><span class="o">=</span><span class="s2">&quot;mo.traj&quot;</span><span class="p">,</span>  <span class="c1"># save trajectory to mo.traj</span>
+    <span class="n">logfile</span><span class="o">=</span><span class="s2">&quot;mo.log&quot;</span><span class="p">,</span>  <span class="c1"># log file for MD</span>
+    <span class="n">loginterval</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># interval for record the log</span>
+<span class="p">)</span>
+
+<span class="n">md</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the run, <code class="docutils literal notranslate"><span class="pre">mo.log</span></code> contains thermodynamic information similar to the
+following</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Time<span class="o">[</span>ps<span class="o">]</span>      Etot<span class="o">[</span>eV<span class="o">]</span>     Epot<span class="o">[</span>eV<span class="o">]</span>     Ekin<span class="o">[</span>eV<span class="o">]</span>    T<span class="o">[</span>K<span class="o">]</span>
+<span class="m">0</span>.0000         -21.3307     -21.3307       <span class="m">0</span>.0000     <span class="m">0</span>.0
+<span class="m">0</span>.1000         -21.3307     -21.3307       <span class="m">0</span>.0000     <span class="m">0</span>.0
+<span class="m">0</span>.2000         -21.2441     -21.3087       <span class="m">0</span>.0645   <span class="m">249</span>.7
+<span class="m">0</span>.3000         -21.0466     -21.2358       <span class="m">0</span>.1891   <span class="m">731</span>.6
+<span class="m">0</span>.4000         -20.9702     -21.1149       <span class="m">0</span>.1447   <span class="m">559</span>.6
+<span class="m">0</span>.5000         -20.9380     -21.1093       <span class="m">0</span>.1713   <span class="m">662</span>.6
+<span class="m">0</span>.6000         -20.9176     -21.1376       <span class="m">0</span>.2200   <span class="m">850</span>.9
+<span class="m">0</span>.7000         -20.9016     -21.1789       <span class="m">0</span>.2773  <span class="m">1072</span>.8
+<span class="m">0</span>.8000         -20.8804     -21.1638       <span class="m">0</span>.2835  <span class="m">1096</span>.4
+<span class="m">0</span>.9000         -20.8770     -21.0695       <span class="m">0</span>.1925   <span class="m">744</span>.5
+<span class="m">1</span>.0000         -20.8908     -21.0772       <span class="m">0</span>.1864   <span class="m">721</span>.2
+</pre></div>
+</div>
+<p>The MD run takes less than 1 minute.</p>
+<p><a name="training"></a></p>
+</section>
+</section>
+<section id="model-training">
+<h1>Model training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h1>
+<p>The potential model can be trained using the <code class="docutils literal notranslate"><span class="pre">PotentialTrainer</span></code> in <code class="docutils literal notranslate"><span class="pre">m3gnet.trainers</span></code>.
+The training dataset can be</p>
+<ul class="simple">
+<li><p>structures, a list of pymatgen Structures</p></li>
+<li><p>energies, a list of energy floats</p></li>
+<li><p>forces, a list of nx3 force matrix, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of atom in
+each structure. <code class="docutils literal notranslate"><span class="pre">n</span></code> does not need to be the same for all structures.</p></li>
+<li><p>stresses, a list of 3x3 stress matrix.</p></li>
+</ul>
+<p>where the <code class="docutils literal notranslate"><span class="pre">stresses</span></code> is optional.</p>
+<p>For the <code class="docutils literal notranslate"><span class="pre">stresses</span></code>, we use the convention that compressive stress gives
+negative values. <code class="docutils literal notranslate"><span class="pre">VASP</span></code> stress should change signs to work directly with
+the model.</p>
+<p>We use validation dataset to select the stopping epoch number. The dataset
+has similar format as the training dataset.</p>
+<p>A minimal example of model training is shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">m3gnet.models</span> <span class="kn">import</span> <span class="n">M3GNet</span><span class="p">,</span> <span class="n">Potential</span>
+<span class="kn">from</span> <span class="nn">m3gnet.trainers</span> <span class="kn">import</span> <span class="n">PotentialTrainer</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="n">m3gnet</span> <span class="o">=</span> <span class="n">M3GNet</span><span class="p">(</span><span class="n">is_intensive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">potential</span> <span class="o">=</span> <span class="n">Potential</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">m3gnet</span><span class="p">)</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">PotentialTrainer</span><span class="p">(</span>
+    <span class="n">potential</span><span class="o">=</span><span class="n">potential</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span>
+    <span class="n">structures</span><span class="p">,</span>
+    <span class="n">energies</span><span class="p">,</span>
+    <span class="n">forces</span><span class="p">,</span>
+    <span class="n">stresses</span><span class="p">,</span>
+    <span class="n">validation_graphs_or_structures</span><span class="o">=</span><span class="n">val_structures</span><span class="p">,</span>
+    <span class="n">val_energies</span><span class="o">=</span><span class="n">val_energies</span><span class="p">,</span>
+    <span class="n">val_forces</span><span class="o">=</span><span class="n">val_forces</span><span class="p">,</span>
+    <span class="n">val_stresses</span><span class="o">=</span><span class="n">val_stresses</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">fit_per_element_offset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">save_checkpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><a name="datasets"></a></p>
+</section>
+<section id="datasets">
+<h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h1>
+<p>The training data <code class="docutils literal notranslate"><span class="pre">MPF.2021.2.8</span></code> is hosted on <a class="reference external" href="https://figshare.com/articles/dataset/MPF_2021_2_8/19470599">figshare</a>
+with DOI <code class="docutils literal notranslate"><span class="pre">10.6084/m9.figshare.19470599</span></code>.</p>
+<p><a name="references"></a></p>
+</section>
+<section id="reference">
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<p>This package is the result from our recent <a class="reference external" href="https://arxiv.org/abs/2202.02450">paper</a></p>
+<div class="highlight-angular2html notranslate"><div class="highlight"><pre><span></span>Chi Chen, and Shyue Ping Ong. &quot;A Universal Graph Deep Learning Interatomic Potential for the Periodic Table.&quot; arXiv preprint arXiv:2202.02450 (2022).
+</pre></div>
+</div>
 </section>
 
 
@@ -100,7 +320,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/index.rst.txt"
+      <a href="_sources/index.md.txt"
           rel="nofollow">Page source</a>
     </div>
 
