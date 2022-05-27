@@ -23,6 +23,7 @@ NEW_VER = m3gnet.__version__
 @task
 def make_doc(ctx):
     with cd("docs_src"):
+        ctx.run("rm *tests*.rst", warn=True)
         ctx.run("sphinx-apidoc --separate -d 6 -o . -f ../m3gnet")
         for f in glob.glob("*.rst"):
             if f.startswith("m3gnet") and f.endswith("rst"):
@@ -52,7 +53,7 @@ def make_doc(ctx):
 
     with cd("docs"):
         ctx.run("rm -r .doctrees")
-        ctx.run("rm *tests*.html")
+        ctx.run("rm *tests*.html", warn=True)
         ctx.run("rm -r _sources")
 
         # This makes sure pymatgen.org works to redirect to the Gihub page
