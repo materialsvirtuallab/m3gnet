@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>m3gnet.models package &#8212; m3gnet  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="m3gnet-models-package">
+<h1>m3gnet.models package<a class="headerlink" href="#m3gnet-models-package" title="Permalink to this headline">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="m3gnet.models.tests.html">m3gnet.models.tests namespace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="m3gnet.models.tests.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="m3gnet.models.tests.test_model.html">m3gnet.models.tests.test_model module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-m3gnet.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-m3gnet.models" title="Permalink to this headline">¶</a></h2>
+<p>Graph pretrained</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">BasePotential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.training.Model</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Potential abstract class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="m3gnet.graph.html#m3gnet.graph.MaterialGraph" title="m3gnet.graph._types.MaterialGraph"><span class="pre">m3gnet.graph._types.MaterialGraph</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Structure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Molecule</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_forces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_stresses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the potential to a graph
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>graph (Union[MaterialGraph, Structure, Molecule, List]): a</dt><dd><p>structure, molecule, graph or a list repr of a graph</p>
+</dd>
+</dl>
+<p>include_forces (bool): whether to include forces as outputs
+include_stresses (bool: whether to include stresses as outputs</p>
+</div></blockquote>
+<p>Returns: energy [forces, stress]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_ef">
+<span class="sig-name descname"><span class="pre">get_ef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pymatgen.core.structure.Structure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Molecule</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ase.atoms.Atoms</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="m3gnet.graph.html#m3gnet.graph.MaterialGraph" title="m3gnet.graph._types.MaterialGraph"><span class="pre">m3gnet.graph._types.MaterialGraph</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#m3gnet.models.BasePotential.get_ef" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energy and force from a Structure, a graph or a list repr of a
+graph
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>obj (Union[StructureOrMolecule, MaterialGraph, List]): a structure,</dt><dd><p>material graph or list repr of a graph</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_ef_tensor">
+<span class="sig-name descname"><span class="pre">get_ef_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#m3gnet.models.BasePotential.get_ef_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energy and force from a list repr of graph
+Args:</p>
+<blockquote>
+<div><p>graph (List[tf.Tensor]: a list repr of a graph</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_efs">
+<span class="sig-name descname"><span class="pre">get_efs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pymatgen.core.structure.Structure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Molecule</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ase.atoms.Atoms</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="m3gnet.graph.html#m3gnet.graph.MaterialGraph" title="m3gnet.graph._types.MaterialGraph"><span class="pre">m3gnet.graph._types.MaterialGraph</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_stresses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential.get_efs" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energy and force from a Structure, a graph or a list repr of a
+graph
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>obj (Union[StructureOrMolecule, MaterialGraph, List]): a structure,</dt><dd><p>material graph or list repr of a graph</p>
+</dd>
+</dl>
+<p>include_stresses (bool): whether to include stress</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_efs_tensor">
+<span class="sig-name descname"><span class="pre">get_efs_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_stresses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#m3gnet.models.BasePotential.get_efs_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energy and force from a list repr of a
+graph
+Args:</p>
+<blockquote>
+<div><p>graph (List[tf.Tensor]): a list repr of a graph
+include_stresses (bool): whether to include stress</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_energies">
+<span class="sig-name descname"><span class="pre">get_energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential.get_energies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the energy of a MaterialGraph
+Args:</p>
+<blockquote>
+<div><p>graph: List, a graph from structure</p>
+</div></blockquote>
+<p>Returns: energy values, size [Ns]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_forces">
+<span class="sig-name descname"><span class="pre">get_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential.get_forces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute forces of a graph given the atom positions
+Args:</p>
+<blockquote>
+<div><p>graph: List, a graph from structure</p>
+</div></blockquote>
+<p>Returns: forces [Na, 3]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.BasePotential.get_stresses">
+<span class="sig-name descname"><span class="pre">get_stresses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.BasePotential.get_stresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute stress of a graph given the atom positions
+Args:</p>
+<blockquote>
+<div><p>graph: List, a graph from structure</p>
+</div></blockquote>
+<p>Returns: stresses [Ns, 3, 3]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.GraphModelMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">GraphModelMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.GraphModelMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
+<dl class="simple">
+<dt>GraphModelMixin adds the following functionality to a graph model</dt><dd><ul class="simple">
+<li><p>predict_structure</p></li>
+<li><p>predict_structures</p></li>
+<li><p>predict_graph</p></li>
+<li><p>predict_graphs</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.GraphModelMixin.predict_graph">
+<span class="sig-name descname"><span class="pre">predict_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="m3gnet.graph.html#m3gnet.graph.MaterialGraph" title="m3gnet.graph._types.MaterialGraph"><span class="pre">m3gnet.graph._types.MaterialGraph</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.GraphModelMixin.predict_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict properties from a graph
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>graph (Union[MaterialGraph, List]): a material graph, either in</dt><dd><p>object or list repr</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns: predicted property</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.GraphModelMixin.predict_graphs">
+<span class="sig-name descname"><span class="pre">predict_graphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="m3gnet.graph.html#m3gnet.graph.MaterialGraph" title="m3gnet.graph._types.MaterialGraph"><span class="pre">m3gnet.graph._types.MaterialGraph</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">128</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.GraphModelMixin.predict_graphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict properties from graphs
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>graph_list (List[Union[MaterialGraph, List]]): a list of material</dt><dd><p>graph, either in object or list repr</p>
+</dd>
+</dl>
+<p>batch_size (int): batch size</p>
+</div></blockquote>
+<p>Returns: predicted properties</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.GraphModelMixin.predict_structure">
+<span class="sig-name descname"><span class="pre">predict_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pymatgen.core.structure.Structure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Molecule</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ase.atoms.Atoms</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.GraphModelMixin.predict_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict properties from structure
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>structure (StructureOrMolecule): a pymatgen Structure/Molecule,</dt><dd><p>or ase.Atoms</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns: predicted values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.GraphModelMixin.predict_structures">
+<span class="sig-name descname"><span class="pre">predict_structures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structures</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pymatgen.core.structure.Structure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymatgen.core.structure.Molecule</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ase.atoms.Atoms</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">128</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.GraphModelMixin.predict_structures" title="Permalink to this definition">¶</a></dt>
+<dd><p>predict properties from structures
+Args:</p>
+<blockquote>
+<div><p>structures (list[StructureOrMolecule]): a list of structures
+batch_size (int): batch size for the prediction</p>
+</div></blockquote>
+<p>Returns: predicted values</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">M3GNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.models.GraphModelMixin" title="m3gnet.models._base.GraphModelMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.models._base.GraphModelMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.training.Model</span></code></p>
+<p>The main M3GNet model</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.M3GNet.call" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
+<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs:</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.from_config">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#m3gnet.models.M3GNet" title="m3gnet.models._m3gnet.M3GNet"><span class="pre">m3gnet.models._m3gnet.M3GNet</span></a></span></span><a class="headerlink" href="#m3gnet.models.M3GNet.from_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the model from a config dict
+Args:</p>
+<blockquote>
+<div><p>config (dict): config dict from <cite>get_config</cite> method</p>
+</div></blockquote>
+<p>Returns: new M3GNet instance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.from_dir">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet.from_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>load the model from a directory
+Args:</p>
+<blockquote>
+<div><p>dirname (str): directory to save the model
+custom_objects (dict): dictionary for custom object</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.get_config">
+<span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet.get_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get config dict for serialization
+Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EFS2021'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the model weights from pre-trained model
+Args:</p>
+<blockquote>
+<div><p>model_name (str): model name or the path for saved model</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model to a directory
+Args:</p>
+<blockquote>
+<div><p>dirname (str): directory to save the model</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNet.set_element_refs">
+<span class="sig-name descname"><span class="pre">set_element_refs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element_refs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNet.set_element_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set element reference for the property
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>element_refs (np.ndarray): element reference value for the</dt><dd><p>extensive property</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNetCalculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">M3GNetCalculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">potential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#m3gnet.models.Potential" title="m3gnet.models._base.Potential"><span class="pre">m3gnet.models._base.Potential</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_stress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNetCalculator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.calculators.calculator.Calculator</span></code></p>
+<p>M3GNet calculator based on ase Calculator</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNetCalculator.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ase.atoms.Atoms</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_changes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.M3GNetCalculator.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Args:</dt><dd><p>atoms (ase.Atoms): ase Atoms object
+properties (list): list of properties to calculate
+system_changes (list): monitor which properties of atoms were</p>
+<blockquote>
+<div><p>changed for new calculation. If not, the previous calculation
+results will be loaded.</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="m3gnet.models.M3GNetCalculator.implemented_properties">
+<span class="sig-name descname"><span class="pre">implemented_properties</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['energy',</span> <span class="pre">'free_energy',</span> <span class="pre">'forces',</span> <span class="pre">'stress']</span></em><a class="headerlink" href="#m3gnet.models.M3GNetCalculator.implemented_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properties calculator can handle (energy, forces, …)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.MolecularDynamics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">MolecularDynamics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">potential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#m3gnet.models.Potential" title="m3gnet.models._base.Potential"><span class="pre">m3gnet.models._base.Potential</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensemble</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'nvt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6.324209121801212e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taut</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compressibility_au</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ase.io.trajectory.Trajectory</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loginterval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.MolecularDynamics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Molecular dynamics class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.MolecularDynamics.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.MolecularDynamics.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thin wrapper of ase MD run
+Args:</p>
+<blockquote>
+<div><p>steps (int): number of MD steps</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.MolecularDynamics.set_atoms">
+<span class="sig-name descname"><span class="pre">set_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.MolecularDynamics.set_atoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set new atoms to run MD
+Args:</p>
+<blockquote>
+<div><p>atoms (Atoms): new atoms for running MD</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.Potential">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">Potential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.Potential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.models.BasePotential" title="m3gnet.models._base.BasePotential"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.models._base.BasePotential</span></code></a></p>
+<p>Defines the Potential class. New potential should subclass from this class
+and define the “get_energies” method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.Potential.get_energies">
+<span class="sig-name descname"><span class="pre">get_energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.models.Potential.get_energies" title="Permalink to this definition">¶</a></dt>
+<dd><p>get energies from a list repr of a graph
+Args:</p>
+<blockquote>
+<div><p>graph (List): list repr of a graph</p>
+</div></blockquote>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="m3gnet.models.Relaxer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.models.</span></span><span class="sig-name descname"><span class="pre">Relaxer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">potential</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#m3gnet.models.Potential" title="m3gnet.models._base.Potential"><span class="pre">m3gnet.models._base.Potential</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">ase.optimize.optimize.Optimizer</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'FIRE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relax_cell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stress_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.Relaxer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Relaxer is a class for structural relaxation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="m3gnet.models.Relaxer.relax">
+<span class="sig-name descname"><span class="pre">relax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ase.atoms.Atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traj_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.models.Relaxer.relax" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Args:</dt><dd><p>atoms (Atoms): the atoms for relaxation
+fmax (float): total force tolerance for relaxation convergence.</p>
+<blockquote>
+<div><p>Here fmax is a sum of force and stress forces</p>
+</div></blockquote>
+<p>steps (int): max number of steps for relaxation
+traj_file (str): the trajectory file for saving
+interval (int): the step interval for saving the trajectories
+<a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs:</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">m3gnet</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Chi Chen, Shyue Ping Ong.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/m3gnet.models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
