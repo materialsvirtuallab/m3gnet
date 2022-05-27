@@ -2,6 +2,6 @@ m3gnet
 ======
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 6
 
    m3gnet

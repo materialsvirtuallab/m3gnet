@@ -1,19 +1,11 @@
 m3gnet.utils package
 ====================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 7
-
-   m3gnet.utils.tests
-
 Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 6
 
    m3gnet.utils.constants
 

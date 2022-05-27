@@ -1,7 +1,6 @@
 m3gnet.layers.tests namespace
 =============================
 
-.. py:module:: m3gnet.layers.tests
 
 Submodules
 ----------

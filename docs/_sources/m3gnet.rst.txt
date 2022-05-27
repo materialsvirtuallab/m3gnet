@@ -5,7 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 6
 
    m3gnet.graph
    m3gnet.layers
@@ -17,7 +17,7 @@ Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 7
+   :maxdepth: 6
 
    m3gnet.callbacks
    m3gnet.config

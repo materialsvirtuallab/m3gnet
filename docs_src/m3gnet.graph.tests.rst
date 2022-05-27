@@ -1,7 +1,6 @@
 m3gnet.graph.tests namespace
 ============================
 
-.. py:module:: m3gnet.graph.tests
 
 Submodules
 ----------

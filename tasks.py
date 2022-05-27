@@ -22,7 +22,7 @@ NEW_VER = m3gnet.__version__
 
 @task
 def make_doc(ctx):
-    with cd("docs_rst"):
+    with cd("docs_src"):
         ctx.run("sphinx-apidoc --separate -d 6 -o . -f ../m3gnet")
         for f in glob.glob("*.rst"):
             if f.startswith("m3gnet") and f.endswith("rst"):
@@ -46,7 +46,7 @@ def make_doc(ctx):
 
                 with open(f, "w") as fid:
                     fid.write("".join(newoutput))
-        ctx.run("make html")
+    ctx.run("sphinx-build -b html docs_src docs")
 
         # ctx.run("cp _static/* ../docs/html/_static")
 

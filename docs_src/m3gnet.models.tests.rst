@@ -1,7 +1,6 @@
 m3gnet.models.tests namespace
 =============================
 
-.. py:module:: m3gnet.models.tests
 
 Submodules
 ----------

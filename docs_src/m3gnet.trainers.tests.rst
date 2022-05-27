@@ -1,7 +1,6 @@
 m3gnet.trainers.tests namespace
 ===============================
 
-.. py:module:: m3gnet.trainers.tests
 
 Submodules
 ----------

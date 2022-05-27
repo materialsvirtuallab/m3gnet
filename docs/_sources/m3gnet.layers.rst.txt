@@ -1,14 +1,6 @@
 m3gnet.layers package
 =====================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 7
-
-   m3gnet.layers.tests
-
 Module contents
 ---------------
 
