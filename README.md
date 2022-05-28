@@ -76,10 +76,11 @@ conda install -c apple tensorflow-deps
 pip install tensorflow-macos
 pip install tensorflow-metal
 ```
-5. Install m3gnet.
+5. Install m3gnet but ignore dependences (otherwise, pip will look for tensorflow).
 ```bash
-pip install m3gnet
+pip install --no-deps m3gnet
 ```
+6. You may also need to install `protobuf==3.20.0` and other dependencies manually.
 
 # Demo
 

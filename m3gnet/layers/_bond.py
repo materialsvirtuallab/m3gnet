@@ -10,10 +10,10 @@ from typing import List
 import tensorflow as tf
 
 from m3gnet.graph import Index
-from m3gnet.layers import GatedMLP
 from m3gnet.utils import broadcast_states_to_bonds, get_segment_indices_from_n, register
 
 from ._base import GraphUpdate
+from ._core import GatedMLP
 from ._basis import RBF_ALLOWED, RadialBasisFunctions
 
 
