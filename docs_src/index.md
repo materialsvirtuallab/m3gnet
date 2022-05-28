@@ -2,7 +2,7 @@
 
 # M3GNet
 
-[M3GNet](https://materialsvirtuallab.github.io/m3gnet) is a new materials graph neural network architecture that
+M3GNet(https://materialsvirtuallab.github.io/m3gnet) is a new materials graph neural network architecture that
 explicitly incorporates 3-body interactions. A key difference with prior materials graph implementations such as
 [MEGNet](https://github.com/materialsvirtuallab/megnet) is the addition of the coordinates for atoms and the 3×3
 lattice matrix in crystals, which are necessary for obtaining tensorial quantities such as forces and stresses via
@@ -24,24 +24,16 @@ Sphinx-generated API documentation is available via the [Github Page](http://mat
 # Table of Contents
 * [System requirements](#system-requirements)
 * [Installation](#installation)
-* [Demo](#demo)
-* [Model training](#training)
+* [Usage](#usage)
+* [Model training](#model-training)
 * [Datasets](#datasets)
 * [References](#references)
 
 # System requirements
-## Hardware requirements
-Inferences using the pre-trained models can be ran on any standard computer.
-For model training, the GPU memory needs to be > 18 Gb for a batch size of 
-32 using the crystal training data. In our work, we used single RTX 3090 
+
+Inferences using the pre-trained models can be ran on any standard computer. For model training, the GPU memory needs 
+to be > 18 Gb for a batch size of 32 using the crystal training data. In our work, we used a single RTX 3090 
 GPU for model training. 
-
-## Software requirements
-The package has been tested on the following systems:
-
-- macOS: Monterey 12.1 
-- Linux: Ubuntu 18.04 (with tensorflow==2.7.0)
-- Windows: 11
 
 # Installation
 
@@ -77,7 +69,7 @@ pip install --no-deps m3gnet
 ```
 6. You may also need to install `protobuf==3.20.0` and other dependencies like pymatgen, etc. manually.
 
-# Demo
+# Usage
 
 ## Structure relaxation
 

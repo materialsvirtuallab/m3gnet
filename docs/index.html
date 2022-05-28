@@ -34,7 +34,7 @@
   <p><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/materialsvirtuallab/m3gnet" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg"><img alt="Linting" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg"><img alt="Testing" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg" /></a><a class="reference external" href="https://pepy.tech/project/m3gnet"><img alt="Downloads" src="https://pepy.tech/badge/m3gnet" /></a></p>
 <section id="m3gnet">
 <h1>M3GNet<a class="headerlink" href="#m3gnet" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://materialsvirtuallab.github.io/m3gnet">M3GNet</a> is a new materials graph neural network architecture that
+<p>M3GNet(https://materialsvirtuallab.github.io/m3gnet) is a new materials graph neural network architecture that
 explicitly incorporates 3-body interactions. A key difference with prior materials graph implementations such as
 <a class="reference external" href="https://github.com/materialsvirtuallab/megnet">MEGNet</a> is the addition of the coordinates for atoms and the 3×3
 lattice matrix in crystals, which are necessary for obtaining tensorial quantities such as forces and stresses via
@@ -58,7 +58,7 @@ Sphinx-generated API documentation is available via the <a class="reference exte
 <ul class="simple">
 <li><p><span class="xref myst">System requirements</span></p></li>
 <li><p><span class="xref myst">Installation</span></p></li>
-<li><p><span class="xref myst">Demo</span></p></li>
+<li><p><span class="xref myst">Usage</span></p></li>
 <li><p><span class="xref myst">Model training</span></p></li>
 <li><p><span class="xref myst">Datasets</span></p></li>
 <li><p><span class="xref myst">References</span></p></li>
@@ -66,22 +66,9 @@ Sphinx-generated API documentation is available via the <a class="reference exte
 </section>
 <section id="system-requirements">
 <h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
-<section id="hardware-requirements">
-<h2>Hardware requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h2>
-<p>Inferences using the pre-trained models can be ran on any standard computer.
-For model training, the GPU memory needs to be &gt; 18 Gb for a batch size of
-32 using the crystal training data. In our work, we used single RTX 3090
+<p>Inferences using the pre-trained models can be ran on any standard computer. For model training, the GPU memory needs
+to be &gt; 18 Gb for a batch size of 32 using the crystal training data. In our work, we used a single RTX 3090
 GPU for model training.</p>
-</section>
-<section id="software-requirements">
-<h2>Software requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h2>
-<p>The package has been tested on the following systems:</p>
-<ul class="simple">
-<li><p>macOS: Monterey 12.1</p></li>
-<li><p>Linux: Ubuntu 18.04 (with tensorflow==2.7.0)</p></li>
-<li><p>Windows: 11</p></li>
-</ul>
-</section>
 </section>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
@@ -122,8 +109,8 @@ pip install tensorflow-metal  <span class="c1"># This is optional. If you encoun
 </ol>
 </section>
 </section>
-<section id="demo">
-<h1>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h1>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="structure-relaxation">
 <h2>Structure relaxation<a class="headerlink" href="#structure-relaxation" title="Permalink to this headline">¶</a></h2>
 <p>A M3Gnet universal potential for the periodic table has been developed using data from Materials Project relaxations
