@@ -34,10 +34,11 @@
   <p><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/materialsvirtuallab/m3gnet" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg"><img alt="Linting" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg" /></a><a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg"><img alt="Testing" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg" /></a><a class="reference external" href="https://pepy.tech/project/m3gnet"><img alt="Downloads" src="https://pepy.tech/badge/m3gnet" /></a></p>
 <section id="m3gnet">
 <h1>M3GNet<a class="headerlink" href="#m3gnet" title="Permalink to this headline">¶</a></h1>
-<p>M3GNet is a new materials graph neural network architecture that explicitly incorporates 3-body interactions. A key
-difference with prior materials graph implementations such as <a class="reference external" href="https://github.com/materialsvirtuallab/megnet">MEGNet</a>
-is the addition of the coordinates for atoms and the 3×3 lattice matrix in crystals, which are necessary for obtaining
-tensorial quantities such as forces and stresses via auto-differentiation.</p>
+<p><a class="reference external" href="https://materialsvirtuallab.github.io/m3gnet">M3GNet</a> is a new materials graph neural network architecture that
+explicitly incorporates 3-body interactions. A key difference with prior materials graph implementations such as
+<a class="reference external" href="https://github.com/materialsvirtuallab/megnet">MEGNet</a> is the addition of the coordinates for atoms and the 3×3
+lattice matrix in crystals, which are necessary for obtaining tensorial quantities such as forces and stresses via
+auto-differentiation.</p>
 <p>As a framework, M3GNet has diverse applications, including:</p>
 <ul class="simple">
 <li><p>Interatomic potential development. With the same training data, M3GNet performs similarly to state-of-the-art machine
@@ -49,12 +50,12 @@ Project.</p></li>
 surrogate models for property predictions, achieving in many cases accuracies that better or similar to other state
 of the art ML models.</p></li>
 </ul>
-<p>For detailed performance benchmarks, please refer to the publication in the <span class="xref myst">References</span> section.</p>
+<p>For detailed performance benchmarks, please refer to the publication in the <span class="xref myst">References</span> section. The
+Sphinx-generated API documentation is available via the <a class="reference external" href="http://materialsvirtuallab.github.io/m3gnet">Github Page</a>.</p>
 </section>
 <section id="table-of-contents">
 <h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><span class="xref myst">Introduction</span></p></li>
 <li><p><span class="xref myst">System requirements</span></p></li>
 <li><p><span class="xref myst">Installation</span></p></li>
 <li><p><span class="xref myst">Demo</span></p></li>
@@ -62,12 +63,6 @@ of the art ML models.</p></li>
 <li><p><span class="xref myst">Datasets</span></p></li>
 <li><p><span class="xref myst">References</span></p></li>
 </ul>
-</section>
-<section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This repository contains the <code class="docutils literal notranslate"><span class="pre">M3GNet</span></code> interatomic potential for the periodic
-table. The model has been developed for inorganic crystals using the
-Materials Project relaxation trajectory as training data.</p>
 </section>
 <section id="system-requirements">
 <h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
@@ -90,7 +85,7 @@ GPU for model training.</p>
 </section>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">m3gnet</span></code> can be installed via pip:</p>
+<p>M3GNet can be installed via pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">m3gnet</span>
 </pre></div>
 </div>
