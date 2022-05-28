@@ -42,9 +42,9 @@ logger = logging.getLogger(__file__)
 
 CWD = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_NAMES = {"EFS2021": os.path.join(CWD, "../../pretrained/EFS2021")}
+MODEL_NAMES = {"EFS2021": os.path.join(CWD, "..", "..", "pretrained", "EFS2021")}
 
-GITHUB_RAW_LINK = "https://raw.githubusercontent.com/materialsvirtuallab" "/m3gnet/main/pretrained/EFS2021/{filename}"
+GITHUB_RAW_LINK = "https://raw.githubusercontent.com/materialsvirtuallab/m3gnet/main/pretrained/EFS2021/{filename}"
 
 MODEL_URLS = {
     "EFS2021": {
@@ -362,4 +362,4 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             if "m3gnet.json" in os.listdir(model_name):
                 return cls.from_dir(model_name)
 
-        raise ValueError(f"{model_name} not found in vail" f"able pretrained {list(MODEL_NAMES.keys())}")
+        raise ValueError(f"{model_name} not found in available pretrained {list(MODEL_NAMES.keys())}")
