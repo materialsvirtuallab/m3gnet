@@ -1,7 +1,7 @@
 """
 atomic reference. Used for predicting extensive properties.
 """
-# -*- coding: utf-8 -*-
+
 import logging
 from typing import List, Optional
 

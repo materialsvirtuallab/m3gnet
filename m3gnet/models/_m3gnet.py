@@ -34,7 +34,6 @@ from m3gnet.layers import (
     polynomial,
 )
 from m3gnet.utils import register_plain
-from m3gnet.utils.constants import MODEL_NAME
 
 from ._base import GraphModelMixin
 
@@ -50,6 +49,7 @@ To ensure clarity on the training data on the models, the naming convention for 
 For example, MP-2021.2.8-EFS denotes a potential trained on Materials Project energies, forces and stresses as of
 2021.2.8.
 """
+MODEL_NAME = "m3gnet"
 
 MODEL_PATHS = {"MP-2021.2.8-EFS": os.path.join(CWD, "..", "..", "pretrained", "MP-2021.2.8-EFS")}
 
@@ -312,7 +312,6 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         fname = os.path.join(dirname, MODEL_NAME + ".json")
         with open(fname, "w") as f:
             json.dump(model_serialized, f)
-        return True
 
     @classmethod
     def from_dir(cls, dirname: str, custom_objects: Optional[dict] = None) -> "M3GNet":

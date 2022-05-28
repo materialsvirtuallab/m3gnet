@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""Define several typing for convenient use"""
+"""Define several types for convenient use"""
 
 from typing import Any, Callable, List, Optional, Union
 

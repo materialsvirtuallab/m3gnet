@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Computing various graph based operations
 """
