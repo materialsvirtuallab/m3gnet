@@ -52,13 +52,7 @@ class ConcatBondAtomState(StateNetwork):
     u^\prime = Update(\bar e^\prime⊕\bar v^\prime⊕u)
     """
 
-    def __init__(
-        self,
-        update_func: Callable,
-        bond_agg_func: Callable = None,
-        atom_agg_func: Callable = None,
-        **kwargs
-    ):
+    def __init__(self, update_func: Callable, bond_agg_func: Callable = None, atom_agg_func: Callable = None, **kwargs):
         """
         Args:
             update_func (callable): the core udpate function

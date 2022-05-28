@@ -143,9 +143,7 @@ class AttributeUpdateMixin:
         return True
 
     def _check_shapes(self, shape_dict):
-        checks = [
-            check_shape_consistency(getattr(self, i), j) for i, j in shape_dict.items()
-        ]
+        checks = [check_shape_consistency(getattr(self, i), j) for i, j in shape_dict.items()]
         names = list(shape_dict.keys())
         error_msg = ""
         for check, name in zip(checks, names):
@@ -292,12 +290,7 @@ class MaterialGraph(AttributeUpdateMixin):
         for attr in attributes:
             if getattr(self, attr) is None:
                 continue
-            shapes.append(
-                attr
-                + " "
-                + str(getattr(self, attr).dtype)[9:-2]
-                + f" {str(getattr(self, attr).shape)}"
-            )
+            shapes.append(attr + " " + str(getattr(self, attr).dtype)[9:-2] + f" {str(getattr(self, attr).shape)}")
         string = "\n" + "\n".join(shapes)
         return "<MaterialGraph with the following data shapes: " + string + ">"
 

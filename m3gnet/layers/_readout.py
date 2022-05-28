@@ -188,15 +188,11 @@ class Set2Set(ReadOut):
             tf.zeros([n_struct, self.units], dtype=DataType.tf_float),
         ]
         for _ in range(self.num_steps):
-            qt, state_h, state_c = self.lstm(
-                tf.expand_dims(q_star, axis=1), initial_state=h
-            )
+            qt, state_h, state_c = self.lstm(tf.expand_dims(q_star, axis=1), initial_state=h)
             h = [state_h, state_c]
             eit = field * tf.repeat(qt, repeats=counts, axis=0)
             ait = unsorted_segment_softmax(eit, indices, num_segments=n_struct)
-            rt = tf.math.unsorted_segment_sum(
-                ait * field, indices, num_segments=n_struct
-            )
+            rt = tf.math.unsorted_segment_sum(ait * field, indices, num_segments=n_struct)
             q_star = tf.concat([qt, rt], axis=-1)
         return q_star
 
@@ -206,9 +202,7 @@ class Set2Set(ReadOut):
         Returns: dict
         """
         d = super().get_config()
-        d.update(
-            {"units": self.units, "num_steps": self.num_steps, "field": self.field}
-        )
+        d.update({"units": self.units, "num_steps": self.num_steps, "field": self.field})
         return d
 
 
@@ -219,9 +213,7 @@ class WeightedReadout(ReadOut):
     from this layer
     """
 
-    def __init__(
-        self, neurons: List[int], activation="swish", field: str = "atoms", **kwargs
-    ):
+    def __init__(self, neurons: List[int], activation="swish", field: str = "atoms", **kwargs):
         """
 
         Args:
@@ -255,9 +247,7 @@ class WeightedReadout(ReadOut):
         weights = self.weight(field)
         indices = get_segment_indices_from_n(n_field)
         n_structs = tf.shape(n_field)[0]
-        factor = unsorted_segment_fraction(
-            weights[:, 0], indices, num_segments=n_structs
-        )
+        factor = unsorted_segment_fraction(weights[:, 0], indices, num_segments=n_structs)
         return tf.math.segment_sum(factor[:, None] * updated_field, indices)
 
     def get_config(self):

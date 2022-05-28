@@ -64,19 +64,13 @@ class GatedAtomUpdate(AtomNetwork):
         """
         super().__init__(**kwargs)
         self.neurons = neurons
-        self.bond_dense = GatedMLP(
-            neurons=neurons, activations=[activation] * len(neurons)
-        )
-        self.weight_update = tf.keras.layers.Dense(
-            neurons[-1], activation=activation, use_bias=False
-        )
+        self.bond_dense = GatedMLP(neurons=neurons, activations=[activation] * len(neurons))
+        self.weight_update = tf.keras.layers.Dense(neurons[-1], activation=activation, use_bias=False)
         self.activation = activation
 
     def _get_reduced(self, graph: List):
         atoms_left = tf.gather(graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES][:, 0])
-        atoms_right = tf.gather(
-            graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES][:, 1]
-        )
+        atoms_right = tf.gather(graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES][:, 1])
 
         atoms = [atoms_left, atoms_right, graph[Index.BONDS]]
 
@@ -84,9 +78,7 @@ class GatedAtomUpdate(AtomNetwork):
             atoms.append(broadcast_states_to_bonds(graph))
 
         reduced = tf.concat(atoms, axis=-1)
-        reduced = self.bond_dense(reduced) * self.weight_update(
-            graph[Index.BOND_WEIGHTS]
-        )
+        reduced = self.bond_dense(reduced) * self.weight_update(graph[Index.BOND_WEIGHTS])
         return reduced
 
     def update_atoms(self, graph: List) -> tf.Tensor:

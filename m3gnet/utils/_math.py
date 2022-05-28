@@ -67,9 +67,7 @@ class SphericalBesselFunction:
     implementations
     """
 
-    def __init__(
-        self, max_l: int, max_n: int = 5, cutoff: float = 5.0, smooth: bool = False
-    ):
+    def __init__(self, max_l: int, max_n: int = 5, cutoff: float = 5.0, smooth: bool = False):
         """
         Args:
             max_l: int, max order (excluding l)
@@ -98,10 +96,7 @@ class SphericalBesselFunction:
 
         """
         x = sympy.symbols("x")
-        funcs = [
-            sympy.expand_func(sympy.functions.special.bessel.jn(i, x))
-            for i in range(self.max_l + 1)
-        ]
+        funcs = [sympy.expand_func(sympy.functions.special.bessel.jn(i, x)) for i in range(self.max_l + 1)]
         return [sympy.lambdify(x, func, "tensorflow") for func in funcs]
 
     @lru_cache(maxsize=128)
@@ -135,9 +130,7 @@ class SphericalBesselFunction:
             func = self.funcs[i]
             func_add1 = self.funcs[i + 1]
             results.append(
-                func(r[:, None] * root[None, :] / self.cutoff)
-                * factor
-                / tf.math.abs(func_add1(root[None, :]))
+                func(r[:, None] * root[None, :] / self.cutoff) * factor / tf.math.abs(func_add1(root[None, :]))
             )
         return tf.concat(results, axis=1)
 
@@ -232,19 +225,14 @@ class SphericalHarmonicsFunction:
             else:
                 m_list = [0]
             for m in m_list:
-                func = sympy.functions.special.spherical_harmonics.Znm(
-                    lval, m, theta, phi
-                ).expand(func=True)
+                func = sympy.functions.special.spherical_harmonics.Znm(lval, m, theta, phi).expand(func=True)
                 funcs.append(func)
         # replace all theta with cos(theta)
         costheta = sympy.symbols("costheta")
         funcs = [i.subs({theta: sympy.acos(costheta)}) for i in funcs]
         self.orig_funcs = [sympy.simplify(i).evalf() for i in funcs]
         results = [
-            sympy.lambdify(
-                [costheta, phi], i, [{"conjugate": _conjugate}, "tensorflow"]
-            )
-            for i in self.orig_funcs
+            sympy.lambdify([costheta, phi], i, [{"conjugate": _conjugate}, "tensorflow"]) for i in self.orig_funcs
         ]
         results[0] = _y00
         return results
@@ -278,9 +266,7 @@ def _block_repeat(array, block_size, repeats):
     return tf.gather(array, indices, axis=1)
 
 
-def combine_sbf_shf(
-    sbf: tf.Tensor, shf: tf.Tensor, max_n: int, max_l: int, use_phi: bool
-):
+def combine_sbf_shf(sbf: tf.Tensor, shf: tf.Tensor, max_n: int, max_l: int, use_phi: bool):
     """
     Combine the spherical Bessel function and the spherical Harmonics function
     For the spherical Bessel function, the column is ordered by
@@ -362,11 +348,7 @@ def spherical_bessel_smooth(r, cutoff: float = 5.0, max_n: int = 10):
     dn = tf.stack(dn)
     gn = [fnr[:, 0]]
     for i in range(1, max_n):
-        gn.append(
-            1
-            / tf.math.sqrt(dn[i])
-            * (fnr[:, i] + tf.sqrt(en[0, i] / dn[i - 1]) * gn[-1])
-        )
+        gn.append(1 / tf.math.sqrt(dn[i]) * (fnr[:, i] + tf.sqrt(en[0, i] / dn[i - 1]) * gn[-1]))
     return tf.transpose(tf.stack(gn))
 
 
@@ -393,17 +375,13 @@ def _get_lambda_func(max_n, cutoff: float = 5.0):
             * (i + 2)
             / sympy.sqrt(1.0 * (i + 1) ** 2 + (i + 2) ** 2)
             * (
-                sympy.sin(r * (i + 1) * sympy.pi / cutoff)
-                / (r * (i + 1) * sympy.pi / cutoff)
-                + sympy.sin(r * (i + 2) * sympy.pi / cutoff)
-                / (r * (i + 2) * sympy.pi / cutoff)
+                sympy.sin(r * (i + 1) * sympy.pi / cutoff) / (r * (i + 1) * sympy.pi / cutoff)
+                + sympy.sin(r * (i + 2) * sympy.pi / cutoff) / (r * (i + 2) * sympy.pi / cutoff)
             )
         )
 
     gnr = [fnr[0]]
     for i in range(1, max_n):
-        gnr.append(
-            1 / sympy.sqrt(dn[i]) * (fnr[i] + sympy.sqrt(en[i] / dn[i - 1]) * gnr[-1])
-        )
+        gnr.append(1 / sympy.sqrt(dn[i]) * (fnr[i] + sympy.sqrt(en[i] / dn[i - 1]) * gnr[-1]))
 
     return [sympy.lambdify([r], sympy.simplify(i), "tensorflow") for i in gnr]

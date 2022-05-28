@@ -31,9 +31,7 @@ def get_pair_vector_from_graph(graph: List):
     n_bonds = graph[Index.N_BONDS]
     if lattices is not None:
         lattices = tf.gather(lattices, get_segment_indices_from_n(n_bonds))
-        offset_vec = tf.keras.backend.batch_dot(
-            tf.cast(pbc_offsets, DataType.tf_float), lattices
-        )
+        offset_vec = tf.keras.backend.batch_dot(tf.cast(pbc_offsets, DataType.tf_float), lattices)
     else:
         offset_vec = tf.constant([[0.0, 0.0, 0.0]], dtype=DataType.tf_float)
     diff = (
@@ -70,9 +68,7 @@ def tf_compute_distance_angle(graph: List):
     return graph
 
 
-def include_threebody_indices(
-    graph: Union[MaterialGraph, List], threebody_cutoff: Optional[float] = None
-):
+def include_threebody_indices(graph: Union[MaterialGraph, List], threebody_cutoff: Optional[float] = None):
     """
     Given a graph without threebody indices, add the threebody indices
     according to a threebody cutoff radius
@@ -90,14 +86,10 @@ def include_threebody_indices(
         is_graph = False
         graph_list = graph
 
-    return _list_include_threebody_indices(
-        graph_list, threebody_cutoff=threebody_cutoff, is_graph=is_graph
-    )
+    return _list_include_threebody_indices(graph_list, threebody_cutoff=threebody_cutoff, is_graph=is_graph)
 
 
-def _list_include_threebody_indices(
-    graph: List, threebody_cutoff: Optional[float] = None, is_graph: bool = False
-):
+def _list_include_threebody_indices(graph: List, threebody_cutoff: Optional[float] = None, is_graph: bool = False):
     graph = graph[:]
     bond_atom_indices = graph[Index.BOND_ATOM_INDICES]
     n_bond = bond_atom_indices.shape[0]

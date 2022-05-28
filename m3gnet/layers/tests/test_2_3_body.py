@@ -10,13 +10,9 @@ from m3gnet.layers import PairDistance, PairVector, SphericalBesselWithHarmonics
 class TestTwoBody(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        s = Structure(
-            Lattice.cubic(4.0), ["Mo", "S"], [[0.0, 0.0, 0.0], [0.5, 0.5, 0.5]]
-        )
+        s = Structure(Lattice.cubic(4.0), ["Mo", "S"], [[0.0, 0.0, 0.0], [0.5, 0.5, 0.5]])
         mol = Molecule(["C", "O"], [[0, 0, 0], [1.1, 0, 0]])
-        rc = RadiusCutoffGraphConverter(
-            cutoff=4.0, has_threebody=True, threebody_cutoff=4.0
-        )
+        rc = RadiusCutoffGraphConverter(cutoff=4.0, has_threebody=True, threebody_cutoff=4.0)
         cls.struct_graph = rc.convert(s).as_list()
         cls.mol_graph = rc.convert(mol).as_list()
 

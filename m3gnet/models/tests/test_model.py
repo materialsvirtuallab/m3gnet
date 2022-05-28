@@ -15,9 +15,7 @@ class TestModel(unittest.TestCase):
         cls.model = M3GNet.load()
         cls.potential = Potential(model=cls.model)
         cls.mol = Molecule(["C", "O"], [[0, 0, 0], [1.5, 0, 0]])
-        cls.structure = Structure(
-            Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]]
-        )
+        cls.structure = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
 
     def test_m3gnet(self):
 
@@ -38,9 +36,7 @@ class TestModel(unittest.TestCase):
     def test_potential(self):
         e, f, s = self.potential.get_efs(self.structure)
         self.assertAlmostEqual(e.numpy().item(), -21.3307, 3)
-        self.assertTrue(
-            np.allclose(f.numpy().ravel(), np.zeros(shape=(2, 3)).ravel(), atol=1e-3)
-        )
+        self.assertTrue(np.allclose(f.numpy().ravel(), np.zeros(shape=(2, 3)).ravel(), atol=1e-3))
         self.assertTrue(
             np.allclose(
                 np.diag(s[0].numpy()).ravel(),
@@ -61,9 +57,7 @@ class TestModel(unittest.TestCase):
 
     def test_md(self):
         with ScratchDir("."):
-            md = MolecularDynamics(
-                atoms=self.structure, temperature=300, logfile="mo.log"
-            )
+            md = MolecularDynamics(atoms=self.structure, temperature=300, logfile="mo.log")
 
             md.run(10)
             self.assertTrue(os.path.isfile("mo.log"))

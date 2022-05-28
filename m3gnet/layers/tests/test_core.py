@@ -41,9 +41,7 @@ class TestCore(unittest.TestCase):
         layer = GatedMLP(neurons=[10, 3], activations="swish")
         self.assertTrue(isinstance(layer.pipe, Pipe))
         self.assertTrue(isinstance(layer.gate, Pipe))
-        self.assertTrue(
-            layer.gate.layers[-1].activation == tf.keras.activations.sigmoid
-        )
+        self.assertTrue(layer.gate.layers[-1].activation == tf.keras.activations.sigmoid)
 
     def test_embedding(self):
         emb = Embedding(2, 8)

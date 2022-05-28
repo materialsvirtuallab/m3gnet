@@ -125,20 +125,12 @@ class Trainer:
             val_metric_names = []
             has_val_metrics = False
 
-        if (
-            validation_graphs_or_structures is not None
-            and validation_targets is not None
-        ):
+        if validation_graphs_or_structures is not None and validation_targets is not None:
             has_validation = True
             if isinstance(validation_graphs_or_structures[0], MaterialGraph):
                 validation_graphs = validation_graphs_or_structures
-            elif isinstance(
-                validation_graphs_or_structures[0], (Structure, Molecule, Atoms)
-            ):
-                validation_graphs = [
-                    self.model.graph_converter(i)
-                    for i in validation_graphs_or_structures
-                ]
+            elif isinstance(validation_graphs_or_structures[0], (Structure, Molecule, Atoms)):
+                validation_graphs = [self.model.graph_converter(i) for i in validation_graphs_or_structures]
             else:
                 raise ValueError("Graph types not recognized")
 
@@ -158,10 +150,7 @@ class Trainer:
 
         if has_validation and save_checkpoint:
             if val_monitor not in val_metric_names:
-                raise ValueError(
-                    f"val_monitor {val_monitor} not in the "
-                    f"val_metric_names {val_metric_names}"
-                )
+                raise ValueError(f"val_monitor {val_monitor} not in the " f"val_metric_names {val_metric_names}")
 
             callbacks.append(
                 tf.keras.callbacks.ModelCheckpoint(
@@ -218,19 +207,13 @@ class Trainer:
                 if isinstance(target_batch, np.ndarray) and target_batch.ndim == 1:
                     target_batch = target_batch.reshape((-1, 1))
 
-                loss_val, grads, predictions = train_one_step(
-                    self.model, graph_batch, target_batch
-                )
+                loss_val, grads, predictions = train_one_step(self.model, graph_batch, target_batch)
                 global_norm = tf.linalg.global_norm(grads)
 
                 if clip_norm is not None:
-                    grads, _ = tf.clip_by_global_norm(
-                        grads, clip_norm, use_norm=global_norm
-                    )
+                    grads, _ = tf.clip_by_global_norm(grads, clip_norm, use_norm=global_norm)
 
-                self.optimizer.apply_gradients(
-                    zip(grads, self.model.trainable_variables)
-                )
+                self.optimizer.apply_gradients(zip(grads, self.model.trainable_variables))
 
                 epoch_loss_avg.update_state(loss_val)
                 logs = {"loss": epoch_loss_avg.result().numpy()}
@@ -251,16 +234,11 @@ class Trainer:
             train_targets = tf.concat(train_targets, axis=0)
             if has_train_metrics:
                 for index, metric_name in enumerate(train_metric_names):
-                    train_metric_values[metric_name] = train_metrics[
-                        index
-                    ](  # type: ignore
+                    train_metric_values[metric_name] = train_metrics[index](  # type: ignore
                         train_targets.numpy().ravel(), train_predictions.numpy().ravel()
                     )
                 epoch_log.update(
-                    **{
-                        metric_name: train_metric_values[metric_name].numpy()
-                        for metric_name in train_metric_names
-                    }
+                    **{metric_name: train_metric_values[metric_name].numpy() for metric_name in train_metric_names}
                 )
 
             if has_validation:
@@ -283,19 +261,14 @@ class Trainer:
                             val_targets.numpy().ravel(),  # type: ignore
                             val_predictions.numpy().ravel(),  # type: ignore
                         )
-                    val_logs = {
-                        metric_name: val_metric_values[metric_name].numpy()
-                        for metric_name in val_metric_names
-                    }
+                    val_logs = {metric_name: val_metric_values[metric_name].numpy() for metric_name in val_metric_names}
                     epoch_log.update(**val_logs)
             callback_list.on_epoch_end(epoch=epoch, logs=epoch_log)
             mgb.on_epoch_end()
         callback_list.on_train_end()
 
         if save_checkpoint and has_validation:
-            best_model_weights = sorted(
-                glob("callbacks/*.index"), key=os.path.getctime
-            )[-1]
+            best_model_weights = sorted(glob("callbacks/*.index"), key=os.path.getctime)[-1]
             best_model_weights = best_model_weights.rsplit(".", 1)[0]
             self.model.load_weights(best_model_weights)
             self.model.save("best_model")

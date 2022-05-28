@@ -44,13 +44,7 @@ class M3GNetCalculator(Calculator):
 
     implemented_properties = ["energy", "free_energy", "forces", "stress"]
 
-    def __init__(
-        self,
-        potential: Potential,
-        compute_stress: bool = True,
-        stress_weight: float = 1.0,
-        **kwargs
-    ):
+    def __init__(self, potential: Potential, compute_stress: bool = True, stress_weight: float = 1.0, **kwargs):
         """
 
         Args:
@@ -82,15 +76,11 @@ class M3GNetCalculator(Calculator):
         """
         properties = properties or ["energy"]
         system_changes = system_changes or all_changes
-        super().calculate(
-            atoms=atoms, properties=properties, system_changes=system_changes
-        )
+        super().calculate(atoms=atoms, properties=properties, system_changes=system_changes)
 
         graph = self.potential.graph_converter(atoms)
         graph_list = graph.as_tf().as_list()
-        results = self.potential.get_efs_tensor(
-            graph_list, include_stresses=self.compute_stress
-        )
+        results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
         self.results.update(
             energy=results[0].numpy().ravel(),
             free_energy=results[0].numpy().ravel(),
@@ -136,22 +126,12 @@ class Relaxer:
             optimizer_obj = optimizer
 
         self.opt_class: Optimizer = optimizer_obj
-        self.calculator = M3GNetCalculator(
-            potential=potential, stress_weight=stress_weight
-        )
+        self.calculator = M3GNetCalculator(potential=potential, stress_weight=stress_weight)
         self.relax_cell = relax_cell
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
 
-    def relax(
-        self,
-        atoms: Atoms,
-        fmax: float = 0.1,
-        steps: int = 500,
-        traj_file: str = None,
-        interval=1,
-        **kwargs
-    ):
+    def relax(self, atoms: Atoms, fmax: float = 0.1, steps: int = 500, traj_file: str = None, interval=1, **kwargs):
         """
 
         Args:

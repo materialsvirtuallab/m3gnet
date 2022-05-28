@@ -88,9 +88,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         """
         pass
 
-    def convert_many(
-        self, structures: List[StructureOrMolecule], **kwargs
-    ) -> MaterialGraph:
+    def convert_many(self, structures: List[StructureOrMolecule], **kwargs) -> MaterialGraph:
         """
         Convert many structures into one single graph
         Args:
@@ -101,9 +99,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         graphs = [self.convert(structure, **kwargs) for structure in structures]
         return assemble_material_graph(graphs)
 
-    def __call__(
-        self, structure: StructureOrMolecule, *args, **kwargs
-    ) -> MaterialGraph:
+    def __call__(self, structure: StructureOrMolecule, *args, **kwargs) -> MaterialGraph:
         """
         A thin wrapper for calling `convert` method
         Args:
@@ -160,24 +156,18 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         """
 
         if isinstance(structure, Atoms):
-            atom_positions = np.asarray(
-                structure.get_positions(), dtype=DataType.np_float
-            )
+            atom_positions = np.asarray(structure.get_positions(), dtype=DataType.np_float)
         else:
             atom_positions = np.array(structure.cart_coords, dtype=DataType.np_float)
         state_attributes = self.get_states(structure)
 
-        sender_indices, receiver_indices, images, distances = get_fixed_radius_bonding(
-            structure, self.cutoff
-        )
+        sender_indices, receiver_indices, images, distances = get_fixed_radius_bonding(structure, self.cutoff)
 
         if np.size(np.unique(sender_indices)) < len(structure):
             logger.warning("Isolated atoms found in the structure")
 
         bonds = distances[:, None]
-        bond_atom_indices = np.array(
-            [sender_indices, receiver_indices], dtype=DataType.np_int
-        ).T
+        bond_atom_indices = np.array([sender_indices, receiver_indices], dtype=DataType.np_int).T
         pbc_offsets = images.astype(DataType.np_int)
 
         mg = MaterialGraph(  # type: ignore
@@ -203,28 +193,17 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
         )
 
         if isinstance(structure, Structure):
-            mg = mg.replace(
-                lattices=np.array(
-                    structure.lattice.matrix.reshape((1, 3, 3)), dtype=DataType.np_float
-                )
-            )
+            mg = mg.replace(lattices=np.array(structure.lattice.matrix.reshape((1, 3, 3)), dtype=DataType.np_float))
 
         if isinstance(structure, Atoms):
-            mg = mg.replace(
-                lattices=np.array(
-                    structure.cell[:].reshape((1, 3, 3)), dtype=DataType.np_float
-                )
-            )
+            mg = mg.replace(lattices=np.array(structure.cell[:].reshape((1, 3, 3)), dtype=DataType.np_float))
 
         if self.has_threebody:
             mg = include_threebody_indices(mg, self.threebody_cutoff)
         return mg
 
     def __str__(self):
-        s = (
-            f"<RadiusCutoffGraphConverter cutoff={self.cutoff}"
-            f" threebody_cutoff={self.threebody_cutoff} >"
-        )
+        s = f"<RadiusCutoffGraphConverter cutoff={self.cutoff}" f" threebody_cutoff={self.threebody_cutoff} >"
         return s
 
     def __repr__(self):

@@ -35,9 +35,7 @@ class GraphModelMixin(tf.keras.layers.Layer):
         """
         return self.predict_graph(self.graph_converter(structure))
 
-    def predict_structures(
-        self, structures: List[StructureOrMolecule], batch_size: int = 128
-    ) -> tf.Tensor:
+    def predict_structures(self, structures: List[StructureOrMolecule], batch_size: int = 128) -> tf.Tensor:
         """
         predict properties from structures
         Args:
@@ -60,9 +58,7 @@ class GraphModelMixin(tf.keras.layers.Layer):
             graph = graph.as_list()
         return self.call(graph)
 
-    def predict_graphs(
-        self, graph_list: List[Union[MaterialGraph, List]], batch_size: int = 128
-    ) -> tf.Tensor:
+    def predict_graphs(self, graph_list: List[Union[MaterialGraph, List]], batch_size: int = 128) -> tf.Tensor:
         """
         predict properties from graphs
         Args:
@@ -162,9 +158,7 @@ class BasePotential(tf.keras.Model, ABC):
         return self.get_efs_tensor(obj, include_stresses=include_stresses)
 
     @tf.function(experimental_relax_shapes=True)
-    def get_efs_tensor(
-        self, graph: List[tf.Tensor], include_stresses: bool = True
-    ) -> tuple:
+    def get_efs_tensor(self, graph: List[tf.Tensor], include_stresses: bool = True) -> tuple:
         """
         get energy and force from a list repr of a
         graph
@@ -179,9 +173,7 @@ class BasePotential(tf.keras.Model, ABC):
                 graph = graph[:]
                 strain = tf.zeros_like(graph[Index.LATTICES])
                 tape.watch(strain)
-                graph[Index.LATTICES] = tf.matmul(
-                    graph[Index.LATTICES], (tf.eye(3)[None, ...] + strain)
-                )
+                graph[Index.LATTICES] = tf.matmul(graph[Index.LATTICES], (tf.eye(3)[None, ...] + strain))
 
                 strain_augment = repeat_with_n(strain, graph[Index.N_ATOMS])
                 graph[Index.ATOM_POSITIONS] = tf.keras.backend.batch_dot(
@@ -200,9 +192,7 @@ class BasePotential(tf.keras.Model, ABC):
         results: tuple = (energies, forces)
         # eV/A^3 to GPa
         if include_stresses:
-            stresses = (
-                1 / volume[:, None, None] * derivatives["stresses"] * 160.21766208
-            )
+            stresses = 1 / volume[:, None, None] * derivatives["stresses"] * 160.21766208
             stresses = tf.cast(tf.convert_to_tensor(stresses), DataType.tf_float)
             results += (stresses,)
         return results

@@ -18,9 +18,7 @@ class TestReadout(unittest.TestCase):
             g_list = json.load(f)
         cls.graph = MaterialGraph.from_list(g_list)
         cls.graph_w_atom_features = cls.graph.copy()
-        cls.graph_w_atom_features.atoms = np.random.normal(
-            size=(cls.graph.atoms.shape[0], 10)
-        )
+        cls.graph_w_atom_features.atoms = np.random.normal(size=(cls.graph.atoms.shape[0], 10))
 
     def test_set2set(self):
         set2set = Set2Set(units=3, num_steps=2, field="bonds")

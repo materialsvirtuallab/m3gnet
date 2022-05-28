@@ -13,9 +13,7 @@ from m3gnet.graph import (
 
 
 def _loop_indices(bond_atom_indices, pair_dist, cutoff=4.0):
-    bin_count = np.bincount(
-        bond_atom_indices[:, 0], minlength=bond_atom_indices[-1, 0] + 1
-    )
+    bin_count = np.bincount(bond_atom_indices[:, 0], minlength=bond_atom_indices[-1, 0] + 1)
     indices = []
     start = 0
     for bcont in bin_count:
@@ -60,9 +58,7 @@ class TestCompute(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         gc = RadiusCutoffGraphConverter(5)
-        cls.s1 = Structure(
-            Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]]
-        )
+        cls.s1 = Structure(Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         cls.s2 = Structure(Lattice.cubic(3), ["Mo", "Fe"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         cls.g1 = gc.convert(cls.s1)
         cls.g2 = gc.convert(cls.s2)
@@ -81,9 +77,7 @@ class TestCompute(unittest.TestCase):
         )
         _, _, _, d2 = self.s1.get_neighbor_list(r=5.0)
 
-        np.testing.assert_array_almost_equal(
-            np.sort(g2[Index.BONDS].numpy().ravel()), np.sort(d2)
-        )
+        np.testing.assert_array_almost_equal(np.sort(g2[Index.BONDS].numpy().ravel()), np.sort(d2))
 
         cos_loop = _calculate_cos_loop(self.g1.as_list())
 

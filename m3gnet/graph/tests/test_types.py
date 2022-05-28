@@ -10,12 +10,8 @@ from m3gnet.graph import Index, MaterialGraph, RadiusCutoffGraphConverter
 class TestConverter(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.s1 = Structure(
-            Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]]
-        )
-        cls.g1 = RadiusCutoffGraphConverter(cutoff=5.0, threebody_cutoff=4.0).convert(
-            cls.s1
-        )
+        cls.s1 = Structure(Lattice.cubic(3.17), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
+        cls.g1 = RadiusCutoffGraphConverter(cutoff=5.0, threebody_cutoff=4.0).convert(cls.s1)
 
     def test_graph(self):
         self.assertTrue(isinstance(self.g1, MaterialGraph))

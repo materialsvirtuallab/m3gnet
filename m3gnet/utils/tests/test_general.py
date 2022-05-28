@@ -13,15 +13,9 @@ class TestGeneralUtils(unittest.TestCase):
         self.assertTrue(check_array_equal(np.array([1, 2, 3]), np.array([1, 2, 3])))
 
     def test_check_shape_consistency(self):
-        self.assertTrue(
-            check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, 2, None])
-        )
-        self.assertTrue(
-            check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, 2, 3])
-        )
-        self.assertTrue(
-            check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, None])
-        )
+        self.assertTrue(check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, 2, None]))
+        self.assertTrue(check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, 2, 3]))
+        self.assertTrue(check_shape_consistency(np.random.normal(size=(1, 2, 3)), [1, None]))
 
     def test_reshape(self):
         self.assertRaises(ValueError, reshape_array, np.array([1, 2, 3]), [2, None])

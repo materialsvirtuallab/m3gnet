@@ -87,9 +87,7 @@ def unsorted_segment_softmax(data, segment_ids, num_segments, weights=None):
 
     softmax = tf.math.divide_no_nan(
         exp,
-        tf.gather(
-            tf.math.unsorted_segment_sum(exp, segment_ids, num_segments), segment_ids
-        ),
+        tf.gather(tf.math.unsorted_segment_sum(exp, segment_ids, num_segments), segment_ids),
     )
     return tf.cast(softmax, tf.keras.mixed_precision.global_policy().compute_dtype)
 

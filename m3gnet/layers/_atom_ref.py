@@ -86,9 +86,7 @@ class AtomRef(BaseAtomRef):
         Returns:
         """
         features = self._get_feature_matrix(structs_or_graphs)
-        self.property_per_element = np.linalg.pinv(features.T.dot(features)).dot(
-            features.T.dot(properties)
-        )
+        self.property_per_element = np.linalg.pinv(features.T.dot(features)).dot(features.T.dot(properties))
         string_prop = ""
         for i, j in enumerate(self.property_per_element):
             if abs(j) > 1e-5:
@@ -145,12 +143,8 @@ class AtomRef(BaseAtomRef):
         Returns:
         """
         atomic_numbers = graph[Index.ATOMS][:, 0]
-        atom_energies = tf.gather(
-            tf.cast(self.property_per_element, DataType.tf_float), atomic_numbers
-        )
-        res = tf.math.segment_sum(
-            atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS])
-        )
+        atom_energies = tf.gather(tf.cast(self.property_per_element, DataType.tf_float), atomic_numbers)
+        res = tf.math.segment_sum(atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS]))
         return tf.reshape(res, (-1, 1))
 
     def set_property_per_element(self, property_per_element):
@@ -169,7 +163,5 @@ class AtomRef(BaseAtomRef):
         Returns (dict):
         """
         config = super().get_config()
-        config.update(
-            **{"property_per_element": self.property_per_element, "max_z": self.max_z}
-        )
+        config.update(**{"property_per_element": self.property_per_element, "max_z": self.max_z})
         return config

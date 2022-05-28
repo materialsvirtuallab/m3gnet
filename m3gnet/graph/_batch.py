@@ -40,9 +40,7 @@ class MaterialGraphBatch(Sequence):
         if self.shuffle:
             self.graph_index = np.random.permutation(self.graph_index)
 
-    def __getitem__(
-        self, index
-    ) -> Union[MaterialGraph, Tuple[MaterialGraph, np.ndarray]]:
+    def __getitem__(self, index) -> Union[MaterialGraph, Tuple[MaterialGraph, np.ndarray]]:
         """
         Get the index-th batch of data. Returns a MaterialGraph object that
         contains many structures
@@ -53,14 +51,10 @@ class MaterialGraphBatch(Sequence):
         Returns: MaterialGraph
 
         """
-        graph_indices = self.graph_index[
-            index * self.batch_size : (index + 1) * self.batch_size
-        ]
+        graph_indices = self.graph_index[index * self.batch_size : (index + 1) * self.batch_size]
         graphs = [self.graphs[i] for i in graph_indices]
         new_graph: MaterialGraph = assemble_material_graph(graphs)
-        targets: np.ndarray = (
-            None if self.targets is None else self.targets[graph_indices]
-        )
+        targets: np.ndarray = None if self.targets is None else self.targets[graph_indices]
         if targets is None:
             return new_graph
         return new_graph, targets
@@ -99,18 +93,12 @@ class MaterialGraphBatchEnergyForceStress(MaterialGraphBatch):
             batch_size (int): batch size
             shuffle (bool): whether to shuffle graphs at the end of each epoch
         """
-        super().__init__(
-            graphs=graphs, targets=energies, batch_size=batch_size, shuffle=shuffle
-        )
+        super().__init__(graphs=graphs, targets=energies, batch_size=batch_size, shuffle=shuffle)
         self.forces = forces
-        self.stresses = (
-            np.array(stresses, dtype="float32") if stresses is not None else None
-        )
+        self.stresses = np.array(stresses, dtype="float32") if stresses is not None else None
 
     def __getitem__(self, index):
-        graph_indices = self.graph_index[
-            index * self.batch_size : (index + 1) * self.batch_size
-        ]
+        graph_indices = self.graph_index[index * self.batch_size : (index + 1) * self.batch_size]
         graphs, energies = super().__getitem__(index)
         forces = np.concatenate([self.forces[i] for i in graph_indices], axis=0)
         forces = np.array(forces, dtype="float32")
@@ -178,9 +166,7 @@ def assemble_material_graph(graphs):
     atoms = _concatenate([i.atoms for i in graphs], "atoms")
     bonds = _concatenate([i.bonds for i in graphs], "bonds")
     states = _concatenate([i.states for i in graphs], "states")
-    bond_atom_indices = _concatenate(
-        [i.bond_atom_indices for i in graphs], "bond_atom_indices"
-    )
+    bond_atom_indices = _concatenate([i.bond_atom_indices for i in graphs], "bond_atom_indices")
 
     n_atoms = _concatenate([i.n_atoms for i in graphs], "n_atoms")
     n_bonds = _concatenate([i.n_bonds for i in graphs], "n_bonds")
@@ -194,16 +180,12 @@ def assemble_material_graph(graphs):
     pbc_offsets = _concatenate([i.pbc_offsets for i in graphs], "pbc_offsets")
     lattices = _concatenate([i.lattices for i in graphs], "lattices")
     if graphs[0].has_threebody:
-        triple_bond_indices = _concatenate(
-            [i.triple_bond_indices for i in graphs], "triple_bond_indices"
-        )
+        triple_bond_indices = _concatenate([i.triple_bond_indices for i in graphs], "triple_bond_indices")
         n_bond_cumsum = np.cumsum([0] + n_bond_every[:-1])
         n_triple_s = _concatenate([i.n_triple_s for i in graphs], "n_triple_s")
         n_triple_s_temp = np.array([sum(i.n_triple_s) for i in graphs])
         triple_bond_indices += np.repeat(n_bond_cumsum, n_triple_s_temp)[:, None]
-        triple_bond_lengths = _concatenate(
-            [i.triple_bond_lengths for i in graphs], "triple_bond_lengths"
-        )
+        triple_bond_lengths = _concatenate([i.triple_bond_lengths for i in graphs], "triple_bond_lengths")
         theta = _concatenate([i.theta for i in graphs], "theta")
         phi = _concatenate([i.phi for i in graphs], "phi")
         n_triple_ij = _concatenate([i.n_triple_ij for i in graphs], "n_triple_ij")

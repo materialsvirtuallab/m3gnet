@@ -20,13 +20,9 @@ from m3gnet.utils import (
 
 class TestTF(unittest.TestCase):
     def test_calculations(self):
-        np.testing.assert_array_almost_equal(
-            get_segment_indices_from_n([2, 3]), [0, 0, 1, 1, 1]
-        )
+        np.testing.assert_array_almost_equal(get_segment_indices_from_n([2, 3]), [0, 0, 1, 1, 1])
 
-        np.testing.assert_array_almost_equal(
-            get_range_indices_from_n([2, 3]), [0, 1, 0, 1, 2]
-        )
+        np.testing.assert_array_almost_equal(get_range_indices_from_n([2, 3]), [0, 1, 0, 1, 2])
 
         np.testing.assert_array_almost_equal(
             repeat_with_n([[0, 0], [1, 1], [2, 2]], [1, 2, 3]),

@@ -28,7 +28,7 @@ class GraphNetworkLayer(GraphUpdate):
         bond_network: Optional[GraphUpdate] = None,
         atom_network: Optional[GraphUpdate] = None,
         state_network: Optional[GraphUpdate] = None,
-        **kwargs
+        **kwargs,
     ):
         """
 
@@ -69,9 +69,7 @@ class GraphNetworkLayer(GraphUpdate):
         return config
 
 
-def _get_bond_featurizer(
-    nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs
-):
+def _get_bond_featurizer(nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs):
     # bond network settings for the featurization layer
     # no need for bond network
     if nfeat_bond is not None:
@@ -99,9 +97,7 @@ def _get_bond_featurizer(
                 "Gaussian basis expansion are needed"
             )
         # bond attributes are distances
-        bond_network = PairRadialBasisExpansion(
-            rbf_type="Gaussian", centers=centers, width=width
-        )
+        bond_network = PairRadialBasisExpansion(rbf_type="Gaussian", centers=centers, width=width)
         return bond_network
 
     if rbf_type.lower() == "sphericalbessel":
@@ -139,7 +135,7 @@ class GraphFeaturizer(GraphNetworkLayer):
         atom_embedding_dim: Optional[int] = None,
         state_embedding_dim: Optional[int] = None,
         rbf_type="SpherialBessel",
-        **kwargs
+        **kwargs,
     ):
         """
 
@@ -162,16 +158,11 @@ class GraphFeaturizer(GraphNetworkLayer):
         self.kwargs = deepcopy(kwargs)
 
         # bond network settings for the featurization layer
-        bond_network = _get_bond_featurizer(
-            nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs
-        )
+        bond_network = _get_bond_featurizer(nfeat_bond, n_bond_types, bond_embedding_dim, rbf_type, kwargs)
         # atom network for the featurization layer
         if nfeat_atom is None:
             if n_atom_types is None or atom_embedding_dim is None:
-                raise ValueError(
-                    "Either specify nfeat_atom or "
-                    "n_atom_types and atom_embedding_dim"
-                )
+                raise ValueError("Either specify nfeat_atom or " "n_atom_types and atom_embedding_dim")
             atom_network = GraphFieldEmbedding(
                 nvocal=n_atom_types + 1,
                 embedding_dim=atom_embedding_dim,
@@ -184,10 +175,7 @@ class GraphFeaturizer(GraphNetworkLayer):
         # state network for the featurization layer
         if nfeat_state is None and state_embedding_dim is not None:
             if n_state_types is None:
-                raise ValueError(
-                    "Either specify nfeat_state or "
-                    "n_state_types and state_embedding_dim"
-                )
+                raise ValueError("Either specify nfeat_state or " "n_state_types and state_embedding_dim")
             state_network = GraphFieldEmbedding(
                 nvocal=n_state_types,
                 embedding_dim=state_embedding_dim,
@@ -207,12 +195,7 @@ class GraphFeaturizer(GraphNetworkLayer):
         self.atom_embedding_dim = atom_embedding_dim
         self.state_embedding_dim = state_embedding_dim
         self.rbf_type = rbf_type
-        super().__init__(
-            bond_network=bond_network,
-            atom_network=atom_network,
-            state_network=state_network,
-            **kwargs
-        )
+        super().__init__(bond_network=bond_network, atom_network=atom_network, state_network=state_network, **kwargs)
 
     def get_config(self) -> dict:
         """
@@ -242,9 +225,7 @@ class GraphFieldEmbedding(GraphUpdateFunc):
     Embedding the categorical field of a graph to continuous space
     """
 
-    def __init__(
-        self, nvocal: int = 95, embedding_dim: int = 16, field: str = "atoms", **kwargs
-    ):
+    def __init__(self, nvocal: int = 95, embedding_dim: int = 16, field: str = "atoms", **kwargs):
         """
 
         Args:

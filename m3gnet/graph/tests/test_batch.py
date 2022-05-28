@@ -30,11 +30,7 @@ class TestBatch(unittest.TestCase):
         self.assertTrue(g_assembled.atoms.shape == (4, 1))
         self.assertTrue(g_assembled.bonds.shape[0] == n_bond1 + n_bond2)
 
-        self.assertTrue(
-            np.allclose(
-                g_assembled.bond_atom_indices[:n_bond1], self.g1.bond_atom_indices
-            )
-        )
+        self.assertTrue(np.allclose(g_assembled.bond_atom_indices[:n_bond1], self.g1.bond_atom_indices))
         self.assertTrue(
             np.allclose(
                 g_assembled.bond_atom_indices[n_bond1:],
@@ -47,11 +43,7 @@ class TestBatch(unittest.TestCase):
         g_assembled_mg = MaterialGraph.from_list(g_assembled2)
         self.assertTrue(g_assembled_mg.atoms.shape == (4, 1))
         self.assertTrue(g_assembled_mg.bonds.shape[0] == n_bond1 + n_bond2)
-        self.assertTrue(
-            np.allclose(
-                g_assembled_mg.bond_atom_indices[:n_bond1], self.g1.bond_atom_indices
-            )
-        )
+        self.assertTrue(np.allclose(g_assembled_mg.bond_atom_indices[:n_bond1], self.g1.bond_atom_indices))
         self.assertTrue(
             np.allclose(
                 g_assembled_mg.bond_atom_indices[n_bond1:],

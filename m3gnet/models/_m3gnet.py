@@ -44,19 +44,14 @@ CWD = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_NAMES = {"EFS2021": os.path.join(CWD, "../../pretrained/EFS2021")}
 
-GITHUB_RAW_LINK = (
-    "https://raw.githubusercontent.com/materialsvirtuallab"
-    "/m3gnet/main/pretrained/EFS2021/{filename}"
-)
+GITHUB_RAW_LINK = "https://raw.githubusercontent.com/materialsvirtuallab" "/m3gnet/main/pretrained/EFS2021/{filename}"
 
 MODEL_URLS = {
     "EFS2021": {
         "checkpoint": GITHUB_RAW_LINK.format(filename="checkpoint"),
         "m3gnet.json": GITHUB_RAW_LINK.format(filename="m3gnet.json"),
         "m3gnet.index": GITHUB_RAW_LINK.format(filename="m3gnet.index"),
-        "m3gnet.data-00000-of-00001": GITHUB_RAW_LINK.format(
-            filename="m3gnet.data-00000-of-00001"
-        ),
+        "m3gnet.data-00000-of-00001": GITHUB_RAW_LINK.format(filename="m3gnet.data-00000-of-00001"),
     }
 }
 
@@ -69,10 +64,7 @@ def _download_file(url: str, target: str):
 
 def _download_model_to_dir(model_name: str = "EFS2021", dirname: str = "EFS2021"):
     if model_name not in MODEL_URLS:
-        raise ValueError(
-            f"{model_name} not supported. Currently we only "
-            f"have {MODEL_URLS.keys()}"
-        )
+        raise ValueError(f"{model_name} not supported. Currently we only " f"have {MODEL_URLS.keys()}")
     full_dirname = os.path.join(CWD, dirname)
     for name, link in MODEL_URLS[model_name].items():
         if not os.path.isdir(full_dirname):
@@ -127,14 +119,10 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             **kwargs:
         """
         super().__init__(**kwargs)
-        self.graph_converter = RadiusCutoffGraphConverter(
-            cutoff=cutoff, threebody_cutoff=threebody_cutoff
-        )
+        self.graph_converter = RadiusCutoffGraphConverter(cutoff=cutoff, threebody_cutoff=threebody_cutoff)
 
         if include_states:
-            self.graph_converter.set_default_states(
-                np.array([[0.0, 0.0]], dtype="float32")
-            )
+            self.graph_converter.set_default_states(np.array([[0.0, 0.0]], dtype="float32"))
 
         if task_type.lower() == "classification":
             act_final = "sigmoid"
@@ -151,21 +139,15 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             smooth=True,
         )
 
-        self.feature_adjust = GraphUpdateFunc(
-            MLP([units], activations=["swish"], use_bias=False), "bonds"
-        )
+        self.feature_adjust = GraphUpdateFunc(MLP([units], activations=["swish"], use_bias=False), "bonds")
 
-        self.basis_expansion = SphericalBesselWithHarmonics(
-            max_n=max_n, max_l=max_l, cutoff=cutoff, use_phi=False
-        )
+        self.basis_expansion = SphericalBesselWithHarmonics(max_n=max_n, max_l=max_l, cutoff=cutoff, use_phi=False)
         update_size = max_n * max_l
 
         self.three_interactions = [
             ThreeDInteraction(
                 update_network=MLP([update_size], activations=["sigmoid"]),
-                update_network2=GatedMLP(
-                    [units], activations=["swish"], use_bias=False
-                ),
+                update_network2=GatedMLP([units], activations=["swish"], use_bias=False),
             )
             for _ in range(n_blocks)
         ]
@@ -203,9 +185,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             else:
                 atom_readout = ReduceReadOut("mean", field="atoms")
 
-            readout_nn = MultiFieldReadout(
-                atom_readout=atom_readout, include_states=include_states
-            )
+            readout_nn = MultiFieldReadout(atom_readout=atom_readout, include_states=include_states)
 
             mlp = MLP([units, units, 1], ["swish", "swish", act_final], is_output=True)
 
@@ -217,11 +197,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             final_layers = []
             if include_states:
                 final_layers.append(
-                    GraphNetworkLayer(
-                        atom_network=GatedAtomUpdate(
-                            neurons=[units], activation="swish"
-                        )
-                    )
+                    GraphNetworkLayer(atom_network=GatedAtomUpdate(neurons=[units], activation="swish"))
                 )
 
             final_layers.append(
@@ -241,9 +217,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         if element_refs is None:
             self.element_ref_calc = BaseAtomRef()
         else:
-            self.element_ref_calc = AtomRef(
-                property_per_element=element_refs, max_z=n_atom_types
-            )
+            self.element_ref_calc = AtomRef(property_per_element=element_refs, max_z=n_atom_types)
         self.max_n = max_n
         self.max_l = max_l
         self.n_blocks = n_blocks
@@ -354,9 +328,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         with open(fname, "r") as f:
             model_serialized = json.load(f)
         # model_serialized = _replace_compatibility(model_serialized)
-        model = tf.keras.models.model_from_json(
-            model_serialized, custom_objects=custom_objects
-        )
+        model = tf.keras.models.model_from_json(model_serialized, custom_objects=custom_objects)
         model.load_weights(model_name)
         return model
 
@@ -390,7 +362,4 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             if "m3gnet.json" in os.listdir(model_name):
                 return cls.from_dir(model_name)
 
-        raise ValueError(
-            f"{model_name} not found in vail"
-            f"able pretrained {list(MODEL_NAMES.keys())}"
-        )
+        raise ValueError(f"{model_name} not found in vail" f"able pretrained {list(MODEL_NAMES.keys())}")

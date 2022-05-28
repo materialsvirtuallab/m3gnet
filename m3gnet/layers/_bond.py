@@ -139,9 +139,7 @@ class ConcatAtoms(BondNetwork):
         """
         self.neurons = neurons
         self.activation = activation
-        self.update_func = GatedMLP(
-            neurons=neurons, activations=[activation] * len(neurons)
-        )
+        self.update_func = GatedMLP(neurons=neurons, activations=[activation] * len(neurons))
         self.weight_func = tf.keras.layers.Dense(neurons[-1], use_bias=False)
         super().__init__(**kwargs)
 
@@ -154,18 +152,13 @@ class ConcatAtoms(BondNetwork):
         Returns:
         """
         n_bonds = tf.shape(graph[Index.BOND_ATOM_INDICES])[0]
-        atoms = tf.reshape(
-            tf.gather(graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES]), (n_bonds, -1)
-        )
+        atoms = tf.reshape(tf.gather(graph[Index.ATOMS], graph[Index.BOND_ATOM_INDICES]), (n_bonds, -1))
         if graph[Index.STATES] is None:
             concat = tf.concat([atoms, graph[Index.BONDS]], axis=-1)
         else:
             states = broadcast_states_to_bonds(graph)
             concat = tf.concat([atoms, graph[Index.BONDS], states], axis=-1)
-        return (
-            self.update_func(concat) * self.weight_func(graph[Index.BOND_WEIGHTS])
-            + graph[Index.BONDS]
-        )
+        return self.update_func(concat) * self.weight_func(graph[Index.BOND_WEIGHTS]) + graph[Index.BONDS]
 
     def get_config(self) -> dict:
         """
@@ -183,12 +176,7 @@ class ThreeDInteraction(tf.keras.layers.Layer):
     Include 3D interactions to the bond update
     """
 
-    def __init__(
-        self,
-        update_network: tf.keras.layers.Layer,
-        update_network2: tf.keras.layers.Layer,
-        **kwargs
-    ):
+    def __init__(self, update_network: tf.keras.layers.Layer, update_network2: tf.keras.layers.Layer, **kwargs):
         """
         Args:
             update_network (tf.keras.layers.Layer): keras layer for update
@@ -201,9 +189,7 @@ class ThreeDInteraction(tf.keras.layers.Layer):
         self.update_network = update_network
         self.update_network2 = update_network2
 
-    def call(
-        self, graph: List, three_basis: tf.Tensor, three_cutoff: float, **kwargs
-    ) -> List:
+    def call(self, graph: List, three_basis: tf.Tensor, three_cutoff: float, **kwargs) -> List:
         """
 
         Args:
@@ -214,16 +200,12 @@ class ThreeDInteraction(tf.keras.layers.Layer):
         Returns:
         """
         graph = graph[:]
-        end_atom_index = tf.gather(
-            graph[Index.BOND_ATOM_INDICES][:, 1], graph[Index.TRIPLE_BOND_INDICES][:, 1]
-        )
+        end_atom_index = tf.gather(graph[Index.BOND_ATOM_INDICES][:, 1], graph[Index.TRIPLE_BOND_INDICES][:, 1])
         atoms = self.update_network(graph[Index.ATOMS])
         atoms = tf.gather(atoms, end_atom_index)
         basis = three_basis * atoms
         n_bonds = tf.reduce_sum(graph[Index.N_BONDS])
-        weights = tf.reshape(
-            tf.gather(three_cutoff, graph[Index.TRIPLE_BOND_INDICES]), (-1, 2)
-        )
+        weights = tf.reshape(tf.gather(three_cutoff, graph[Index.TRIPLE_BOND_INDICES]), (-1, 2))
         weights = tf.math.reduce_prod(weights, axis=-1)
         basis = basis * weights[:, None]
         new_bonds = tf.math.unsorted_segment_sum(

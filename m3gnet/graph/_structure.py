@@ -27,15 +27,11 @@ def get_fixed_radius_bonding(
         center_indices, neighbor_indices, images, distances
     """
     if isinstance(structure, Structure):
-        lattice_matrix = np.ascontiguousarray(
-            np.array(structure.lattice.matrix), dtype=float
-        )
+        lattice_matrix = np.ascontiguousarray(np.array(structure.lattice.matrix), dtype=float)
         pbc = np.array([1, 1, 1], dtype=int)
         cart_coords = np.ascontiguousarray(np.array(structure.cart_coords), dtype=float)
     elif isinstance(structure, Molecule):
-        lattice_matrix = np.array(
-            [[1000.0, 0.0, 0.0], [0.0, 1000.0, 0.0], [0.0, 0.0, 1000.0]], dtype=float
-        )
+        lattice_matrix = np.array([[1000.0, 0.0, 0.0], [0.0, 1000.0, 0.0], [0.0, 0.0, 1000.0]], dtype=float)
         pbc = np.array([0, 0, 0], dtype=int)
         cart_coords = np.ascontiguousarray(np.array(structure.cart_coords), dtype=float)
 

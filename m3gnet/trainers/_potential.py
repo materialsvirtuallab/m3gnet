@@ -82,9 +82,7 @@ class PotentialTrainer:
         if isinstance(graphs_or_structures[0], MaterialGraph):
             graphs = graphs_or_structures
         elif isinstance(graphs_or_structures[0], (Structure, Molecule, Atoms)):
-            graphs = [
-                self.potential.model.graph_converter(i) for i in graphs_or_structures
-            ]
+            graphs = [self.potential.model.graph_converter(i) for i in graphs_or_structures]
         else:
             raise ValueError("Graph types not recognized")
 
@@ -105,13 +103,8 @@ class PotentialTrainer:
             has_validation = True
             if isinstance(validation_graphs_or_structures[0], MaterialGraph):
                 validation_graphs = validation_graphs_or_structures
-            elif isinstance(
-                validation_graphs_or_structures[0], (Structure, Molecule, Atoms)
-            ):
-                validation_graphs = [
-                    self.potential.model.graph_converter(i)
-                    for i in validation_graphs_or_structures
-                ]
+            elif isinstance(validation_graphs_or_structures[0], (Structure, Molecule, Atoms)):
+                validation_graphs = [self.potential.model.graph_converter(i) for i in validation_graphs_or_structures]
             else:
                 raise ValueError("Graph types not recognized")
 
@@ -167,10 +160,7 @@ class PotentialTrainer:
 
         callbacks.append(ManualStop())
         if has_validation and save_checkpoint:
-            name_temp = (
-                "callbacks/{epoch:05d}-{val_MAE:.6f}-"
-                "{val_MAE(E):.6f}-{val_MAE(F):.6f}"
-            )
+            name_temp = "callbacks/{epoch:05d}-{val_MAE:.6f}-" "{val_MAE(E):.6f}-{val_MAE(F):.6f}"
             if has_stress:
                 name_temp += "-{val_MAE(S):.6f}"
             callbacks.append(
@@ -184,9 +174,7 @@ class PotentialTrainer:
             )
 
         if early_stop_patience:
-            callbacks.append(
-                tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=200)
-            )
+            callbacks.append(tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=200))
 
         callback_list = tf.keras.callbacks.CallbackList(callbacks)
         callback_list.on_train_begin()
@@ -196,14 +184,10 @@ class PotentialTrainer:
         def train_one_step(potential, graph_list, target_list):
             with tf.GradientTape() as tape:
                 if has_stress:
-                    pred_list = potential.get_efs_tensor(
-                        graph_list, include_stresses=True
-                    )
+                    pred_list = potential.get_efs_tensor(graph_list, include_stresses=True)
                 else:
                     pred_list = potential.get_ef_tensor(graph_list)
-                loss_val, emae, fmae, smae = _loss(
-                    target_list, pred_list, graph_list[Index.N_ATOMS]
-                )
+                loss_val, emae, fmae, smae = _loss(target_list, pred_list, graph_list[Index.N_ATOMS])
             grads = tape.gradient(loss_val, potential.model.trainable_variables)
             return loss_val, grads, pred_list, emae, fmae, smae
 
@@ -220,9 +204,7 @@ class PotentialTrainer:
                     self.potential, graph_batch.as_tf().as_list(), target_batch
                 )
 
-                self.optimizer.apply_gradients(
-                    zip(grads, self.potential.trainable_variables)
-                )
+                self.optimizer.apply_gradients(zip(grads, self.potential.trainable_variables))
                 epoch_loss_avg.update_state(lossval)
                 emae_avg.update_state(emae)
                 fmae_avg.update_state(fmae)

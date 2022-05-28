@@ -33,12 +33,8 @@ class TestTrainer(unittest.TestCase):
         m3gnet = M3GNet(n_blocks=1, units=5, is_intensive=True)
         trainer = Trainer(model=m3gnet, optimizer=tf.keras.optimizers.Adam(1e-2))
 
-        trainer.train(
-            self.structures[:30], self.bandgaps[:30], epochs=2, train_metrics=["mae"]
-        )
-        self.assertTrue(
-            m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
-        )
+        trainer.train(self.structures[:30], self.bandgaps[:30], epochs=2, train_metrics=["mae"])
+        self.assertTrue(m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1))
 
     def test_train_energy(self):
         m3gnet = M3GNet(n_blocks=1, units=5, is_intensive=False)
@@ -52,17 +48,13 @@ class TestTrainer(unittest.TestCase):
                 epochs=2,
                 train_metrics=["mae"],
             )
-        self.assertTrue(
-            m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
-        )
+        self.assertTrue(m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1))
 
     def test_train_potential(self):
         m3gnet = M3GNet(n_blocks=1, units=5, is_intensive=False)
         potential = Potential(model=m3gnet)
 
-        trainer = PotentialTrainer(
-            potential=potential, optimizer=tf.keras.optimizers.Adam(1e-3)
-        )
+        trainer = PotentialTrainer(potential=potential, optimizer=tf.keras.optimizers.Adam(1e-3))
 
         n_atoms = [len(i) for i in self.structures]
         fake_forces = [np.random.normal(size=(i, 3)) for i in n_atoms]
@@ -81,9 +73,7 @@ class TestTrainer(unittest.TestCase):
                 fit_per_element_offset=True,
                 save_checkpoint=False,
             )
-        self.assertTrue(
-            m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
-        )
+        self.assertTrue(m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1))
 
     def test_train_energy_offset(self):
         m3gnet = M3GNet(n_blocks=1, units=5, is_intensive=False)
@@ -97,9 +87,7 @@ class TestTrainer(unittest.TestCase):
             train_metrics=["mae"],
             fit_per_element_offset=True,
         )
-        self.assertTrue(
-            m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1)
-        )
+        self.assertTrue(m3gnet.predict_structures(self.structures[:2]).numpy().shape == (2, 1))
 
 
 if __name__ == "__main__":

@@ -38,9 +38,7 @@ class RadialBasisFunctions(tf.keras.layers.Layer):
         if len(missing_keys) > 0:
             raise ValueError("kwargs ", missing_keys, " not present")
         self.allowed_kwargs = allowed_kwargs
-        self.func = RBF_ALLOWED[rbf_type]["class"](
-            **self.allowed_kwargs
-        )  # type: ignore
+        self.func = RBF_ALLOWED[rbf_type]["class"](**self.allowed_kwargs)  # type: ignore
         self.rbf_type = rbf_type
 
     def call(self, r: tf.Tensor, **kwargs):

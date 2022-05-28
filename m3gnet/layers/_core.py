@@ -8,10 +8,7 @@ import tensorflow as tf
 
 from m3gnet.utils import register
 
-METHOD_MAPPING = {
-    x: eval(f"tf.math.unsorted_segment_{x}")
-    for x in ["sum", "prod", "max", "min", "mean"]
-}
+METHOD_MAPPING = {x: eval(f"tf.math.unsorted_segment_{x}") for x in ["sum", "prod", "max", "min", "mean"]}
 
 
 @register
@@ -130,15 +127,11 @@ class MLP(tf.keras.layers.Layer):
         self.kernel_regularizers: Union[List, str, None] = kernel_regularizers
 
         dense_layers: List[tf.keras.layers.Layer] = [
-            tf.keras.layers.Dense(
-                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
-            )
+            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg, use_bias=use_bias)
             for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         if is_output:
-            dense_layers.append(
-                tf.keras.layers.Activation(None, dtype="float32", name="predictions")
-            )
+            dense_layers.append(tf.keras.layers.Activation(None, dtype="float32", name="predictions"))
 
         self.pipe = Pipe(layers=dense_layers)
         self.is_output = is_output
@@ -213,17 +206,13 @@ class GatedMLP(tf.keras.layers.Layer):
         self.activations = activations
         self.kernel_regularizers = kernel_regularizers
         dense_layers = [
-            tf.keras.layers.Dense(
-                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
-            )
+            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg, use_bias=use_bias)
             for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         self.pipe = Pipe(layers=dense_layers)
         activation_list[-1] = "sigmoid"
         gate_layers = [
-            tf.keras.layers.Dense(
-                i, activation=j, kernel_regularizer=reg, use_bias=use_bias
-            )
+            tf.keras.layers.Dense(i, activation=j, kernel_regularizer=reg, use_bias=use_bias)
             for i, j, reg in zip(neurons, activation_list, kernel_regularizer_list)
         ]
         self.gate = Pipe(gate_layers)

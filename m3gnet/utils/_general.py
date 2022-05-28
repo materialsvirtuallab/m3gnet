@@ -6,9 +6,7 @@ from typing import Optional, Sequence
 import numpy as np
 
 
-def check_array_equal(
-    array1: Optional[np.ndarray], array2: Optional[np.ndarray], rtol: float = 1e-3
-) -> bool:
+def check_array_equal(array1: Optional[np.ndarray], array2: Optional[np.ndarray], rtol: float = 1e-3) -> bool:
     """
     Check the equality of two arrays
     Args:

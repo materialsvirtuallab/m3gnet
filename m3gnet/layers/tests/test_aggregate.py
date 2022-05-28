@@ -15,12 +15,8 @@ class TestAgg(unittest.TestCase):
         graph[Index.STATES] = np.random.normal(size=(2, 5))
         ars = AtomReduceState(method="mean")
         res = ars(graph)
-        self.assertTrue(
-            np.allclose(res[0], np.mean(graph[Index.ATOMS][:5], axis=0), atol=1e-5)
-        )
-        self.assertTrue(
-            np.allclose(res[1], np.mean(graph[Index.ATOMS][5:], axis=0), atol=1e-5)
-        )
+        self.assertTrue(np.allclose(res[0], np.mean(graph[Index.ATOMS][:5], axis=0), atol=1e-5))
+        self.assertTrue(np.allclose(res[1], np.mean(graph[Index.ATOMS][5:], axis=0), atol=1e-5))
 
 
 if __name__ == "__main__":
