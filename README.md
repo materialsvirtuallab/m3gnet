@@ -155,13 +155,12 @@ The MD run takes less than 1 minute.
 
 You can also train your own IAP using the `PotentialTrainer` in `m3gnet.trainers`. The training dataset can include:
 - structures, a list of pymatgen Structures
-- energies, a list of energy floats
-- forces, a list of nx3 force matrix, where `n` is the number of atom in 
-  each structure. `n` does not need to be the same for all structures.
-- stresses, a list of 3x3 stress matrices. (optional)
+- energies, a list of energy floats with unit `eV`.
+- forces, a list of nx3 force matrix with unit `eV/Å`, where `n` is the number of atom in 
+  each structure. `n` does not need to be the same for all structures. 
+- stresses, a list of 3x3 stress matrices with unit `GPa` (optional)
 
-For the `stresses`, we use the convention that compressive stress gives negative values. Stresses obtained from VASP
-calculations should change signs to work directly with the model.
+For the `stresses`, we use the convention that compressive stress gives negative values. Stresses obtained from VASP calculations (default unit `kBar`) should multiply by `-0.1` to work directly with the model.
 
 We use validation dataset to select the stopping epoch number. The dataset has similar format as the training dataset. 
 

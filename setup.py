@@ -34,7 +34,6 @@ setup(
     version=version,
     install_requires=[
         "pymatgen>=2022.1.1",
-        "pandas",
         "tensorflow",
         "numpy",
         "monty",
