@@ -16,16 +16,11 @@ with open(os.path.join(this_dir, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 with open("m3gnet/__init__.py", encoding="utf-8") as fd:
-    try:
-        lines = ""
-        for item in fd.readlines():
-            item = item
-            lines += item + "\n"
-    except Exception as exc:
-        raise Exception(f"Caught exception {exc}")
-
-version = re.search('__version__ = "(.*)"', lines).group(1)
-
+    for line in fd.readlines():
+        m = re.search('__version__ = "(.*)"', line)
+        if m:
+            version = m.group(1)
+            break
 
 extension = [
     Extension(
@@ -55,7 +50,6 @@ setup(
     license="BSD",
     extras_require={
         "model_saving": ["h5py"],
-        "tensorflow": ["tensorflow>=2.7"],
         "tensorflow with gpu": ["tensorflow-gpu>=2.7"],
     },
     packages=find_packages(),

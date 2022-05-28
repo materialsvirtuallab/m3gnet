@@ -42,18 +42,22 @@ logger = logging.getLogger(__file__)
 
 CWD = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_NAMES = {"EFS2021": os.path.join(CWD, "..", "..", "pretrained", "EFS2021")}
+"""
+# Pre-trained models naming guidelines
 
-GITHUB_RAW_LINK = "https://raw.githubusercontent.com/materialsvirtuallab/m3gnet/main/pretrained/EFS2021/{filename}"
+To ensure clarity on the training data on the models, the naming convention for pre-trained models should be 
+<source>-<date in YYYY.MM.DD format>-E(F)(S), where the E, F and S denotes energies, forces and stresses respectively.
+For example, MP-2021.2.8-EFS denotes a potential trained on Materials Project energies, forces and stresses as of
+2021.2.8. 
+"""
 
-MODEL_URLS = {
-    "EFS2021": {
-        "checkpoint": GITHUB_RAW_LINK.format(filename="checkpoint"),
-        "m3gnet.json": GITHUB_RAW_LINK.format(filename="m3gnet.json"),
-        "m3gnet.index": GITHUB_RAW_LINK.format(filename="m3gnet.index"),
-        "m3gnet.data-00000-of-00001": GITHUB_RAW_LINK.format(filename="m3gnet.data-00000-of-00001"),
-    }
+MODEL_PATHS = {"MP-2021.2.8-EFS": os.path.join(CWD, "..", "..", "pretrained", "MP-2021.2.8-EFS")}
+
+MODEL_FILES = {
+    "MP-2021.2.8-EFS": ["checkpoint", "m3gnet.json", "m3gnet.index", "m3gnet.data-00000-of-00001"],
 }
+
+GITHUB_RAW_LINK = "https://raw.githubusercontent.com/materialsvirtuallab/m3gnet/main/pretrained/{model_name}/{filename}"
 
 
 def _download_file(url: str, target: str):
@@ -62,14 +66,15 @@ def _download_file(url: str, target: str):
         urllib.request.urlretrieve(url, target)
 
 
-def _download_model_to_dir(model_name: str = "EFS2021", dirname: str = "EFS2021"):
-    if model_name not in MODEL_URLS:
-        raise ValueError(f"{model_name} not supported. Currently we only " f"have {MODEL_URLS.keys()}")
+def _download_model_to_dir(model_name: str = "MP-2021.2.8-EFS", dirname: str = "MP-2021.2.8-EFS"):
+    if model_name not in MODEL_FILES:
+        raise ValueError(f"{model_name} not supported. Currently we only have {MODEL_FILES.keys()}")
     full_dirname = os.path.join(CWD, dirname)
-    for name, link in MODEL_URLS[model_name].items():
+    for name, files in MODEL_FILES[model_name].items():
         if not os.path.isdir(full_dirname):
             os.mkdir(full_dirname)
-        _download_file(link, os.path.join(full_dirname, name))
+        for f in files:
+            _download_file(GITHUB_RAW_LINK.format(model_name=name, filename=f), os.path.join(full_dirname, name))
     logger.info(f"Model {model_name} downloaded to {full_dirname}")
 
 
@@ -344,16 +349,16 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         self.element_ref_calc = AtomRef(property_per_element=element_refs)
 
     @classmethod
-    def load(cls, model_name: str = "EFS2021"):
+    def load(cls, model_name: str = "MP-2021.2.8-EFS") -> "M3GNet":
         """
         Load the model weights from pre-trained model
         Args:
             model_name (str): model name or the path for saved model
         Returns:
         """
-        if model_name in MODEL_NAMES:
+        if model_name in MODEL_PATHS:
             try:
-                return cls.from_dir(MODEL_NAMES[model_name])
+                return cls.from_dir(MODEL_PATHS[model_name])
             except ValueError:
                 _download_model_to_dir(model_name, model_name)
                 return cls.load(os.path.join(CWD, model_name))
@@ -362,4 +367,4 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             if "m3gnet.json" in os.listdir(model_name):
                 return cls.from_dir(model_name)
 
-        raise ValueError(f"{model_name} not found in available pretrained {list(MODEL_NAMES.keys())}")
+        raise ValueError(f"{model_name} not found in available pretrained {list(MODEL_PATHS.keys())}")

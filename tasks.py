@@ -1,7 +1,5 @@
 """
 Pyinvoke tasks.py file for automating releases and admin stuff.
-
-Author: Shyue Ping Ong
 """
 
 
@@ -51,8 +49,6 @@ def make_doc(ctx):
                 with open(f, "w") as fid:
                     fid.write("".join(newoutput))
     ctx.run("sphinx-build -b html docs_src docs")
-
-    # ctx.run("cp _static/* ../docs/html/_static")
 
     with cd("docs"):
         ctx.run("rm -r .doctrees")

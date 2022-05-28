@@ -1,7 +1,7 @@
 """
-The dynamics calculations using M3GNet
+Dynamics calculations using M3GNet
 """
-# -*- coding: utf-8 -*-
+
 import pickle
 from typing import Optional, Union
 
@@ -230,7 +230,7 @@ class MolecularDynamics:
     def __init__(
         self,
         atoms: Atoms,
-        potential: Optional[Union[Potential, str]] = None,
+        potential: Optional[Union[Potential, str]] = "MP-2021.2.8-EFS",
         ensemble: str = "nvt",
         temperature: int = 300,
         timestep: float = 1.0,
@@ -265,8 +265,6 @@ class MolecularDynamics:
 
         if isinstance(potential, str):
             potential = Potential(M3GNet.load(potential))
-        if potential is None:
-            potential = Potential(M3GNet.load())
 
         if isinstance(atoms, (Structure, Molecule)):
             atoms = AseAtomsAdaptor().get_atoms(atoms)
