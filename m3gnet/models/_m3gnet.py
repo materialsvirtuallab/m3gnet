@@ -45,10 +45,10 @@ CWD = os.path.dirname(os.path.abspath(__file__))
 """
 # Pre-trained models naming guidelines
 
-To ensure clarity on the training data on the models, the naming convention for pre-trained models should be 
+To ensure clarity on the training data on the models, the naming convention for pre-trained models should be
 <source>-<date in YYYY.MM.DD format>-E(F)(S), where the E, F and S denotes energies, forces and stresses respectively.
 For example, MP-2021.2.8-EFS denotes a potential trained on Materials Project energies, forces and stresses as of
-2021.2.8. 
+2021.2.8.
 """
 
 MODEL_PATHS = {"MP-2021.2.8-EFS": os.path.join(CWD, "..", "..", "pretrained", "MP-2021.2.8-EFS")}
