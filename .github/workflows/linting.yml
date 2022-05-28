@@ -27,9 +27,9 @@ jobs:
 #          mypy --version
 #          rm -rf .mypy_cache
 #          mypy m3gnet
-#      - name: pydocstyle
-#        run: |
-#          pydocstyle --count m3gnet
+      - name: pydocstyle
+        run: |
+          pydocstyle --count m3gnet
       - name: pylint
         run: |
           pylint m3gnet

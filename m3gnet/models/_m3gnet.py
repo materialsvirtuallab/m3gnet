@@ -299,11 +299,10 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
 
     def save(self, dirname: str):
         """
-        Save the model to a directory
+        Saves the model to a directory.
+
         Args:
             dirname (str): directory to save the model
-        Returns:
-
         """
         model_serialized = self.to_json()
         model_name = os.path.join(dirname, MODEL_NAME)
@@ -316,14 +315,14 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         return True
 
     @classmethod
-    def from_dir(cls, dirname: str, custom_objects: Optional[dict] = None):
+    def from_dir(cls, dirname: str, custom_objects: Optional[dict] = None) -> "M3GNet":
         """
-        load the model from a directory
+        Load the model from a directory
+
         Args:
             dirname (str): directory to save the model
             custom_objects (dict): dictionary for custom object
-        Returns:
-
+        Returns: M3GNet model
         """
         custom_objects = custom_objects or {}
         model_name = os.path.join(dirname, MODEL_NAME)
@@ -343,7 +342,6 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         Args:
             element_refs (np.ndarray): element reference value for the
                 extensive property
-        Returns:
         """
         self.element_refs = element_refs
         self.element_ref_calc = AtomRef(property_per_element=element_refs)
@@ -353,8 +351,9 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         """
         Load the model weights from pre-trained model
         Args:
-            model_name (str): model name or the path for saved model
-        Returns:
+            model_name (str): model name or the path for saved model. Defaults to "MP-2021.2.8-EFS".
+
+        Returns: M3GNet object.
         """
         if model_name in MODEL_PATHS:
             try:

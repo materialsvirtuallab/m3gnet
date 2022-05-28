@@ -99,11 +99,10 @@ We will see the following output:
 Relaxed lattice parameter is  3.169 Å
 Final energy is -10.859 eV/atom
 ```
-The original lattice parameter of 
-`3.3 Å` was successfully relaxed to `3.169 Å`, close to the DFT value of `3.168 Å`. 
+The initial lattice parameter of 3.3 Å was successfully relaxed to 3.169 Å, close to the DFT value of 3.168 Å. 
 
-The final energy -10.859 eV/atom is also close to DFT value of [-10.8456 
-eV/atom](https://materialsproject.org/materials/mp-129/).
+The final energy -10.859 eV/atom is also close to Materials Project DFT value of
+[-10.8456 eV/atom](https://materialsproject.org/materials/mp-129/).
 
 The relaxation takes less than 20 seconds on a single laptop.
 
@@ -160,7 +159,8 @@ You can also train your own IAP using the `PotentialTrainer` in `m3gnet.trainers
   each structure. `n` does not need to be the same for all structures. 
 - stresses, a list of 3x3 stress matrices with unit `GPa` (optional)
 
-For the `stresses`, we use the convention that compressive stress gives negative values. Stresses obtained from VASP calculations (default unit `kBar`) should multiply by `-0.1` to work directly with the model.
+For stresses, we use the convention that compressive stress gives negative values. Stresses obtained from
+VASP calculations (default unit is kBar) should be multiplied by -0.1 to work directly with the model.
 
 We use validation dataset to select the stopping epoch number. The dataset has similar format as the training dataset. 
 
