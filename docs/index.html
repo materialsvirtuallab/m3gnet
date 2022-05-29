@@ -90,21 +90,33 @@ conda activate m3gnet
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li><p>First install tensorflow for Apple Silicon.</p></li>
+<li><p>First install tensorflow and its dependencies for Apple Silicon.</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c apple tensorflow-deps
 pip install tensorflow-macos
-pip install tensorflow-metal  <span class="c1"># This is optional. If you encounter weird tensorflow errors, try uninstalling this first.</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
+<li><p>If you wish, you can install tensorflow-metal, which helps speed up training. If you encounter weird tensorflow
+errors, you should uninstall tensorflow-metal and see if it fixes the errors first.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">tensorflow</span><span class="o">-</span><span class="n">metal</span> 
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
 <li><p>Install m3gnet but ignore dependencies (otherwise, pip will look for tensorflow).</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --no-deps m3gnet
 </pre></div>
 </div>
-<ol class="arabic simple" start="6">
-<li><p>You may also need to install <code class="docutils literal notranslate"><span class="pre">protobuf==3.20.0</span></code> and other dependencies like pymatgen, etc. manually.</p></li>
+<ol class="arabic simple" start="7">
+<li><p>Install other dependencies like pymatgen, etc. manually.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="nv">protobuf</span><span class="o">==</span><span class="m">3</span>.20.0 pymatgen ase cython
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Once you are done, you can try running <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">m3gnet</span></code> to see if all tests pass.</p></li>
 </ol>
 </section>
 </section>
@@ -188,10 +200,10 @@ since 2012. This universal potential can be used to perform structural relaxatio
 <p>You can also train your own IAP using the <code class="docutils literal notranslate"><span class="pre">PotentialTrainer</span></code> in <code class="docutils literal notranslate"><span class="pre">m3gnet.trainers</span></code>. The training dataset can include:</p>
 <ul class="simple">
 <li><p>structures, a list of pymatgen Structures</p></li>
-<li><p>energies, a list of energy floats with unit <code class="docutils literal notranslate"><span class="pre">eV</span></code>.</p></li>
-<li><p>forces, a list of nx3 force matrix with unit <code class="docutils literal notranslate"><span class="pre">eV/Å</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of atom in
-each structure. <code class="docutils literal notranslate"><span class="pre">n</span></code> does not need to be the same for all structures.</p></li>
-<li><p>stresses, a list of 3x3 stress matrices with unit <code class="docutils literal notranslate"><span class="pre">GPa</span></code> (optional)</p></li>
+<li><p>energies, a list of energy floats with unit eV.</p></li>
+<li><p>forces, a list of nx3 force matrix with unit eV/Å, where n is the number of atom in
+each structure. n does not need to be the same for all structures.</p></li>
+<li><p>stresses, a list of 3x3 stress matrices with unit GPa (optional)</p></li>
 </ul>
 <p>For stresses, we use the convention that compressive stress gives negative values. Stresses obtained from
 VASP calculations (default unit is kBar) should be multiplied by -0.1 to work directly with the model.</p>

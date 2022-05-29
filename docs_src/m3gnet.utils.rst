@@ -1,14 +1,6 @@
 m3gnet.utils package
 ====================
 
-Submodules
-----------
-
-.. toctree::
-   :maxdepth: 6
-
-   m3gnet.utils.constants
-
 Module contents
 ---------------
 

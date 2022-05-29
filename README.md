@@ -56,17 +56,25 @@ powerful ML capabilities. Here are the recommended steps to get m3gnet working o
 conda create --name m3gnet python=3.9
 conda activate m3gnet
 ```
-4. First install tensorflow for Apple Silicon.
+4. First install tensorflow and its dependencies for Apple Silicon.
 ```bash
 conda install -c apple tensorflow-deps
 pip install tensorflow-macos
-pip install tensorflow-metal  # This is optional. If you encounter weird tensorflow errors, try uninstalling this first.
 ```
-5. Install m3gnet but ignore dependencies (otherwise, pip will look for tensorflow).
+5. If you wish, you can install tensorflow-metal, which helps speed up training. If you encounter weird tensorflow 
+   errors, you should uninstall tensorflow-metal and see if it fixes the errors first.
+```
+pip install tensorflow-metal 
+```
+6. Install m3gnet but ignore dependencies (otherwise, pip will look for tensorflow).
 ```bash
 pip install --no-deps m3gnet
 ```
-6. You may also need to install `protobuf==3.20.0` and other dependencies like pymatgen, etc. manually.
+7. Install other dependencies like pymatgen, etc. manually.
+```bash
+pip install protobuf==3.20.0 pymatgen ase cython
+```
+8. Once you are done, you can try running `pytest m3gnet` to see if all tests pass.
 
 # Usage
 
@@ -154,10 +162,10 @@ The MD run takes less than 1 minute.
 
 You can also train your own IAP using the `PotentialTrainer` in `m3gnet.trainers`. The training dataset can include:
 - structures, a list of pymatgen Structures
-- energies, a list of energy floats with unit `eV`.
-- forces, a list of nx3 force matrix with unit `eV/Å`, where `n` is the number of atom in 
-  each structure. `n` does not need to be the same for all structures. 
-- stresses, a list of 3x3 stress matrices with unit `GPa` (optional)
+- energies, a list of energy floats with unit eV.
+- forces, a list of nx3 force matrix with unit eV/Å, where n is the number of atom in 
+  each structure. n does not need to be the same for all structures. 
+- stresses, a list of 3x3 stress matrices with unit GPa (optional)
 
 For stresses, we use the convention that compressive stress gives negative values. Stresses obtained from
 VASP calculations (default unit is kBar) should be multiplied by -0.1 to work directly with the model.
