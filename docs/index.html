@@ -154,609 +154,604 @@ since 2012. This universal potential can be used to perform structural relaxatio
 <a class="reference external" href="http://materialsproject.org/materials/mp-129/">-10.8456 eV/atom</a>.</p>
 <p>The relaxation takes less than 20 seconds on a single laptop.</p>
 <p>Here are more comprehensive benchmarks for cubic crystals based on
-<a class="reference external" href="http://en.wikipedia.org/wiki/Lattice_constant">exp data on Wikipedia</a> and MP DFT data. The Jupyter notebook is in the
-<span class="xref myst">examples</span> folder.</p>
+<a class="reference external" href="http://en.wikipedia.org/wiki/Lattice_constant">exp data on Wikipedia</a> and MP DFT data. The
+<span class="xref myst">Jupyter notebook</span> is in the <span class="xref myst">examples</span> folder. We only limit to
+cubic crystals since there is only one lattice parameter for comparison. However, M3GNet is not limited to cubic
+systems of course (see <span class="xref myst">LFP example</span>).</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>Formula</p></th>
+<tr class="row-odd"><th class="text-left head"><p>Material</p></th>
+<th class="text-left head"><p>Crystal structure</p></th>
 <th class="text-right head"><p>a</p></th>
-<th class="text-left head"><p>crystal</p></th>
-<th class="text-right head"><p>Predicted a</p></th>
-<th class="text-right head"><p>MP DFT a</p></th>
+<th class="text-right head"><p>mp_a</p></th>
+<th class="text-right head"><p>predicted_a</p></th>
 <th class="text-left head"><p>% error vs Expt</p></th>
 <th class="text-left head"><p>% error vs MP</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>C</p></td>
-<td class="text-right"><p>3.567</p></td>
+<tr class="row-even"><td class="text-left"><p>C (diamond)</p></td>
 <td class="text-left"><p>Diamond (FCC)</p></td>
-<td class="text-right"><p>3.5718</p></td>
+<td class="text-right"><p>3.567</p></td>
 <td class="text-right"><p>3.57371</p></td>
+<td class="text-right"><p>3.5718</p></td>
 <td class="text-left"><p>0.13%</p></td>
 <td class="text-left"><p>-0.05%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Si</p></td>
-<td class="text-right"><p>5.43102</p></td>
 <td class="text-left"><p>Diamond (FCC)</p></td>
-<td class="text-right"><p>5.45002</p></td>
+<td class="text-right"><p>5.43102</p></td>
 <td class="text-right"><p>5.46873</p></td>
+<td class="text-right"><p>5.45002</p></td>
 <td class="text-left"><p>0.35%</p></td>
 <td class="text-left"><p>-0.34%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Ge</p></td>
-<td class="text-right"><p>5.658</p></td>
 <td class="text-left"><p>Diamond (FCC)</p></td>
-<td class="text-right"><p>5.7698</p></td>
+<td class="text-right"><p>5.658</p></td>
 <td class="text-right"><p>5.76286</p></td>
+<td class="text-right"><p>5.7698</p></td>
 <td class="text-left"><p>1.98%</p></td>
 <td class="text-left"><p>0.12%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>AlAs</p></td>
-<td class="text-right"><p>5.6605</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.73027</p></td>
+<td class="text-right"><p>5.6605</p></td>
 <td class="text-right"><p>5.73376</p></td>
+<td class="text-right"><p>5.73027</p></td>
 <td class="text-left"><p>1.23%</p></td>
 <td class="text-left"><p>-0.06%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>AlP</p></td>
-<td class="text-right"><p>5.451</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.50346</p></td>
+<td class="text-right"><p>5.451</p></td>
 <td class="text-right"><p>5.50711</p></td>
+<td class="text-right"><p>5.50346</p></td>
 <td class="text-left"><p>0.96%</p></td>
 <td class="text-left"><p>-0.07%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>AlSb</p></td>
-<td class="text-right"><p>6.1355</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.22817</p></td>
+<td class="text-right"><p>6.1355</p></td>
 <td class="text-right"><p>6.23376</p></td>
+<td class="text-right"><p>6.22817</p></td>
 <td class="text-left"><p>1.51%</p></td>
 <td class="text-left"><p>-0.09%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>GaP</p></td>
-<td class="text-right"><p>5.4505</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.5054</p></td>
+<td class="text-right"><p>5.4505</p></td>
 <td class="text-right"><p>5.5063</p></td>
+<td class="text-right"><p>5.5054</p></td>
 <td class="text-left"><p>1.01%</p></td>
 <td class="text-left"><p>-0.02%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>GaAs</p></td>
-<td class="text-right"><p>5.653</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.75055</p></td>
+<td class="text-right"><p>5.653</p></td>
 <td class="text-right"><p>5.75018</p></td>
+<td class="text-right"><p>5.75055</p></td>
 <td class="text-left"><p>1.73%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>GaSb</p></td>
-<td class="text-right"><p>6.0959</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.21939</p></td>
+<td class="text-right"><p>6.0959</p></td>
 <td class="text-right"><p>6.21906</p></td>
+<td class="text-right"><p>6.21939</p></td>
 <td class="text-left"><p>2.03%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>InP</p></td>
-<td class="text-right"><p>5.869</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.9679</p></td>
+<td class="text-right"><p>5.869</p></td>
 <td class="text-right"><p>5.95673</p></td>
+<td class="text-right"><p>5.9679</p></td>
 <td class="text-left"><p>1.69%</p></td>
 <td class="text-left"><p>0.19%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>InAs</p></td>
-<td class="text-right"><p>6.0583</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.25374</p></td>
+<td class="text-right"><p>6.0583</p></td>
 <td class="text-right"><p>6.18148</p></td>
+<td class="text-right"><p>6.25374</p></td>
 <td class="text-left"><p>3.23%</p></td>
 <td class="text-left"><p>1.17%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>InSb</p></td>
-<td class="text-right"><p>6.479</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.63863</p></td>
+<td class="text-right"><p>6.479</p></td>
 <td class="text-right"><p>6.63322</p></td>
+<td class="text-right"><p>6.63863</p></td>
 <td class="text-left"><p>2.46%</p></td>
 <td class="text-left"><p>0.08%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>MgO</p></td>
-<td class="text-right"><p>4.212</p></td>
 <td class="text-left"><p>Halite (FCC)</p></td>
-<td class="text-right"><p>4.2567</p></td>
+<td class="text-right"><p>4.212</p></td>
 <td class="text-right"><p>4.25648</p></td>
+<td class="text-right"><p>4.2567</p></td>
 <td class="text-left"><p>1.06%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>CdS</p></td>
-<td class="text-right"><p>5.832</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.9419</p></td>
+<td class="text-right"><p>5.832</p></td>
 <td class="text-right"><p>5.94083</p></td>
+<td class="text-right"><p>5.9419</p></td>
 <td class="text-left"><p>1.88%</p></td>
 <td class="text-left"><p>0.02%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>CdSe</p></td>
-<td class="text-right"><p>6.05</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.20987</p></td>
+<td class="text-right"><p>6.05</p></td>
 <td class="text-right"><p>6.21283</p></td>
+<td class="text-right"><p>6.20987</p></td>
 <td class="text-left"><p>2.64%</p></td>
 <td class="text-left"><p>-0.05%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>CdTe</p></td>
-<td class="text-right"><p>6.482</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>6.62619</p></td>
+<td class="text-right"><p>6.482</p></td>
 <td class="text-right"><p>6.62905</p></td>
+<td class="text-right"><p>6.62619</p></td>
 <td class="text-left"><p>2.22%</p></td>
 <td class="text-left"><p>-0.04%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>ZnO</p></td>
-<td class="text-right"><p>4.58</p></td>
 <td class="text-left"><p>Halite (FCC)</p></td>
-<td class="text-right"><p>4.33424</p></td>
+<td class="text-right"><p>4.58</p></td>
 <td class="text-right"><p>4.33888</p></td>
+<td class="text-right"><p>4.33424</p></td>
 <td class="text-left"><p>-5.37%</p></td>
 <td class="text-left"><p>-0.11%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>ZnS</p></td>
-<td class="text-right"><p>5.42</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>5.45297</p></td>
+<td class="text-right"><p>5.42</p></td>
 <td class="text-right"><p>5.45027</p></td>
+<td class="text-right"><p>5.45297</p></td>
 <td class="text-left"><p>0.61%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>PbS</p></td>
-<td class="text-right"><p>5.9362</p></td>
 <td class="text-left"><p>Halite (FCC)</p></td>
-<td class="text-right"><p>6.01752</p></td>
+<td class="text-right"><p>5.9362</p></td>
 <td class="text-right"><p>6.00645</p></td>
+<td class="text-right"><p>6.01752</p></td>
 <td class="text-left"><p>1.37%</p></td>
 <td class="text-left"><p>0.18%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>PbTe</p></td>
-<td class="text-right"><p>6.462</p></td>
 <td class="text-left"><p>Halite (FCC)</p></td>
-<td class="text-right"><p>6.56111</p></td>
+<td class="text-right"><p>6.462</p></td>
 <td class="text-right"><p>6.56567</p></td>
+<td class="text-right"><p>6.56111</p></td>
 <td class="text-left"><p>1.53%</p></td>
 <td class="text-left"><p>-0.07%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>BN</p></td>
-<td class="text-right"><p>3.615</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>3.62485</p></td>
+<td class="text-right"><p>3.615</p></td>
 <td class="text-right"><p>3.626</p></td>
+<td class="text-right"><p>3.62485</p></td>
 <td class="text-left"><p>0.27%</p></td>
 <td class="text-left"><p>-0.03%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>BP</p></td>
-<td class="text-right"><p>4.538</p></td>
 <td class="text-left"><p>Zinc blende (FCC)</p></td>
-<td class="text-right"><p>4.54711</p></td>
+<td class="text-right"><p>4.538</p></td>
 <td class="text-right"><p>4.54682</p></td>
+<td class="text-right"><p>4.54711</p></td>
 <td class="text-left"><p>0.20%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>LiF</p></td>
-<td class="text-right"><p>4.03</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.08531</p></td>
+<td class="text-right"><p>4.03</p></td>
 <td class="text-right"><p>4.08343</p></td>
+<td class="text-right"><p>4.08531</p></td>
 <td class="text-left"><p>1.37%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>LiCl</p></td>
-<td class="text-right"><p>5.14</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>5.14745</p></td>
+<td class="text-right"><p>5.14</p></td>
 <td class="text-right"><p>5.15275</p></td>
+<td class="text-right"><p>5.14745</p></td>
 <td class="text-left"><p>0.15%</p></td>
 <td class="text-left"><p>-0.10%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>LiBr</p></td>
-<td class="text-right"><p>5.5</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>5.51076</p></td>
+<td class="text-right"><p>5.5</p></td>
 <td class="text-right"><p>5.51343</p></td>
+<td class="text-right"><p>5.51076</p></td>
 <td class="text-left"><p>0.20%</p></td>
 <td class="text-left"><p>-0.05%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>LiI</p></td>
-<td class="text-right"><p>6.01</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.02709</p></td>
+<td class="text-right"><p>6.01</p></td>
 <td class="text-right"><p>6.0257</p></td>
+<td class="text-right"><p>6.02709</p></td>
 <td class="text-left"><p>0.28%</p></td>
 <td class="text-left"><p>0.02%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>NaF</p></td>
-<td class="text-right"><p>4.63</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.69553</p></td>
+<td class="text-right"><p>4.63</p></td>
 <td class="text-right"><p>4.69625</p></td>
+<td class="text-right"><p>4.69553</p></td>
 <td class="text-left"><p>1.42%</p></td>
 <td class="text-left"><p>-0.02%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>NaCl</p></td>
-<td class="text-right"><p>5.64</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>5.69497</p></td>
+<td class="text-right"><p>5.64</p></td>
 <td class="text-right"><p>5.69169</p></td>
+<td class="text-right"><p>5.69497</p></td>
 <td class="text-left"><p>0.97%</p></td>
 <td class="text-left"><p>0.06%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>NaBr</p></td>
-<td class="text-right"><p>5.97</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.01922</p></td>
+<td class="text-right"><p>5.97</p></td>
 <td class="text-right"><p>6.0276</p></td>
+<td class="text-right"><p>6.01922</p></td>
 <td class="text-left"><p>0.82%</p></td>
 <td class="text-left"><p>-0.14%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>NaI</p></td>
-<td class="text-right"><p>6.47</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.52739</p></td>
+<td class="text-right"><p>6.47</p></td>
 <td class="text-right"><p>6.532</p></td>
+<td class="text-right"><p>6.52739</p></td>
 <td class="text-left"><p>0.89%</p></td>
 <td class="text-left"><p>-0.07%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>KF</p></td>
-<td class="text-right"><p>5.34</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>5.41971</p></td>
+<td class="text-right"><p>5.34</p></td>
 <td class="text-right"><p>5.42398</p></td>
+<td class="text-right"><p>5.41971</p></td>
 <td class="text-left"><p>1.49%</p></td>
 <td class="text-left"><p>-0.08%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>KCl</p></td>
-<td class="text-right"><p>6.29</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.39634</p></td>
+<td class="text-right"><p>6.29</p></td>
 <td class="text-right"><p>6.38359</p></td>
+<td class="text-right"><p>6.39634</p></td>
 <td class="text-left"><p>1.69%</p></td>
 <td class="text-left"><p>0.20%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>KBr</p></td>
-<td class="text-right"><p>6.6</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.70797</p></td>
+<td class="text-right"><p>6.6</p></td>
 <td class="text-right"><p>6.70308</p></td>
+<td class="text-right"><p>6.70797</p></td>
 <td class="text-left"><p>1.64%</p></td>
 <td class="text-left"><p>0.07%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>KI</p></td>
-<td class="text-right"><p>7.07</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>7.18309</p></td>
+<td class="text-right"><p>7.07</p></td>
 <td class="text-right"><p>7.18534</p></td>
+<td class="text-right"><p>7.18309</p></td>
 <td class="text-left"><p>1.60%</p></td>
 <td class="text-left"><p>-0.03%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>RbF</p></td>
-<td class="text-right"><p>5.65</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>5.76843</p></td>
+<td class="text-right"><p>5.65</p></td>
 <td class="text-right"><p>5.73892</p></td>
+<td class="text-right"><p>5.76843</p></td>
 <td class="text-left"><p>2.10%</p></td>
 <td class="text-left"><p>0.51%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>RbCl</p></td>
-<td class="text-right"><p>6.59</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.67994</p></td>
+<td class="text-right"><p>6.59</p></td>
 <td class="text-right"><p>6.69873</p></td>
+<td class="text-right"><p>6.67994</p></td>
 <td class="text-left"><p>1.36%</p></td>
 <td class="text-left"><p>-0.28%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>RbBr</p></td>
-<td class="text-right"><p>6.89</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.98219</p></td>
+<td class="text-right"><p>6.89</p></td>
 <td class="text-right"><p>7.02793</p></td>
+<td class="text-right"><p>6.98219</p></td>
 <td class="text-left"><p>1.34%</p></td>
 <td class="text-left"><p>-0.65%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>RbI</p></td>
-<td class="text-right"><p>7.35</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>7.61756</p></td>
+<td class="text-right"><p>7.35</p></td>
 <td class="text-right"><p>7.48785</p></td>
+<td class="text-right"><p>7.61756</p></td>
 <td class="text-left"><p>3.64%</p></td>
 <td class="text-left"><p>1.73%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>CsF</p></td>
-<td class="text-right"><p>6.02</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>6.1265</p></td>
+<td class="text-right"><p>6.02</p></td>
 <td class="text-right"><p>6.11801</p></td>
+<td class="text-right"><p>6.1265</p></td>
 <td class="text-left"><p>1.77%</p></td>
 <td class="text-left"><p>0.14%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>CsCl</p></td>
-<td class="text-right"><p>4.123</p></td>
 <td class="text-left"><p>Caesium chloride</p></td>
-<td class="text-right"><p>4.20308</p></td>
+<td class="text-right"><p>4.123</p></td>
 <td class="text-right"><p>4.20906</p></td>
+<td class="text-right"><p>4.20308</p></td>
 <td class="text-left"><p>1.94%</p></td>
 <td class="text-left"><p>-0.14%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>CsI</p></td>
-<td class="text-right"><p>4.567</p></td>
 <td class="text-left"><p>Caesium chloride</p></td>
-<td class="text-right"><p>4.90767</p></td>
+<td class="text-right"><p>4.567</p></td>
 <td class="text-right"><p>4.66521</p></td>
+<td class="text-right"><p>4.90767</p></td>
 <td class="text-left"><p>7.46%</p></td>
 <td class="text-left"><p>5.20%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Al</p></td>
-<td class="text-right"><p>4.046</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>4.04108</p></td>
+<td class="text-right"><p>4.046</p></td>
 <td class="text-right"><p>4.03893</p></td>
+<td class="text-right"><p>4.04108</p></td>
 <td class="text-left"><p>-0.12%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Fe</p></td>
-<td class="text-right"><p>2.856</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>2.85237</p></td>
+<td class="text-right"><p>2.856</p></td>
 <td class="text-right"><p>2.84005</p></td>
+<td class="text-right"><p>2.85237</p></td>
 <td class="text-left"><p>-0.13%</p></td>
 <td class="text-left"><p>0.43%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Ni</p></td>
-<td class="text-right"><p>3.499</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>3.5086</p></td>
+<td class="text-right"><p>3.499</p></td>
 <td class="text-right"><p>3.5058</p></td>
+<td class="text-right"><p>3.5086</p></td>
 <td class="text-left"><p>0.27%</p></td>
 <td class="text-left"><p>0.08%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Cu</p></td>
-<td class="text-right"><p>3.597</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>3.61199</p></td>
+<td class="text-right"><p>3.597</p></td>
 <td class="text-right"><p>3.62126</p></td>
+<td class="text-right"><p>3.61199</p></td>
 <td class="text-left"><p>0.42%</p></td>
 <td class="text-left"><p>-0.26%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Mo</p></td>
-<td class="text-right"><p>3.142</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>3.16937</p></td>
+<td class="text-right"><p>3.142</p></td>
 <td class="text-right"><p>3.16762</p></td>
+<td class="text-right"><p>3.16937</p></td>
 <td class="text-left"><p>0.87%</p></td>
 <td class="text-left"><p>0.06%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Pd</p></td>
-<td class="text-right"><p>3.859</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>3.95466</p></td>
+<td class="text-right"><p>3.859</p></td>
 <td class="text-right"><p>3.95707</p></td>
+<td class="text-right"><p>3.95466</p></td>
 <td class="text-left"><p>2.48%</p></td>
 <td class="text-left"><p>-0.06%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Ag</p></td>
-<td class="text-right"><p>4.079</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>4.16702</p></td>
+<td class="text-right"><p>4.079</p></td>
 <td class="text-right"><p>4.16055</p></td>
+<td class="text-right"><p>4.16702</p></td>
 <td class="text-left"><p>2.16%</p></td>
 <td class="text-left"><p>0.16%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>W</p></td>
-<td class="text-right"><p>3.155</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>3.18826</p></td>
+<td class="text-right"><p>3.155</p></td>
 <td class="text-right"><p>3.18741</p></td>
+<td class="text-right"><p>3.18826</p></td>
 <td class="text-left"><p>1.05%</p></td>
 <td class="text-left"><p>0.03%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Pt</p></td>
-<td class="text-right"><p>3.912</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>3.97714</p></td>
+<td class="text-right"><p>3.912</p></td>
 <td class="text-right"><p>3.97677</p></td>
+<td class="text-right"><p>3.97714</p></td>
 <td class="text-left"><p>1.67%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Au</p></td>
-<td class="text-right"><p>4.065</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>4.17431</p></td>
+<td class="text-right"><p>4.065</p></td>
 <td class="text-right"><p>4.17129</p></td>
+<td class="text-right"><p>4.17431</p></td>
 <td class="text-left"><p>2.69%</p></td>
 <td class="text-left"><p>0.07%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Pb</p></td>
-<td class="text-right"><p>4.92</p></td>
 <td class="text-left"><p>FCC</p></td>
-<td class="text-right"><p>5.02849</p></td>
+<td class="text-right"><p>4.92</p></td>
 <td class="text-right"><p>5.05053</p></td>
+<td class="text-right"><p>5.02849</p></td>
 <td class="text-left"><p>2.21%</p></td>
 <td class="text-left"><p>-0.44%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>V</p></td>
-<td class="text-right"><p>3.0399</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>2.99346</p></td>
+<td class="text-right"><p>3.0399</p></td>
 <td class="text-right"><p>2.99254</p></td>
+<td class="text-right"><p>2.99346</p></td>
 <td class="text-left"><p>-1.53%</p></td>
 <td class="text-left"><p>0.03%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Nb</p></td>
-<td class="text-right"><p>3.3008</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>3.32221</p></td>
+<td class="text-right"><p>3.3008</p></td>
 <td class="text-right"><p>3.32052</p></td>
+<td class="text-right"><p>3.32221</p></td>
 <td class="text-left"><p>0.65%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Ta</p></td>
-<td class="text-right"><p>3.3058</p></td>
 <td class="text-left"><p>BCC</p></td>
-<td class="text-right"><p>3.31741</p></td>
+<td class="text-right"><p>3.3058</p></td>
 <td class="text-right"><p>3.32229</p></td>
+<td class="text-right"><p>3.31741</p></td>
 <td class="text-left"><p>0.35%</p></td>
 <td class="text-left"><p>-0.15%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>TiN</p></td>
-<td class="text-right"><p>4.249</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.25254</p></td>
+<td class="text-right"><p>4.249</p></td>
 <td class="text-right"><p>4.25353</p></td>
+<td class="text-right"><p>4.25254</p></td>
 <td class="text-left"><p>0.08%</p></td>
 <td class="text-left"><p>-0.02%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>ZrN</p></td>
-<td class="text-right"><p>4.577</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.61602</p></td>
+<td class="text-right"><p>4.577</p></td>
 <td class="text-right"><p>4.61762</p></td>
+<td class="text-right"><p>4.61602</p></td>
 <td class="text-left"><p>0.85%</p></td>
 <td class="text-left"><p>-0.03%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>HfN</p></td>
-<td class="text-right"><p>4.392</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.53838</p></td>
+<td class="text-right"><p>4.392</p></td>
 <td class="text-right"><p>4.53774</p></td>
+<td class="text-right"><p>4.53838</p></td>
 <td class="text-left"><p>3.33%</p></td>
 <td class="text-left"><p>0.01%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>VN</p></td>
-<td class="text-right"><p>4.136</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.1281</p></td>
+<td class="text-right"><p>4.136</p></td>
 <td class="text-right"><p>4.12493</p></td>
+<td class="text-right"><p>4.1281</p></td>
 <td class="text-left"><p>-0.19%</p></td>
 <td class="text-left"><p>0.08%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>CrN</p></td>
-<td class="text-right"><p>4.149</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.16068</p></td>
+<td class="text-right"><p>4.149</p></td>
 <td class="text-right"><p>-</p></td>
+<td class="text-right"><p>4.16068</p></td>
 <td class="text-left"><p>0.28%</p></td>
 <td class="text-left"><p>-</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>NbN</p></td>
-<td class="text-right"><p>4.392</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.45474</p></td>
+<td class="text-right"><p>4.392</p></td>
 <td class="text-right"><p>4.45247</p></td>
+<td class="text-right"><p>4.45474</p></td>
 <td class="text-left"><p>1.43%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>TiC</p></td>
-<td class="text-right"><p>4.328</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.33493</p></td>
+<td class="text-right"><p>4.328</p></td>
 <td class="text-right"><p>4.33565</p></td>
+<td class="text-right"><p>4.33493</p></td>
 <td class="text-left"><p>0.16%</p></td>
 <td class="text-left"><p>-0.02%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>ZrC0.97</p></td>
-<td class="text-right"><p>4.698</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.72451</p></td>
+<td class="text-right"><p>4.698</p></td>
 <td class="text-right"><p>4.72434</p></td>
+<td class="text-right"><p>4.72451</p></td>
 <td class="text-left"><p>0.56%</p></td>
 <td class="text-left"><p>0.00%</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>HfC0.99</p></td>
-<td class="text-right"><p>4.64</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.65023</p></td>
+<td class="text-right"><p>4.64</p></td>
 <td class="text-right"><p>4.65131</p></td>
+<td class="text-right"><p>4.65023</p></td>
 <td class="text-left"><p>0.22%</p></td>
 <td class="text-left"><p>-0.02%</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>VC0.97</p></td>
-<td class="text-right"><p>4.166</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.16476</p></td>
+<td class="text-right"><p>4.166</p></td>
 <td class="text-right"><p>4.16195</p></td>
+<td class="text-right"><p>4.16476</p></td>
 <td class="text-left"><p>-0.03%</p></td>
 <td class="text-left"><p>0.07%</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>NbC0.99</p></td>
-<td class="text-right"><p>4.47</p></td>
+<tr class="row-odd"><td class="text-left"><p>TaC0.99</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.50591</p></td>
-<td class="text-right"><p>4.50617</p></td>
-<td class="text-left"><p>0.80%</p></td>
-<td class="text-left"><p>-0.01%</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>TaC0.99</p></td>
 <td class="text-right"><p>4.456</p></td>
-<td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.48225</p></td>
 <td class="text-right"><p>4.48208</p></td>
+<td class="text-right"><p>4.48225</p></td>
 <td class="text-left"><p>0.59%</p></td>
 <td class="text-left"><p>0.00%</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>ScN</p></td>
-<td class="text-right"><p>4.52</p></td>
+<tr class="row-even"><td class="text-left"><p>ScN</p></td>
 <td class="text-left"><p>Halite</p></td>
-<td class="text-right"><p>4.51797</p></td>
+<td class="text-right"><p>4.52</p></td>
 <td class="text-right"><p>4.51831</p></td>
+<td class="text-right"><p>4.51797</p></td>
 <td class="text-left"><p>-0.04%</p></td>
 <td class="text-left"><p>-0.01%</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>KTaO3</p></td>
-<td class="text-right"><p>3.9885</p></td>
+<tr class="row-odd"><td class="text-left"><p>KTaO3</p></td>
 <td class="text-left"><p>Cubic perovskite</p></td>
-<td class="text-right"><p>4.03265</p></td>
+<td class="text-right"><p>3.9885</p></td>
 <td class="text-right"><p>4.03084</p></td>
+<td class="text-right"><p>4.03265</p></td>
 <td class="text-left"><p>1.11%</p></td>
 <td class="text-left"><p>0.05%</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>SrTiO3</p></td>
-<td class="text-right"><p>3.98805</p></td>
+<tr class="row-even"><td class="text-left"><p>SrTiO3</p></td>
 <td class="text-left"><p>Cubic perovskite</p></td>
-<td class="text-right"><p>3.94481</p></td>
+<td class="text-right"><p>3.98805</p></td>
 <td class="text-right"><p>3.94513</p></td>
+<td class="text-right"><p>3.94481</p></td>
 <td class="text-left"><p>-1.08%</p></td>
 <td class="text-left"><p>-0.01%</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>EuTiO3</p></td>
-<td class="text-right"><p>7.81</p></td>
+<tr class="row-odd"><td class="text-left"><p>EuTiO3</p></td>
 <td class="text-left"><p>Cubic perovskite</p></td>
-<td class="text-right"><p>3.92943</p></td>
+<td class="text-right"><p>7.81</p></td>
 <td class="text-right"><p>3.96119</p></td>
+<td class="text-right"><p>3.92943</p></td>
 <td class="text-left"><p>-49.69%</p></td>
 <td class="text-left"><p>-0.80%</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>SrVO3</p></td>
-<td class="text-right"><p>3.838</p></td>
+<tr class="row-even"><td class="text-left"><p>SrVO3</p></td>
 <td class="text-left"><p>Cubic perovskite</p></td>
-<td class="text-right"><p>3.90604</p></td>
+<td class="text-right"><p>3.838</p></td>
 <td class="text-right"><p>3.90089</p></td>
+<td class="text-right"><p>3.90604</p></td>
 <td class="text-left"><p>1.77%</p></td>
 <td class="text-left"><p>0.13%</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>CaVO3</p></td>
-<td class="text-right"><p>3.767</p></td>
+<tr class="row-odd"><td class="text-left"><p>CaVO3</p></td>
 <td class="text-left"><p>Cubic perovskite</p></td>
-<td class="text-right"><p>3.83451</p></td>
+<td class="text-right"><p>3.767</p></td>
 <td class="text-right"><p>3.83041</p></td>
+<td class="text-right"><p>3.83451</p></td>
 <td class="text-left"><p>1.79%</p></td>
 <td class="text-left"><p>0.11%</p></td>
 </tr>
 </tbody>
 </table>
 <p>As you can see, almost all cubic lattice constants are within 1% of the DFT values. The only major errors are with
-EuTiO3 wrt to the Wikipedia value. It is quite likely the Wikipedia value is wrong. All relaxations take less than 1s
-on a M1 Max Mac.</p>
+EuTiO3 and some of the iodies (RbI and CsI). It is quite likely the Wikipedia value for EuTiO3 is wrong by a factor of
+2 and the lower than expected accuracy on iodides may be due to the paucity of data in these chemical systems.</p>
+<p>All relaxations take less than 1s on a M1 Max Mac.</p>
 </section>
 <section id="molecular-dynamics">
 <h2>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this headline">¶</a></h2>
