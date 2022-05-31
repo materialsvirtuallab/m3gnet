@@ -115,8 +115,8 @@ The final energy -10.859 eV/atom is also close to Materials Project DFT value of
 The relaxation takes less than 20 seconds on a single laptop.
 
 Here are more comprehensive benchmarks for cubic crystals based on 
-[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The code is in the 
-[examples](/examples) folder in notebook `Cubic Crystal Test.ipynb`.
+[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The Jupyter notebook is in the 
+[examples](/examples/Cubic%20Crystal%20Test.ipynb) folder.
 
 | Formula   |       a | crystal           | Predicted a | MP DFT a | % error vs Expt   | % error vs MP |
 |:----------|--------:|:------------------|------------:|---------:|:------------------|:--------------|
@@ -200,7 +200,7 @@ on a M1 Max Mac.
 
 ## Molecular dynamics
 
-Similarly the universal IAP can be used to perform molecular dynamics (MD) simulations as well.
+Similarly, the universal IAP can be used to perform molecular dynamics (MD) simulations as well.
 
 ```python
 from pymatgen.core import Structure, Lattice
