@@ -195,8 +195,10 @@ one lattice parameter for comparison. However, M3GNet is not limited to cubic sy
 | CaVO3       | Cubic perovskite    | 3.767   | 3.83041 |       3.83451 | 1.79%             | 0.11%         |
 
 As you can see, almost all cubic lattice constants are within 1% of the DFT values. The only major errors are with
-EuTiO3 wrt to the Wikipedia value. It is quite likely the Wikipedia value is wrong. All relaxations take less than 1s
-on a M1 Max Mac.
+EuTiO3 and some of the iodies (RbI and CsI). It is quite likely the Wikipedia value for EuTiO3 is wrong by a factor of
+2 and the lower than expected accuracy on iodides may be due to the paucity of data in these chemical systems.
+
+All relaxations take less than 1s on a M1 Max Mac.
 
 ## Molecular dynamics
 
