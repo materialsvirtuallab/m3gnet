@@ -193,7 +193,8 @@ Here are more comprehensive benchmarks for cubic crystals based on
 | SrVO3     | 3.838   | Cubic perovskite  |       3.90604 | 3.90089 |        1.77289   |      0.132081 |
 | CaVO3     | 3.767   | Cubic perovskite  |       3.83451 | 3.83041 |        1.79222   |      0.107223 |
 
-As you can see, almost all cubic lattice constants are within 1% of the DFT values. All relaxations take less than 1s.
+As you can see, almost all cubic lattice constants are within 1% of the DFT values. All relaxations take less than 1s
+on a M1 Max Mac.
 
 ## Molecular dynamics
 
