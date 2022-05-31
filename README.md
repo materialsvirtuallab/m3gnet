@@ -115,9 +115,10 @@ The final energy -10.859 eV/atom is also close to Materials Project DFT value of
 The relaxation takes less than 20 seconds on a single laptop.
 
 Here are more comprehensive benchmarks for cubic crystals based on 
-[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The Jupyter notebook is in the 
-[examples](/examples/Cubic%20Crystal%20Test.ipynb) folder. We only limit to cubic crystals here since there is only
-one lattice parameter for comparison. However, M3GNet is not limited to cubic systems of course.
+[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The 
+[Jupyter notebook](/examples/Cubic%20Crystal%20Test.ipynb) is in the [examples](/examples) folder. We only limit to
+cubic crystals since there is only one lattice parameter for comparison. However, M3GNet is not limited to cubic
+systems of course (see [LFP example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
 
 | Material    | Crystal structure   |       a |    mp_a |   predicted_a | % error vs Expt   | % error vs MP |
 |:------------|:--------------------|--------:|--------:|--------------:|:------------------|:--------------|
