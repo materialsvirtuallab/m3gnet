@@ -8,17 +8,17 @@ addition of the coordinates for atoms and the 3×3 lattice matrix in crystals, w
 tensorial quantities such as forces and stresses via auto-differentiation. 
 
 As a framework, M3GNet has diverse applications, including:
-- Interatomic potential development. With the same training data, M3GNet performs similarly to state-of-the-art machine
-  learning interatomic potentials (ML-IAPs). However, a key feature of a graph-based potential is its flexibility to
-  scale to diverse chemical spaces. One of the key accomplishments of M3GNet is the development of a *universal IAP*
-  that can work across the entire periodic table of the elements by training on relaxations performed in the Materials
-  Project.
-- Surrogate models for property predictions. Like the previous MEGNet architecture, M3GNet can be used to develop
-  surrogate models for property predictions, achieving in many cases accuracies that better or similar to other state
-  of the art ML models.
+- **Interatomic potential development.** With the same training data, M3GNet performs similarly to state-of-the-art 
+  machine learning interatomic potentials (ML-IAPs). However, a key feature of a graph representation is its
+  flexibility to scale to diverse chemical spaces. One of the key accomplishments of M3GNet is the development of a
+  *universal IAP* that can work across the entire periodic table of the elements by training on relaxations performed
+  in the [Materials Project](http://materialsproject.org).
+- **Surrogate models for property predictions.** Like the previous MEGNet architecture, M3GNet can be used to develop
+  surrogate models for property predictions, achieving in many cases accuracies that better or similar to other 
+  state-of-the-art ML models.
 
 For detailed performance benchmarks, please refer to the publication in the [References](#references) section. The 
-Sphinx-generated API documentation is available via the [Github Page](http://materialsvirtuallab.github.io/m3gnet).
+API documentation is available via the [Github Page](http://materialsvirtuallab.github.io/m3gnet).
 
 # Table of Contents
 * [System requirements](#system-requirements)
@@ -46,12 +46,12 @@ You can also directly download the source from Github and install from source.
 
 ## Apple Silicon Installation
 
-Special care may be needed for Apple Silicon (M1, M1 Pro, M1 Max, M1 Ultra) machines. Apple Silicon has extremely
-powerful ML capabilities. Here are the recommended steps to get m3gnet working on Apple Silicon devices.
+Apple Silicon (M1, M1 Pro, M1 Max, M1 Ultra) has extremely powerful ML capabilities, but special steps are needed for
+the installation of tensorflow and other dependencies. Here are the recommended installation steps.
 
 1. Ensure that you already have XCode and CLI installed.
 2. Install Miniconda or Anaconda.
-3. Create a Python 3.9 environment,
+3. Create a Python 3.9 environment.
 ```bash
 conda create --name m3gnet python=3.9
 conda activate m3gnet
@@ -61,8 +61,8 @@ conda activate m3gnet
 conda install -c apple tensorflow-deps
 pip install tensorflow-macos
 ```
-5. If you wish, you can install tensorflow-metal, which helps speed up training. If you encounter weird tensorflow 
-   errors, you should uninstall tensorflow-metal and see if it fixes the errors first.
+5. If you wish, you can install `tensorflow-metal`, which helps speed up training. If you encounter strange tensorflow 
+   errors, you should uninstall `tensorflow-metal` and see if it fixes the errors first.
 ```
 pip install tensorflow-metal 
 ```
@@ -88,8 +88,7 @@ from pymatgen.core import Structure, Lattice
 from m3gnet.models import Relaxer
 
 # Init a Mo structure with stretched lattice (DFT lattice constant ~ 3.168)
-mo = Structure(Lattice.cubic(3.3), 
-               ["Mo", "Mo"], [[0., 0., 0.], [0.5, 0.5, 0.5]])
+mo = Structure(Lattice.cubic(3.3), ["Mo", "Mo"], [[0., 0., 0.], [0.5, 0.5, 0.5]])
 
 relaxer = Relaxer()  # This loads the default pre-trained model
 
@@ -102,23 +101,22 @@ print(f"Relaxed lattice parameter is {final_structure.lattice.abc[0]: .3f} Å")
 print(f"Final energy is {final_energy.item(): .3f} eV/atom")
 ```
 
-We will see the following output: 
+The output is as follows: 
 ```
 Relaxed lattice parameter is  3.169 Å
 Final energy is -10.859 eV/atom
 ```
-The initial lattice parameter of 3.3 Å was successfully relaxed to 3.169 Å, close to the DFT value of 3.168 Å. 
-
-The final energy -10.859 eV/atom is also close to Materials Project DFT value of
+The initial lattice parameter of 3.3 Å was successfully relaxed to 3.169 Å, close to the DFT value of 3.168 Å. The
+final energy -10.859 eV/atom is also close to Materials Project DFT value of
 [-10.8456 eV/atom](http://materialsproject.org/materials/mp-129/).
 
 The relaxation takes less than 20 seconds on a single laptop.
 
-Here are more comprehensive benchmarks for cubic crystals based on 
+The table below provides more comprehensive benchmarks for cubic crystals based on 
 [exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The 
-[Jupyter notebook](/examples/Cubic%20Crystal%20Test.ipynb) is in the [examples](/examples) folder. We only limit to
-cubic crystals since there is only one lattice parameter for comparison. However, M3GNet is not limited to cubic
-systems of course (see [LFP example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
+[Jupyter notebook](/examples/Cubic%20Crystal%20Test.ipynb) is in the [examples](/examples) folder. This benchmark is
+limite to cubic crystals for ease of comparison since there is only one lattice parameter. However, M3GNet is not
+limited to cubic systems of course (see [LiFePO4 example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
 
 | Material    | Crystal structure   |       a |    MP a |   Predicted a | % error vs Expt   | % error vs MP |
 |:------------|:--------------------|--------:|--------:|--------------:|:------------------|:--------------|
@@ -215,11 +213,11 @@ systems of course (see [LFP example](/examples/Relaxation%20of%20LiFePO4.ipynb))
 | ZrC0.97     | Halite              | 4.698   | 4.72434 |       4.72451 | 0.56%             | 0.00%         |
 | ZrN         | Halite              | 4.577   | 4.61762 |       4.61602 | 0.85%             | -0.03%        |
 
-As you can see, almost all cubic lattice constants are within 1% of the DFT values. The only major errors are with
-EuTiO3, some iodides (RbI and CsI) and the noble gases. It is quite likely the Wikipedia value for EuTiO3 is
-wrong by a factor of  2 and the lower than expected accuracy on iodides and noble gases may be due to the paucity of
-data in these chemical systems. It should be noted that M3GNet is expected to reproduce the MP DFT value and not the
-experimental values, which are only provided as an additional point of reference.
+From the table, it can be observed that almost all M3GNet-relaxed cubic lattice constants are within 1% of the DFT
+values. The only major errors are with EuTiO3, iodides (RbI and CsI) and the noble gases. It is quite likely the
+Wikipedia value for EuTiO3 is wrong by a factor of  2 and the lower than expected accuracy on iodides and noble gases
+may be due to the paucity of data in these chemical systems. It should be noted that M3GNet is expected to reproduce
+the MP DFT value and not the experimental values, which are only provided as an additional point of reference.
 
 All relaxations take less than 1s on a M1 Max Mac.
 
