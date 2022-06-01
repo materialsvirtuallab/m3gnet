@@ -216,10 +216,10 @@ systems of course (see [LFP example](/examples/Relaxation%20of%20LiFePO4.ipynb))
 | ZrN         | Halite              | 4.577   | 4.61762 |       4.61602 | 0.85%             | -0.03%        |
 
 As you can see, almost all cubic lattice constants are within 1% of the DFT values. The only major errors are with
-EuTiO3, some of the iodies (RbI and CsI) and the nobel gases. It is quite likely the Wikipedia value for EuTiO3 is
-wrong by a factor of  2 and the lower than expected accuracy on iodides and nobel gases may be due to the paucity of
+EuTiO3, some iodides (RbI and CsI) and the noble gases. It is quite likely the Wikipedia value for EuTiO3 is
+wrong by a factor of  2 and the lower than expected accuracy on iodides and noble gases may be due to the paucity of
 data in these chemical systems. It should be noted that M3GNet is expected to reproduce the MP DFT value and not the
-experimental values, which are only provided as an additional piece of information.
+experimental values, which are only provided as an additional point of reference.
 
 All relaxations take less than 1s on a M1 Max Mac.
 
