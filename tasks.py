@@ -21,6 +21,7 @@ NEW_VER = m3gnet.__version__
 @task
 def make_doc(ctx):
     ctx.run("cp README.md docs_src/index.md")
+    ctx.run("cp CHANGES.md docs_src/changes.md")
     with cd("docs_src"):
         ctx.run("rm *tests*.rst", warn=True)
         ctx.run("sphinx-apidoc --separate -d 6 -o . -f ../m3gnet")

@@ -23,6 +23,7 @@ API documentation is available via the [Github Page](http://materialsvirtuallab.
 # Table of Contents
 * [System requirements](#system-requirements)
 * [Installation](#installation)
+* [Change Log](#change-log)
 * [Usage](#usage)
 * [Model training](#model-training)
 * [Datasets](#datasets)
@@ -75,6 +76,10 @@ pip install --no-deps m3gnet
 pip install protobuf==3.20.0 pymatgen ase cython
 ```
 8. Once you are done, you can try running `pytest m3gnet` to see if all tests pass.
+
+# Change Log
+
+See [change log](changes)
 
 # Usage
 
