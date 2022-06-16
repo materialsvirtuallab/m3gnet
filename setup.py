@@ -38,6 +38,7 @@ setup(
         "numpy",
         "monty",
         "sympy",
+        "cython",
         "ase",
     ],
     description="Materials Graph with Three-body Interactions",

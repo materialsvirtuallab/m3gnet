@@ -73,8 +73,9 @@ def _download_model_to_dir(model_name: str = "MP-2021.2.8-EFS", dirname: str = "
     if not os.path.isdir(full_dirname):
         os.mkdir(full_dirname)
     for filename in MODEL_FILES[model_name]:
-        _download_file(GITHUB_RAW_LINK.format(model_name=model_name, filename=filename),
-                       os.path.join(full_dirname, filename))
+        _download_file(
+            GITHUB_RAW_LINK.format(model_name=model_name, filename=filename), os.path.join(full_dirname, filename)
+        )
     logger.info(f"Model {model_name} downloaded to {full_dirname}")
 
 
