@@ -1,4 +1,7 @@
-[![GitHub license](https://img.shields.io/github/license/materialsvirtuallab/m3gnet)](https://github.com/materialsvirtuallab/m3gnet/blob/main/LICENSE)[![Linting](https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg)](https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg)[![Testing](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg)](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg)[![Downloads](https://pepy.tech/badge/m3gnet)](https://pepy.tech/project/m3gnet)
+[![GitHub license](https://img.shields.io/github/license/materialsvirtuallab/m3gnet)](https://github.com/materialsvirtuallab/m3gnet/blob/main/LICENSE)
+[![Linting](https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg)](https://github.com/materialsvirtuallab/m3gnet/workflows/Linting/badge.svg)
+[![Testing](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg)](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg)
+[![Downloads](https://pepy.tech/badge/m3gnet)](https://pepy.tech/project/m3gnet)
 
 # M3GNet
 
@@ -79,7 +82,7 @@ pip install protobuf==3.20.0 pymatgen ase cython
 
 # Change Log
 
-See [change log](changes)
+See [change log](CHANGES.md)
 
 # Usage
 
@@ -120,7 +123,7 @@ The relaxation takes less than 20 seconds on a single laptop.
 The table below provides more comprehensive benchmarks for cubic crystals based on 
 [exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The 
 [Jupyter notebook](/examples/Cubic%20Crystal%20Test.ipynb) is in the [examples](/examples) folder. This benchmark is
-limite to cubic crystals for ease of comparison since there is only one lattice parameter. However, M3GNet is not
+limited to cubic crystals for ease of comparison since there is only one lattice parameter. However, M3GNet is not
 limited to cubic systems of course (see [LiFePO4 example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
 
 | Material    | Crystal structure   |       a |    MP a |   Predicted a | % error vs Expt   | % error vs MP |
