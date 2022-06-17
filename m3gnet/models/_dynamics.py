@@ -300,7 +300,7 @@ class MolecularDynamics:
                 self.atoms,
                 timestep * units.fs,
                 temperature_K=temperature,
-                pressure=pressure,
+                pressure_au=pressure,
                 taut=taut,
                 taup=taup,
                 compressibility_au=compressibility_au,
