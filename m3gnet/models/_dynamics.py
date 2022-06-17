@@ -134,8 +134,16 @@ class Relaxer:
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
 
-    def relax(self, atoms: Atoms, fmax: float = 0.1, steps: int = 500, traj_file: str = None, interval=1, verbose=False,
-              **kwargs):
+    def relax(
+        self,
+        atoms: Atoms,
+        fmax: float = 0.1,
+        steps: int = 500,
+        traj_file: str = None,
+        interval=1,
+        verbose=False,
+        **kwargs,
+    ):
         """
 
         Args:
