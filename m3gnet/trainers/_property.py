@@ -167,7 +167,7 @@ class Trainer:
             pbar.set_params({"verbose": verbose, "epochs": epochs})
             callbacks.append(pbar)
 
-        if len(callbacks) > len(set(i.__class__ for i in callbacks)):
+        if len(callbacks) > len({i.__class__ for i in callbacks}):
             logger.warning("Duplicated callbacks found")
 
         callback_list = tf.keras.callbacks.CallbackList(callbacks)

@@ -5,22 +5,22 @@
 
 # M3GNet
 
-M3GNet is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference 
+M3GNet is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference
 with prior materials graph implementations such as [MEGNet](https://github.com/materialsvirtuallab/megnet) is the
 addition of the coordinates for atoms and the 3×3 lattice matrix in crystals, which are necessary for obtaining
-tensorial quantities such as forces and stresses via auto-differentiation. 
+tensorial quantities such as forces and stresses via auto-differentiation.
 
 As a framework, M3GNet has diverse applications, including:
-- **Interatomic potential development.** With the same training data, M3GNet performs similarly to state-of-the-art 
+- **Interatomic potential development.** With the same training data, M3GNet performs similarly to state-of-the-art
   machine learning interatomic potentials (ML-IAPs). However, a key feature of a graph representation is its
   flexibility to scale to diverse chemical spaces. One of the key accomplishments of M3GNet is the development of a
   *universal IAP* that can work across the entire periodic table of the elements by training on relaxations performed
   in the [Materials Project](http://materialsproject.org).
 - **Surrogate models for property predictions.** Like the previous MEGNet architecture, M3GNet can be used to develop
-  surrogate models for property predictions, achieving in many cases accuracies that better or similar to other 
+  surrogate models for property predictions, achieving in many cases accuracies that better or similar to other
   state-of-the-art ML models.
 
-For detailed performance benchmarks, please refer to the publication in the [References](#references) section. The 
+For detailed performance benchmarks, please refer to the publication in the [References](#references) section. The
 API documentation is available via the [Github Page](http://materialsvirtuallab.github.io/m3gnet).
 
 # Table of Contents
@@ -34,9 +34,9 @@ API documentation is available via the [Github Page](http://materialsvirtuallab.
 
 # System requirements
 
-Inferences using the pre-trained models can be ran on any standard computer. For model training, the GPU memory needs 
-to be > 18 Gb for a batch size of 32 using the crystal training data. In our work, we used a single RTX 3090 
-GPU for model training. 
+Inferences using the pre-trained models can be ran on any standard computer. For model training, the GPU memory needs
+to be > 18 Gb for a batch size of 32 using the crystal training data. In our work, we used a single RTX 3090
+GPU for model training.
 
 # Installation
 
@@ -65,10 +65,10 @@ conda activate m3gnet
 conda install -c apple tensorflow-deps
 pip install tensorflow-macos
 ```
-5. If you wish, you can install `tensorflow-metal`, which helps speed up training. If you encounter strange tensorflow 
+5. If you wish, you can install `tensorflow-metal`, which helps speed up training. If you encounter strange tensorflow
    errors, you should uninstall `tensorflow-metal` and see if it fixes the errors first.
 ```
-pip install tensorflow-metal 
+pip install tensorflow-metal
 ```
 6. Install m3gnet but ignore dependencies (otherwise, pip will look for tensorflow).
 ```bash
@@ -109,7 +109,7 @@ print(f"Relaxed lattice parameter is {final_structure.lattice.abc[0]: .3f} Å")
 print(f"Final energy is {final_energy.item(): .3f} eV/atom")
 ```
 
-The output is as follows: 
+The output is as follows:
 ```
 Relaxed lattice parameter is  3.169 Å
 Final energy is -10.859 eV/atom
@@ -120,8 +120,8 @@ final energy -10.859 eV/atom is also close to Materials Project DFT value of
 
 The relaxation takes less than 20 seconds on a single laptop.
 
-The table below provides more comprehensive benchmarks for cubic crystals based on 
-[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The 
+The table below provides more comprehensive benchmarks for cubic crystals based on
+[exp data on Wikipedia](http://en.wikipedia.org/wiki/Lattice_constant) and MP DFT data. The
 [Jupyter notebook](/examples/Cubic%20Crystal%20Test.ipynb) is in the [examples](/examples) folder. This benchmark is
 limited to cubic crystals for ease of comparison since there is only one lattice parameter. However, M3GNet is not
 limited to cubic systems of course (see [LiFePO4 example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
@@ -238,7 +238,7 @@ from pymatgen.core import Structure, Lattice
 from m3gnet.models import MolecularDynamics
 
 # Init a Mo structure with stretched lattice (DFT lattice constant ~ 3.168)
-mo = Structure(Lattice.cubic(3.3), 
+mo = Structure(Lattice.cubic(3.3),
                ["Mo", "Mo"], [[0., 0., 0.], [0.5, 0.5, 0.5]])
 
 md = MolecularDynamics(
@@ -271,21 +271,21 @@ Time[ps]      Etot[eV]     Epot[eV]     Ekin[eV]    T[K]
 1.0000         -20.8908     -21.0772       0.1864   721.2
 ```
 
-The MD run takes less than 1 minute. 
+The MD run takes less than 1 minute.
 
 # Model training
 
 You can also train your own IAP using the `PotentialTrainer` in `m3gnet.trainers`. The training dataset can include:
 - structures, a list of pymatgen Structures
 - energies, a list of energy floats with unit eV.
-- forces, a list of nx3 force matrix with unit eV/Å, where n is the number of atom in 
-  each structure. n does not need to be the same for all structures. 
+- forces, a list of nx3 force matrix with unit eV/Å, where n is the number of atom in
+  each structure. n does not need to be the same for all structures.
 - stresses, a list of 3x3 stress matrices with unit GPa (optional)
 
 For stresses, we use the convention that compressive stress gives negative values. Stresses obtained from
 VASP calculations (default unit is kBar) should be multiplied by -0.1 to work directly with the model.
 
-We use validation dataset to select the stopping epoch number. The dataset has similar format as the training dataset. 
+We use validation dataset to select the stopping epoch number. The dataset has similar format as the training dataset.
 
 A minimal example of model training is shown below.
 
@@ -328,14 +328,14 @@ The training data used to develop the universal M3GNet IAP is `MPF.2021.2.8` and
 Please cite the following work:
 
 ```
-Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table." 
+Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table."
 arXiv preprint [arXiv:2202.02450](https://arxiv.org/abs/2202.02450) (2022).
 ```
 
 # Acknowledgements
 
-This work was primarily supported by the Materials Project, funded by the U.S. Department of Energy, Office of Science, 
-Office of Basic Energy Sciences, Materials Sciences and Engineering Division under contract no. 
+This work was primarily supported by the Materials Project, funded by the U.S. Department of Energy, Office of Science,
+Office of Basic Energy Sciences, Materials Sciences and Engineering Division under contract no.
 DE-AC02-05-CH11231: Materials Project program KC23MP. This work used the Expanse supercomputing cluster at the Extreme
 Science and Engineering Discovery Environment (XSEDE), which is supported by National Science Foundation grant number
 ACI-1548562.

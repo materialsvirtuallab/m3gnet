@@ -113,7 +113,6 @@ class AttributeUpdateMixin:
         """
         Check if the graph is valid
         """
-        pass
 
     def replace(self, **kwargs):
         """
