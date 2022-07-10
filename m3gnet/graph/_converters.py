@@ -86,7 +86,6 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         Returns:
 
         """
-        pass
 
     def convert_many(self, structures: List[StructureOrMolecule], **kwargs) -> MaterialGraph:
         """

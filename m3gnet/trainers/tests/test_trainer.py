@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 import json
 import os
 import unittest
-from shutil import rmtree
 
 import numpy as np
 import tensorflow as tf

@@ -124,7 +124,7 @@ def _concatenate(list_of_arrays: List, name: AnyStr) -> Optional[np.ndarray]:
 
     Returns: concatenated array
     """
-    num_none = sum([i is None for i in list_of_arrays])
+    num_none = sum(i is None for i in list_of_arrays)
 
     if num_none == len(list_of_arrays):
         return None

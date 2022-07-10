@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Core layers provide basic operations, e.g., MLP
 """
