@@ -335,9 +335,11 @@ trainer.train(
 
 # Matterverse.ai
 
-As an example of the power of M3GNet, we have created a database of yet-to-be-sythesized materials called 
-[matterverse.ai](https://matterverse.ai). Currently, matterverse.ai has 31 million strucvtures, of which more than 1
-million are predicted to be potentially stable.
+As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized 
+materials called [matterverse.ai](https://matterverse.ai). At the time of writing, matterverse.ai has 31 million
+structures, of which more than 1 million are predicted to be potentially stable. The initial candidate list was
+generated via combinatorial isovalent ionic substitutions based on the common oxidation states of non-noble-gas elements
+on 5,283 binary, ternary and quaternary structural prototypes in the 2019 version of the ICSD database.
 
 # Datasets
 
