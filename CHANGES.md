@@ -1,3 +1,7 @@
+# v0.0.6
+- Less noisy Relaxer by default.
+
+
 # v0.0.4
 - Fix model download 
 - More documentation
