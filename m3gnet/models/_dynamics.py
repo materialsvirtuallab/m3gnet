@@ -9,7 +9,6 @@ import io
 from typing import Optional, Union
 
 import numpy as np
-import tensorflow as tf
 from ase import Atoms, units
 from ase.calculators.calculator import Calculator, all_changes
 from ase.constraints import ExpCellFilter
@@ -84,8 +83,7 @@ class M3GNetCalculator(Calculator):
 
         graph = self.potential.graph_converter(atoms)
         graph_list = graph.as_tf().as_list()
-        with tf.device("/cpu:0"):
-            results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
+        results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
         self.results.update(
             energy=results[0].numpy().ravel(),
             free_energy=results[0].numpy().ravel(),

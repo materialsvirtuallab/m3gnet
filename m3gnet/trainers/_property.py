@@ -3,6 +3,7 @@ Training graph network property models
 """
 import logging
 import os
+import platform
 from glob import glob
 from typing import List, Optional, Union
 
@@ -21,6 +22,7 @@ from ._metrics import MONITOR_MAPPING, _get_metric, _get_metric_string
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+PLATFORM = platform.platform()
 
 
 class Trainer:
@@ -181,12 +183,16 @@ class Trainer:
 
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(model, graph_list, target_list):
-            with tf.device("/cpu:0"):
-                with tf.GradientTape() as tape:
-                    pred_list: tf.Tensor = model(graph_list)
-                    loss_val = loss(target_list, pred_list)
+            with tf.GradientTape() as tape:
+                pred_list: tf.Tensor = model(graph_list)
+                loss_val = loss(target_list, pred_list)
+            if "macOS" in PLATFORM and "arm64" in PLATFORM and tf.config.list_physical_devices("GPU"):
+                # This is a workaround for a bug in tensorflow-metal that fails when tape.gradient is called.
+                with tf.device("/cpu:0"):
+                    grads = tape.gradient(loss_val, model.trainable_variables)
+            else:
                 grads = tape.gradient(loss_val, model.trainable_variables)
-                return loss_val, grads, pred_list
+            return loss_val, grads, pred_list
 
         for epoch in range(self.initial_epoch, epochs):
             callback_list.on_epoch_begin(epoch=epoch, logs={"epoch": epoch})
