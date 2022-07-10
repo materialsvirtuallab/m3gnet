@@ -155,7 +155,8 @@ class BasePotential(tf.keras.Model, ABC):
             obj = self.model.graph_converter(obj)
         if isinstance(obj, MaterialGraph):
             obj = obj.as_tf().as_list()
-        return self.get_efs_tensor(obj, include_stresses=include_stresses)
+        with tf.device('/cpu:0'):
+            return self.get_efs_tensor(obj, include_stresses=include_stresses)
 
     @tf.function(experimental_relax_shapes=True)
     def get_efs_tensor(self, graph: List[tf.Tensor], include_stresses: bool = True) -> tuple:

@@ -182,14 +182,15 @@ class PotentialTrainer:
 
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(potential, graph_list, target_list):
-            with tf.GradientTape() as tape:
-                if has_stress:
-                    pred_list = potential.get_efs_tensor(graph_list, include_stresses=True)
-                else:
-                    pred_list = potential.get_ef_tensor(graph_list)
-                loss_val, emae, fmae, smae = _loss(target_list, pred_list, graph_list[Index.N_ATOMS])
-            grads = tape.gradient(loss_val, potential.model.trainable_variables)
-            return loss_val, grads, pred_list, emae, fmae, smae
+            with tf.device('/cpu:0'):
+                with tf.GradientTape() as tape:
+                    if has_stress:
+                        pred_list = potential.get_efs_tensor(graph_list, include_stresses=True)
+                    else:
+                        pred_list = potential.get_ef_tensor(graph_list)
+                    loss_val, emae, fmae, smae = _loss(target_list, pred_list, graph_list[Index.N_ATOMS])
+                grads = tape.gradient(loss_val, potential.model.trainable_variables)
+                return loss_val, grads, pred_list, emae, fmae, smae
 
         for epoch in range(epochs):
             callback_list.on_epoch_begin(epoch=epoch, logs={"epoch": epoch})

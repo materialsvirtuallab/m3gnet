@@ -181,11 +181,12 @@ class Trainer:
 
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(model, graph_list, target_list):
-            with tf.GradientTape() as tape:
-                pred_list: tf.Tensor = model(graph_list)
-                loss_val = loss(target_list, pred_list)
-            grads = tape.gradient(loss_val, model.trainable_variables)
-            return loss_val, grads, pred_list
+            with tf.device('/cpu:0'):
+                with tf.GradientTape() as tape:
+                    pred_list: tf.Tensor = model(graph_list)
+                    loss_val = loss(target_list, pred_list)
+                grads = tape.gradient(loss_val, model.trainable_variables)
+                return loss_val, grads, pred_list
 
         for epoch in range(self.initial_epoch, epochs):
             callback_list.on_epoch_begin(epoch=epoch, logs={"epoch": epoch})
