@@ -182,7 +182,7 @@ class PotentialTrainer:
 
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(potential, graph_list, target_list):
-            with tf.device('/cpu:0'):
+            with tf.device("/cpu:0"):
                 with tf.GradientTape() as tape:
                     if has_stress:
                         pred_list = potential.get_efs_tensor(graph_list, include_stresses=True)

@@ -181,7 +181,7 @@ class Trainer:
 
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(model, graph_list, target_list):
-            with tf.device('/cpu:0'):
+            with tf.device("/cpu:0"):
                 with tf.GradientTape() as tape:
                     pred_list: tf.Tensor = model(graph_list)
                     loss_val = loss(target_list, pred_list)
