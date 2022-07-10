@@ -329,7 +329,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         fname = os.path.join(dirname, MODEL_NAME + ".json")
         if not os.path.isfile(fname):
             raise ValueError("Model does not exists")
-        with open(fname, "r") as f:
+        with open(fname) as f:
             model_serialized = json.load(f)
         # model_serialized = _replace_compatibility(model_serialized)
         model = tf.keras.models.model_from_json(model_serialized, custom_objects=custom_objects)
