@@ -83,4 +83,9 @@ setup(
         "Topic :: Scientific/Engineering :: Chemistry",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    entry_points={
+        "console_scripts": [
+            "m3g = m3gnet.cli:main",
+        ]
+    },
 )
