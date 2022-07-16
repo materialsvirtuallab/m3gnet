@@ -2,6 +2,7 @@
 M3GNet potential trainer
 """
 from typing import List, Optional
+import platform
 
 import tensorflow as tf
 from ase import Atoms
@@ -11,6 +12,8 @@ from m3gnet.callbacks import ManualStop
 from m3gnet.graph import Index, MaterialGraph, MaterialGraphBatchEnergyForceStress
 from m3gnet.layers import AtomRef
 from m3gnet.models import Potential
+
+PLATFORM = platform.platform()
 
 
 class PotentialTrainer:
@@ -188,7 +191,12 @@ class PotentialTrainer:
                 else:
                     pred_list = potential.get_ef_tensor(graph_list)
                 loss_val, emae, fmae, smae = _loss(target_list, pred_list, graph_list[Index.N_ATOMS])
-            grads = tape.gradient(loss_val, potential.model.trainable_variables)
+            if "macOS" in PLATFORM and "arm64" in PLATFORM and tf.config.list_physical_devices("GPU"):
+                # This is a workaround for a bug in tensorflow-metal that fails when tape.gradient is called.
+                with tf.device("/cpu:0"):
+                    grads = tape.gradient(loss_val, potential.model.trainable_variables)
+            else:
+                grads = tape.gradient(loss_val, potential.model.trainable_variables)
             return loss_val, grads, pred_list, emae, fmae, smae
 
         for epoch in range(epochs):

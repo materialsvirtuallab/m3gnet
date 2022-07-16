@@ -3,6 +3,7 @@ Base model
 """
 
 import math
+import platform
 from abc import ABC
 from typing import List, Union
 
@@ -13,6 +14,8 @@ from m3gnet.config import DataType
 from m3gnet.graph import Index, MaterialGraph, assemble_material_graph
 from m3gnet.type import StructureOrMolecule
 from m3gnet.utils import register, repeat_with_n
+
+PLATFORM = platform.platform()
 
 
 @register
@@ -184,8 +187,12 @@ class BasePotential(tf.keras.Model, ABC):
             derivatives = {"forces": graph[Index.ATOM_POSITIONS]}
             if include_stresses:
                 derivatives["stresses"] = strain  # type: ignore
-
-            derivatives = tape.gradient(energies, derivatives)
+            if "macOS" in PLATFORM and "arm64" in PLATFORM and tf.config.list_physical_devices("GPU"):
+                # This is a workaround for a bug in tensorflow-metal that fails when tape.gradient is called.
+                with tf.device("/cpu:0"):
+                    derivatives = tape.gradient(energies, derivatives)
+            else:
+                derivatives = tape.gradient(energies, derivatives)
 
         forces = -derivatives["forces"]
         forces = tf.cast(tf.convert_to_tensor(forces), DataType.tf_float)

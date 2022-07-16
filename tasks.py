@@ -7,7 +7,6 @@ import glob
 import json
 import os
 import re
-import subprocess
 
 import requests
 from invoke import task
@@ -40,9 +39,7 @@ def make_doc(ctx):
                         else:
                             if not clean.endswith("tests"):
                                 suboutput.append(line)
-                            if clean.startswith("m3gnet") and not clean.endswith(
-                                "tests"
-                            ):
+                            if clean.startswith("m3gnet") and not clean.endswith("tests"):
                                 newoutput.extend(suboutput)
                                 subpackage = False
                                 suboutput = []
@@ -89,23 +86,6 @@ def release_github(ctx):
         headers={"Authorization": "token " + os.environ["GITHUB_RELEASES_TOKEN"]},
     )
     print(response.text)
-
-
-@task
-def update_changelog(ctx):
-    output = subprocess.check_output(
-        ["git", "log", "--pretty=format:%s", "v%s..HEAD" % CURRENT_VER]
-    )
-    lines = ["* " + l for l in output.decode("utf-8").strip().split("\n")]
-    with open("CHANGES.rst") as f:
-        contents = f.read()
-    l = "=========="
-    toks = contents.split(l)
-    head = "\n\nv%s\n" % NEW_VER + "-" * (len(NEW_VER) + 1) + "\n"
-    toks.insert(-1, head + "\n".join(lines))
-    with open("CHANGES.rst", "w") as f:
-        f.write(toks[0] + l + "".join(toks[1:]))
-    ctx.run("open CHANGES.rst")
 
 
 @task

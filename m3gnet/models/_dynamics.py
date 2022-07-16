@@ -3,6 +3,9 @@ Dynamics calculations using M3GNet
 """
 
 import pickle
+import contextlib
+import sys
+import io
 from typing import Optional, Union
 
 import numpy as np
@@ -131,7 +134,16 @@ class Relaxer:
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
 
-    def relax(self, atoms: Atoms, fmax: float = 0.1, steps: int = 500, traj_file: str = None, interval=1, **kwargs):
+    def relax(
+        self,
+        atoms: Atoms,
+        fmax: float = 0.1,
+        steps: int = 500,
+        traj_file: str = None,
+        interval=1,
+        verbose=False,
+        **kwargs,
+    ):
         """
 
         Args:
@@ -147,17 +159,20 @@ class Relaxer:
         if isinstance(atoms, (Structure, Molecule)):
             atoms = self.ase_adaptor.get_atoms(atoms)
         atoms.set_calculator(self.calculator)
-        obs = TrajectoryObserver(atoms)
-        if self.relax_cell:
-            atoms = ExpCellFilter(atoms)
-        optimizer = self.opt_class(atoms, **kwargs)
-        optimizer.attach(obs, interval=interval)
-        optimizer.run(fmax=fmax, steps=steps)
-        obs()
+        stream = sys.stdout if verbose else io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            obs = TrajectoryObserver(atoms)
+            if self.relax_cell:
+                atoms = ExpCellFilter(atoms)
+            optimizer = self.opt_class(atoms, **kwargs)
+            optimizer.attach(obs, interval=interval)
+            optimizer.run(fmax=fmax, steps=steps)
+            obs()
         if traj_file is not None:
             obs.save(traj_file)
         if isinstance(atoms, ExpCellFilter):
             atoms = atoms.atoms
+
         return {
             "final_structure": self.ase_adaptor.get_structure(atoms),
             "trajectory": obs,
@@ -293,7 +308,7 @@ class MolecularDynamics:
                 self.atoms,
                 timestep * units.fs,
                 temperature_K=temperature,
-                pressure=pressure,
+                pressure_au=pressure,
                 taut=taut,
                 taup=taup,
                 compressibility_au=compressibility_au,

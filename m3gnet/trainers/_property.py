@@ -3,6 +3,7 @@ Training graph network property models
 """
 import logging
 import os
+import platform
 from glob import glob
 from typing import List, Optional, Union
 
@@ -21,6 +22,7 @@ from ._metrics import MONITOR_MAPPING, _get_metric, _get_metric_string
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+PLATFORM = platform.platform()
 
 
 class Trainer:
@@ -167,7 +169,7 @@ class Trainer:
             pbar.set_params({"verbose": verbose, "epochs": epochs})
             callbacks.append(pbar)
 
-        if len(callbacks) > len(set(i.__class__ for i in callbacks)):
+        if len(callbacks) > len({i.__class__ for i in callbacks}):
             logger.warning("Duplicated callbacks found")
 
         callback_list = tf.keras.callbacks.CallbackList(callbacks)
@@ -184,7 +186,12 @@ class Trainer:
             with tf.GradientTape() as tape:
                 pred_list: tf.Tensor = model(graph_list)
                 loss_val = loss(target_list, pred_list)
-            grads = tape.gradient(loss_val, model.trainable_variables)
+            if "macOS" in PLATFORM and "arm64" in PLATFORM and tf.config.list_physical_devices("GPU"):
+                # This is a workaround for a bug in tensorflow-metal that fails when tape.gradient is called.
+                with tf.device("/cpu:0"):
+                    grads = tape.gradient(loss_val, model.trainable_variables)
+            else:
+                grads = tape.gradient(loss_val, model.trainable_variables)
             return loss_val, grads, pred_list
 
         for epoch in range(self.initial_epoch, epochs):

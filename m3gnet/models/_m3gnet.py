@@ -70,11 +70,12 @@ def _download_model_to_dir(model_name: str = "MP-2021.2.8-EFS", dirname: str = "
     if model_name not in MODEL_FILES:
         raise ValueError(f"{model_name} not supported. Currently we only have {MODEL_FILES.keys()}")
     full_dirname = os.path.join(CWD, dirname)
-    for name, files in MODEL_FILES[model_name].items():
-        if not os.path.isdir(full_dirname):
-            os.mkdir(full_dirname)
-        for f in files:
-            _download_file(GITHUB_RAW_LINK.format(model_name=name, filename=f), os.path.join(full_dirname, name))
+    if not os.path.isdir(full_dirname):
+        os.mkdir(full_dirname)
+    for filename in MODEL_FILES[model_name]:
+        _download_file(
+            GITHUB_RAW_LINK.format(model_name=model_name, filename=filename), os.path.join(full_dirname, filename)
+        )
     logger.info(f"Model {model_name} downloaded to {full_dirname}")
 
 
@@ -328,7 +329,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         fname = os.path.join(dirname, MODEL_NAME + ".json")
         if not os.path.isfile(fname):
             raise ValueError("Model does not exists")
-        with open(fname, "r") as f:
+        with open(fname) as f:
             model_serialized = json.load(f)
         # model_serialized = _replace_compatibility(model_serialized)
         model = tf.keras.models.model_from_json(model_serialized, custom_objects=custom_objects)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 math functions and miscellaneous calculations
 """
