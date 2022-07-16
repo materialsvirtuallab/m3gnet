@@ -22,8 +22,8 @@ def relax_structure(args):
 
     relax_results = relaxer.relax(s)
 
-    final_structure = relax_results['final_structure']
-    final_energy = relax_results['trajectory'].energies[-1] / 2
+    final_structure = relax_results["final_structure"]
+    final_energy = relax_results["trajectory"].energies[-1] / 2
 
     if args.outfile is not None:
         final_structure.to(filename=args.outfile)
