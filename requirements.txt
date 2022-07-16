@@ -1,5 +1,5 @@
-pymatgen==2022.4.19
+pymatgen==2022.5.26
 tensorflow==2.9.0
-ase==3.22.0
-cython==0.29.26
+ase==3.22.1
+cython==0.29.28
 protobuf==3.20.0
