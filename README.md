@@ -246,8 +246,9 @@ All relaxations take less than 1s on a M1 Max Mac.
 
 ### CLI tool
 
-A simple CLI tool has been written. Right now, it supports just doing structure relaxations. More features will be
-developed in future if there is interest. Examples below.
+A simple CLI tool has been written. Right now, it supports just doing structure relaxations with M3GNet, which is
+immediately useful for quick testing of the capabilities of M3GNet itself. More features will be developed in future if
+there is user interest. Examples below.
 
 ```bash
 m3g relax --infile Li2O.cif  # Outputs to stdout the relaxed structure.
@@ -345,7 +346,7 @@ trainer.train(
 
 # Matterverse.ai
 
-As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized 
+As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized
 materials called [matterverse.ai](https://matterverse.ai). At the time of writing, matterverse.ai has 31 million
 structures, of which more than 1 million are predicted to be potentially stable. The initial candidate list was
 generated via combinatorial isovalent ionic substitutions based on the common oxidation states of non-noble-gas elements
