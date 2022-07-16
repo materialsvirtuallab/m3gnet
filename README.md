@@ -244,6 +244,16 @@ the MP DFT value and not the experimental values, which are only provided as an 
 
 All relaxations take less than 1s on a M1 Max Mac.
 
+### CLI tool
+
+A simple CLI tool has been written. Right now, it supports just doing structure relaxations. More features will be
+developed in future if there is interest. Examples below.
+
+```bash
+m3g relax --infile Li2O.cif  # Outputs to stdout the relaxed structure.
+m3g relax --infile Li2O.cif --outfile Li2O_relaxed.cif  # Outputs to a file the relaxed structure.
+```
+
 ## Molecular dynamics
 
 Similarly, the universal IAP can be used to perform molecular dynamics (MD) simulations as well.
