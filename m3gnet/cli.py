@@ -7,7 +7,11 @@ import sys
 import logging
 
 from pymatgen.core.structure import Structure
+import tensorflow as tf
 from m3gnet.models import Relaxer
+
+logging.captureWarnings(True)
+tf.get_logger().setLevel(logging.ERROR)
 
 
 def relax_structure(args):
@@ -16,7 +20,7 @@ def relax_structure(args):
 
     :param args: Args from command.
     """
-    logging.captureWarnings(True)
+
     s = Structure.from_file(args.infile)
 
     if args.verbose:
