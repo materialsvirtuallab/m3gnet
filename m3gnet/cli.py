@@ -5,6 +5,7 @@ CLI for m3gnet
 import argparse
 import sys
 import logging
+import os
 
 from pymatgen.core.structure import Structure
 import tensorflow as tf
@@ -21,22 +22,28 @@ def relax_structure(args):
     :param args: Args from command.
     """
 
-    s = Structure.from_file(args.infile)
+    for fn in args.infile:
+        s = Structure.from_file(fn)
 
-    if args.verbose:
-        print("Starting structure")
-        print(s)
-        print("Relaxing...")
-    relaxer = Relaxer()
-    relax_results = relaxer.relax(s)
-    final_structure = relax_results["final_structure"]
+        if args.verbose:
+            print("Starting structure")
+            print(s)
+            print("Relaxing...")
+        relaxer = Relaxer()
+        relax_results = relaxer.relax(s)
+        final_structure = relax_results["final_structure"]
 
-    if args.outfile is not None:
-        final_structure.to(filename=args.outfile)
-        print(f"Structure written to {args.outfile}!")
-    else:
-        print("Final structure")
-        print(final_structure)
+        if args.suffix:
+            basename, ext = os.path.splitext(fn)
+            outfn = f"{basename}{args.suffix}{ext}"
+            final_structure.to(filename=outfn)
+            print(f"Structure written to {outfn}!")
+        elif args.outfile is not None:
+            final_structure.to(filename=args.outfile)
+            print(f"Structure written to {args.outfile}!")
+        else:
+            print("Final structure")
+            print(final_structure)
 
     return 0
 
@@ -60,6 +67,7 @@ def main():
         "-i",
         "--infile",
         dest="infile",
+        nargs="+",
         required=True,
         help="Input file containing structure. Common structures support by pmg.Structure.from_file method.",
     )
@@ -73,12 +81,19 @@ def main():
         help="Verbose output.",
     )
 
-    p_relax.add_argument(
+    groups = p_relax.add_mutually_exclusive_group(required=False)
+    groups.add_argument(
+        "-s",
+        "--suffix",
+        dest="suffix",
+        help="Suffix to be added to input file names for relaxed structures. E.g., _relax.",
+    )
+
+    groups.add_argument(
         "-o",
         "--outfile",
         dest="outfile",
-        default=None,
-        help="Output file. If None is given, the structure is output to stdout.",
+        help="Output filename.",
     )
 
     p_relax.set_defaults(func=relax_structure)
