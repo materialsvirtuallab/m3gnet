@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -405,6 +406,13 @@
 </li>
       </ul></li>
       <li>
+    m3gnet.cli
+
+      <ul>
+        <li><a href="m3gnet.cli.html#module-m3gnet.cli">module</a>
+</li>
+      </ul></li>
+      <li>
     m3gnet.config
 
       <ul>
@@ -457,6 +465,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="m3gnet.models.html#m3gnet.models.M3GNetCalculator">M3GNetCalculator (class in m3gnet.models)</a>
 </li>
+      <li><a href="m3gnet.cli.html#m3gnet.cli.main">main() (in module m3gnet.cli)</a>
+</li>
       <li><a href="m3gnet.callbacks.html#m3gnet.callbacks.ManualStop">ManualStop (class in m3gnet.callbacks)</a>
 </li>
       <li><a href="m3gnet.graph.html#m3gnet.graph.MaterialGraph">MaterialGraph (class in m3gnet.graph)</a>
@@ -474,6 +484,8 @@
         <li><a href="m3gnet.html#module-m3gnet">m3gnet</a>
 </li>
         <li><a href="m3gnet.callbacks.html#module-m3gnet.callbacks">m3gnet.callbacks</a>
+</li>
+        <li><a href="m3gnet.cli.html#module-m3gnet.cli">m3gnet.cli</a>
 </li>
         <li><a href="m3gnet.config.html#module-m3gnet.config">m3gnet.config</a>
 </li>
@@ -602,11 +614,13 @@
 </li>
       <li><a href="m3gnet.utils.html#m3gnet.utils.register">register() (in module m3gnet.utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="m3gnet.utils.html#m3gnet.utils.register_plain">register_plain() (in module m3gnet.utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="m3gnet.models.html#m3gnet.models.Relaxer.relax">relax() (m3gnet.models.Relaxer method)</a>
+</li>
+      <li><a href="m3gnet.cli.html#m3gnet.cli.relax_structure">relax_structure() (in module m3gnet.cli)</a>
 </li>
       <li><a href="m3gnet.models.html#m3gnet.models.Relaxer">Relaxer (class in m3gnet.models)</a>
 </li>
@@ -776,7 +790,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -793,7 +807,7 @@
       &copy;2022, Chi Chen, Shyue Ping Ong.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

@@ -20,6 +20,7 @@ Submodules
    :maxdepth: 6
 
    m3gnet.callbacks
+   m3gnet.cli
    m3gnet.config
    m3gnet.type
 
