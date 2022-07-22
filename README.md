@@ -31,7 +31,8 @@ API documentation is available via the [Github Page](http://materialsvirtuallab.
 - [Change Log](#change-log)
 - [Usage](#usage)
 - [Model training](#model-training)
-- [Matterverse.ai](#matterverse.ai)
+- [Matterverse](#matterverse)
+- [API docs](#api-docs)
 - [Datasets](#datasets)
 - [References](#references)
 
@@ -344,13 +345,17 @@ trainer.train(
 )
 ```
 
-# Matterverse.ai
+# Matterverse
 
 As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized
 materials called [matterverse.ai](https://matterverse.ai). At the time of writing, matterverse.ai has 31 million
 structures, of which more than 1 million are predicted to be potentially stable. The initial candidate list was
 generated via combinatorial isovalent ionic substitutions based on the common oxidation states of non-noble-gas elements
 on 5,283 binary, ternary and quaternary structural prototypes in the 2019 version of the ICSD database.
+
+# API docs
+
+The API docs are available [here](https://materialsvirtuallab.github.io/m3gnet/modules).
 
 # Datasets
 
