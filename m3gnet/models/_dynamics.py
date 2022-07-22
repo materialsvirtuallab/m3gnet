@@ -2,10 +2,10 @@
 Dynamics calculations using M3GNet
 """
 
-import pickle
 import contextlib
-import sys
 import io
+import pickle
+import sys
 from typing import Optional, Union
 
 import numpy as np
@@ -245,7 +245,7 @@ class MolecularDynamics:
     def __init__(
         self,
         atoms: Atoms,
-        potential: Optional[Union[Potential, str]] = "MP-2021.2.8-EFS",
+        potential: Union[Potential, str] = "MP-2021.2.8-EFS",
         ensemble: str = "nvt",
         temperature: int = 300,
         timestep: float = 1.0,
