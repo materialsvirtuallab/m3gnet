@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.8
+- Remove requirement for pymatgen>2022.
+
 ## v0.0.7
 - Simple CLI tool for relaxing crystals.
 
