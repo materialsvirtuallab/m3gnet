@@ -1,7 +1,7 @@
 import unittest
 
 import numpy as np
-from pymatgen.core import Lattice, Molecule, Structure
+from pymatgen.core.structure import Lattice, Molecule, Structure
 
 from m3gnet.graph import MaterialGraph, RadiusCutoffGraphConverter
 from m3gnet.layers import MLP

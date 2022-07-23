@@ -8,7 +8,7 @@ from abc import ABC
 from typing import List, Union
 
 import tensorflow as tf
-from pymatgen.core import Molecule, Structure
+from pymatgen.core.structure import Molecule, Structure
 
 from m3gnet.config import DataType
 from m3gnet.graph import Index, MaterialGraph, assemble_material_graph

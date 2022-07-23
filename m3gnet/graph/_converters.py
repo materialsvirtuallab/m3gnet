@@ -8,7 +8,7 @@ from typing import Dict, List, Optional
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Structure
+from pymatgen.core.structure import Structure
 
 from m3gnet.config import DataType
 from m3gnet.type import StructureOrMolecule

@@ -33,7 +33,7 @@ setup(
     name="m3gnet",
     version=version,
     install_requires=[
-        "pymatgen>=2022.1.1",
+        "pymatgen",
         "tensorflow",
         "numpy",
         "monty",

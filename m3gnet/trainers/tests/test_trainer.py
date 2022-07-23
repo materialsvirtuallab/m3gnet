@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import tensorflow as tf
 from monty.tempfile import ScratchDir
-from pymatgen.core import Structure
+from pymatgen.core.structure import Structure
 
 from m3gnet.models import M3GNet, Potential
 from m3gnet.trainers import PotentialTrainer, Trainer

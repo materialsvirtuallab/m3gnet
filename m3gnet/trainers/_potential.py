@@ -6,7 +6,7 @@ import platform
 
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Molecule, Structure
+from pymatgen.core.structure import Molecule, Structure
 
 from m3gnet.callbacks import ManualStop
 from m3gnet.graph import Index, MaterialGraph, MaterialGraphBatchEnergyForceStress

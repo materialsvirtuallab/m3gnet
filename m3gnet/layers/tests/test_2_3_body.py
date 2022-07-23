@@ -1,7 +1,7 @@
 import unittest
 
 import numpy as np
-from pymatgen.core import Lattice, Molecule, Structure
+from pymatgen.core.structure import Lattice, Molecule, Structure
 
 from m3gnet.graph import RadiusCutoffGraphConverter, tf_compute_distance_angle
 from m3gnet.layers import PairDistance, PairVector, SphericalBesselWithHarmonics

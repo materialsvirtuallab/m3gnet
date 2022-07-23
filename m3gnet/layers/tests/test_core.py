@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 import tensorflow as tf
-from pymatgen.core import Lattice, Structure
+from pymatgen.core.structure import Lattice, Structure
 
 from m3gnet.graph import RadiusCutoffGraphConverter
 from m3gnet.layers import MLP, Embedding, GatedMLP, Pipe

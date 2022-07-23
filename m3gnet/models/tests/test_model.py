@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 from monty.tempfile import ScratchDir
-from pymatgen.core import Lattice, Molecule, Structure
+from pymatgen.core.structure import Lattice, Molecule, Structure
 
 from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer
 

@@ -8,7 +8,8 @@ from typing import List, Optional
 import numpy as np
 import tensorflow as tf
 from ase import Atoms
-from pymatgen.core import Element, Molecule, Structure
+from pymatgen.core.periodic_table import Element
+from pymatgen.core.structure import Molecule, Structure
 
 from m3gnet.config import DataType
 from m3gnet.graph import Index

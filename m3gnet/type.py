@@ -4,7 +4,7 @@ from typing import Any, Callable, List, Optional, Union
 
 import numpy as np
 from ase.atoms import Atoms
-from pymatgen.core import Molecule, Structure
+from pymatgen.core.structure import Molecule, Structure
 
 OptStrOrCallable = Optional[Union[str, Callable[..., Any]]]
 StructureOrMolecule = Union[Structure, Molecule, Atoms]
