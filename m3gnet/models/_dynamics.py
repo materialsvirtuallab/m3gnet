@@ -333,6 +333,7 @@ class MolecularDynamics:
             This is a less flexible scheme that fixes the shape of the
             cell - three angles are fixed and the ratios between the three
             lattice constants.
+            
             '''
             
             self.dyn = NPTBerendsen(
