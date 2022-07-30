@@ -323,7 +323,8 @@ class MolecularDynamics:
                 trajectory=trajectory,
                 logfile=logfile,
                 loginterval=loginterval,
-                # append_trajectory=append_trajectory, # this option is not supported in ASE at this point (I have sent merge request there)
+                # append_trajectory=append_trajectory,
+                # this option is not supported in ASE at this point (I have sent merge request there)
             )
         
         elif ensemble.lower() == "npt_berendsen":
