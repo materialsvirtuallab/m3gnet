@@ -302,16 +302,16 @@ class MolecularDynamics:
                 loginterval=loginterval,
                 append_trajectory=append_trajectory,
             )
-        
+
         elif ensemble.lower() == "npt":
             '''
-            
+
             NPT ensemble default to Inhomogeneous_NPTBerendsen thermo/barostat
             This is a more flexible scheme that fixes three angles of the unit
             cell but allows three lattice parameter to change independently.
-            
+
             '''
-            
+
             self.dyn = Inhomogeneous_NPTBerendsen(
                 self.atoms,
                 timestep * units.fs,
@@ -326,17 +326,17 @@ class MolecularDynamics:
                 # append_trajectory=append_trajectory,
                 # this option is not supported in ASE at this point (I have sent merge request there)
             )
-        
+
         elif ensemble.lower() == "npt_berendsen":
             '''
-            
+
             This is a similar scheme to the Inhomogeneous_NPTBerendsen.
             This is a less flexible scheme that fixes the shape of the
             cell - three angles are fixed and the ratios between the three
             lattice constants.
-            
+
             '''
-            
+
             self.dyn = NPTBerendsen(
                 self.atoms,
                 timestep * units.fs,
@@ -350,7 +350,7 @@ class MolecularDynamics:
                 loginterval=loginterval,
                 append_trajectory=append_trajectory,
             )
-            
+
         else:
             raise ValueError("Ensemble not supported")
 
