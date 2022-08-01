@@ -267,7 +267,7 @@ class MolecularDynamics:
             ensemble (str): choose from 'nvt' or 'npt'. NPT is not tested,
                 use with extra caution
             temperature (float): temperature for MD simulation, in K
-            timestep (float): time step in ASE units. Default value equals 1 fs 
+            timestep (float): time step in ASE units. Default value equals 1 fs
                 in ASE units.
             pressure (float): pressure in eV/A^3
             taut (float): time constant for Berendsen temperature coupling
