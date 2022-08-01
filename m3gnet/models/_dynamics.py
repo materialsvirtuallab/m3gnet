@@ -248,7 +248,7 @@ class MolecularDynamics:
         potential: Union[Potential, str] = "MP-2021.2.8-EFS",
         ensemble: str = "nvt",
         temperature: int = 300,
-        timestep: float = 1.0,
+        timestep: float = 0.098,
         pressure: float = 1.01325 * units.bar,
         taut: Optional[float] = None,
         taup: Optional[float] = None,
@@ -267,7 +267,8 @@ class MolecularDynamics:
             ensemble (str): choose from 'nvt' or 'npt'. NPT is not tested,
                 use with extra caution
             temperature (float): temperature for MD simulation, in K
-            timestep (float): time step in fs
+            timestep (float): time step in ASE units. Default value equals 1 fs 
+                in ASE units.
             pressure (float): pressure in eV/A^3
             taut (float): time constant for Berendsen temperature coupling
             taup (float): time constant for pressure coupling
@@ -294,7 +295,7 @@ class MolecularDynamics:
         if ensemble.lower() == "nvt":
             self.dyn = NVTBerendsen(
                 self.atoms,
-                timestep * units.fs,
+                timestep,
                 temperature_K=temperature,
                 taut=taut,
                 trajectory=trajectory,
@@ -314,7 +315,7 @@ class MolecularDynamics:
 
             self.dyn = Inhomogeneous_NPTBerendsen(
                 self.atoms,
-                timestep * units.fs,
+                timestep,
                 temperature_K=temperature,
                 pressure_au=pressure,
                 taut=taut,
@@ -339,7 +340,7 @@ class MolecularDynamics:
 
             self.dyn = NPTBerendsen(
                 self.atoms,
-                timestep * units.fs,
+                timestep,
                 temperature_K=temperature,
                 pressure_au=pressure,
                 taut=taut,
