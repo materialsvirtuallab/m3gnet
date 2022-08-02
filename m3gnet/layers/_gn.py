@@ -5,7 +5,6 @@ from copy import deepcopy
 from typing import List, Optional
 
 import tensorflow as tf
-
 from m3gnet.utils import register
 
 from ._atom import AtomNetwork
@@ -134,7 +133,7 @@ class GraphFeaturizer(GraphNetworkLayer):
         bond_embedding_dim: Optional[int] = None,
         atom_embedding_dim: Optional[int] = None,
         state_embedding_dim: Optional[int] = None,
-        rbf_type="SpherialBessel",
+        rbf_type="SphericalBessel",
         **kwargs,
     ):
         """

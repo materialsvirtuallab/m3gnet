@@ -4,11 +4,11 @@ import unittest
 
 import numpy as np
 import tensorflow as tf
-from monty.tempfile import ScratchDir
-from pymatgen.core.structure import Structure
-
 from m3gnet.models import M3GNet, Potential
 from m3gnet.trainers import PotentialTrainer, Trainer
+from monty.tempfile import ScratchDir
+from pymatgen.core import Structure
+from pymatgen.core.structure import Structure
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -22,7 +22,7 @@ class TestTrainer(unittest.TestCase):
         cls.structures = []
         cls.energies = []
         cls.bandgaps = []
-        for i, j in data.items():
+        for j in data.values():
             cls.structures.append(Structure.from_dict(j["structure"]))
             cls.energies.append(j["energy"])
             cls.bandgaps.append(j["band_gap"])

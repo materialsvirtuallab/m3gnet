@@ -1,14 +1,13 @@
 """
-Installation for m3gnet
+Installation for M3GNet
 """
 
 import os
 import re
 
-from setuptools import find_packages
-from setuptools import setup, Extension
 import numpy as np
 from Cython.Build import cythonize
+from setuptools import Extension, find_packages, setup
 
 this_dir = os.path.abspath(os.path.dirname(__file__))
 
