@@ -46,7 +46,7 @@ GPU for model training.
 
 M3GNet can be installed via pip:
 
-```
+```bash
 pip install m3gnet
 ```
 
