@@ -93,7 +93,7 @@ class PairRadialBasisExpansion(BondNetwork):
 
         Returns: updated bond info
         """
-        return self.rbf(graph[Index.BONDS])  # noqa
+        return self.rbf(graph[Index.BONDS][:, 0])  # noqa
 
     def call(self, graph: List, **kwargs):
         """
