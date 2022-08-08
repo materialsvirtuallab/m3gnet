@@ -60,7 +60,7 @@ def tf_compute_distance_angle(graph: List):
     cos_jik = tf.reduce_sum(vij * vik, axis=1) / (rij * rik)
     cos_jik = tf.clip_by_value(cos_jik, -1, 1)
     graph[Index.BOND_WEIGHTS] = pair_rij
-    graph[Index.BONDS] = pair_rij
+    graph[Index.BONDS] = pair_rij[:, None]
     graph[Index.TRIPLE_BOND_LENGTHS] = rik
     graph[Index.THETA] = cos_jik  # theta is in fact costheta
     graph[Index.PHI] = tf.zeros_like(cos_jik)  # dummy phi here
