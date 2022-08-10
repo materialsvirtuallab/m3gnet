@@ -177,7 +177,7 @@ class PotentialTrainer:
             )
 
         if early_stop_patience:
-            callbacks.append(tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=200))
+            callbacks.append(tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=early_stop_patience))
 
         callback_list = tf.keras.callbacks.CallbackList(callbacks)
         callback_list.on_train_begin()
