@@ -67,6 +67,7 @@ class Trainer:
         epochs: int = 1000,
         callbacks: List = None,
         save_checkpoint: bool = True,
+        early_stop_patience: int = 200,
         verbose: int = 1,
         clip_norm: Optional[float] = 10.0,
         fit_per_element_offset: bool = False,
@@ -87,6 +88,7 @@ class Trainer:
             epochs (int): epochs for training the data
             callbacks (list): list of callback functions
             save_checkpoint (bool): whether to save model check point
+            early_stop_patience (int): patience for early stopping
             verbose (bool): whether to show model training progress
             clip_norm (float): gradient norm clip
             fit_per_element_offset (bool): whether to train an element-wise
@@ -163,6 +165,11 @@ class Trainer:
                     mode=MONITOR_MAPPING[val_monitor],
                 )
             )
+
+            if early_stop_patience:
+                callbacks.append(
+                    tf.keras.callbacks.EarlyStopping(monitor=val_monitor, patience=early_stop_patience, verbose=1)
+                )
 
         if verbose:
             pbar = tf.keras.callbacks.ProgbarLogger(count_mode="steps")
