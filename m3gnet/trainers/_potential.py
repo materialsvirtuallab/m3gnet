@@ -73,7 +73,7 @@ class PotentialTrainer:
             epochs (int): epochs for training the data
             callbacks (list): list of callback functions
             save_checkpoint (bool): whether to save model check point
-            early_stop_patience (int): patience for early stop
+            early_stop_patience (int): patience for early stopping
             verbose (bool): whether to show model training progress
             fit_per_element_offset (bool): whether to train an element-wise
                 offset, e.g., elemental energies etc. If trained, such energy
@@ -176,8 +176,10 @@ class PotentialTrainer:
                 )
             )
 
-        if early_stop_patience:
-            callbacks.append(tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=early_stop_patience))
+            if early_stop_patience:
+                callbacks.append(
+                    tf.keras.callbacks.EarlyStopping(monitor="val_MAE", patience=early_stop_patience, verbose=1)
+                )
 
         callback_list = tf.keras.callbacks.CallbackList(callbacks)
         callback_list.on_train_begin()
