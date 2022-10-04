@@ -2,10 +2,11 @@ import os
 import unittest
 
 import numpy as np
+from ase import Atoms
 from monty.tempfile import ScratchDir
 from pymatgen.core.structure import Lattice, Molecule, Structure
 
-from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer
+from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer, M3GNetCalculator
 
 
 class TestModel(unittest.TestCase):
@@ -15,6 +16,7 @@ class TestModel(unittest.TestCase):
         cls.potential = Potential(model=cls.model)
         cls.mol = Molecule(["C", "O"], [[0, 0, 0], [1.5, 0, 0]])
         cls.structure = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
+        cls.atoms = Atoms(["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]], cell=np.eye(3) * 3.30, pbc=True)
 
     def test_m3gnet(self):
 
@@ -60,6 +62,25 @@ class TestModel(unittest.TestCase):
 
             md.run(10)
             self.assertTrue(os.path.isfile("mo.log"))
+
+    def test_calculator(self):
+        atoms = self.atoms.copy()
+        atoms.calc = M3GNetCalculator(potential=self.potential)
+
+        energy = atoms.get_potential_energy()
+        forces = atoms.get_forces()
+
+        self.assertAlmostEqual(energy, 325.37271, 3)
+        self.assertTrue(
+            np.allclose(
+                forces[0],
+                [-673.525, -673.525, -673.525],
+                atol=1e-2,
+            )
+        )
+
+        self.assertEqual(np.shape(energy), ())
+        self.assertEqual(np.shape(forces), (2, 3))
 
 
 if __name__ == "__main__":
