@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.0
+- Official first Zenodo release.
+
 ## v0.0.9
 - More flexible NPT-MD scheme to MolecularDynamics class (@VvVLzy)
 - Add early stopping support (@dgaines2)
