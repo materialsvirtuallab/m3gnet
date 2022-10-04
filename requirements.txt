@@ -2,4 +2,4 @@ pymatgen==2022.9.8
 tensorflow==2.9.0
 ase==3.22.1
 cython==0.29.32
-protobuf==3.20.0
+protobuf==3.20.2
