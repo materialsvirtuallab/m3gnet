@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.0.9
+- More flexible NPT-MD scheme to MolecularDynamics class (@VvVLzy)
+- Add early stopping support (@dgaines2)
+- Filter warnings for less verbose output (@janosh)
+
 ## v0.0.8
 - Remove requirement for pymatgen>2022.
 
