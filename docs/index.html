@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>M3GNet &#8212; m3gnet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -37,7 +36,7 @@
 <a class="reference external" href="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg"><img alt="Testing" src="https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg" /></a>
 <a class="reference external" href="https://pepy.tech/project/m3gnet"><img alt="Downloads" src="https://pepy.tech/badge/m3gnet" /></a></p>
 <section id="m3gnet">
-<h1>M3GNet<a class="headerlink" href="#m3gnet" title="Permalink to this heading">¶</a></h1>
+<h1>M3GNet<a class="headerlink" href="#m3gnet" title="Permalink to this headline">¶</a></h1>
 <p>M3GNet is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference
 with prior materials graph implementations such as <a class="reference external" href="https://github.com/materialsvirtuallab/megnet">MEGNet</a> is the
 addition of the coordinates for atoms and the 3×3 lattice matrix in crystals, which are necessary for obtaining
@@ -57,7 +56,7 @@ state-of-the-art ML models.</p></li>
 API documentation is available via the <a class="reference external" href="http://materialsvirtuallab.github.io/m3gnet">Github Page</a>.</p>
 </section>
 <section id="table-of-contents">
-<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this heading">¶</a></h1>
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><span class="xref myst">System requirements</span></p></li>
 <li><p><span class="xref myst">Installation</span></p></li>
@@ -71,20 +70,20 @@ API documentation is available via the <a class="reference external" href="http:
 </ul>
 </section>
 <section id="system-requirements">
-<h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this heading">¶</a></h1>
+<h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
 <p>Inferences using the pre-trained models can be ran on any standard computer. For model training, the GPU memory needs
 to be &gt; 18 Gb for a batch size of 32 using the crystal training data. In our work, we used a single RTX 3090
 GPU for model training.</p>
 </section>
 <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>M3GNet can be installed via pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">m3gnet</span>
 </pre></div>
 </div>
 <p>You can also directly download the source from Github and install from source.</p>
 <section id="apple-silicon-installation">
-<h2>Apple Silicon Installation<a class="headerlink" href="#apple-silicon-installation" title="Permalink to this heading">¶</a></h2>
+<h2>Apple Silicon Installation<a class="headerlink" href="#apple-silicon-installation" title="Permalink to this headline">¶</a></h2>
 <p>Apple Silicon (M1, M1 Pro, M1 Max, M1 Ultra) has extremely powerful ML capabilities, but special steps are needed for
 the installation of tensorflow and other dependencies. Here are the recommended installation steps.</p>
 <ol class="arabic">
@@ -123,35 +122,40 @@ errors, you should uninstall <code class="docutils literal notranslate"><span cl
 </section>
 </section>
 <section id="change-log">
-<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this heading">¶</a></h1>
+<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
 <p>See <span class="xref myst">change log</span></p>
 </section>
 <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="structure-relaxation">
-<h2>Structure relaxation<a class="headerlink" href="#structure-relaxation" title="Permalink to this heading">¶</a></h2>
+<h2>Structure relaxation<a class="headerlink" href="#structure-relaxation" title="Permalink to this headline">¶</a></h2>
 <p>A M3Gnet universal potential for the periodic table has been developed using data from Materials Project relaxations
 since 2012. This universal potential can be used to perform structural relaxation of any arbitrary crystal as follows.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Structure</span><span class="p">,</span> <span class="n">Lattice</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="kn">from</span> <span class="nn">m3gnet.models</span> <span class="kn">import</span> <span class="n">Relaxer</span>
+<span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Structure</span>
+
+<span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="ne">UserWarning</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">):</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;tensorflow&quot;</span><span class="p">)</span>
 
 <span class="c1"># Init a Mo structure with stretched lattice (DFT lattice constant ~ 3.168)</span>
 <span class="n">mo</span> <span class="o">=</span> <span class="n">Structure</span><span class="p">(</span><span class="n">Lattice</span><span class="o">.</span><span class="n">cubic</span><span class="p">(</span><span class="mf">3.3</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;Mo&quot;</span><span class="p">,</span> <span class="s2">&quot;Mo&quot;</span><span class="p">],</span> <span class="p">[[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
 
 <span class="n">relaxer</span> <span class="o">=</span> <span class="n">Relaxer</span><span class="p">()</span>  <span class="c1"># This loads the default pre-trained model</span>
 
-<span class="n">relax_results</span> <span class="o">=</span> <span class="n">relaxer</span><span class="o">.</span><span class="n">relax</span><span class="p">(</span><span class="n">mo</span><span class="p">)</span>
+<span class="n">relax_results</span> <span class="o">=</span> <span class="n">relaxer</span><span class="o">.</span><span class="n">relax</span><span class="p">(</span><span class="n">mo</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">final_structure</span> <span class="o">=</span> <span class="n">relax_results</span><span class="p">[</span><span class="s1">&#39;final_structure&#39;</span><span class="p">]</span>
-<span class="n">final_energy</span> <span class="o">=</span> <span class="n">relax_results</span><span class="p">[</span><span class="s1">&#39;trajectory&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">final_energy_per_atom</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">relax_results</span><span class="p">[</span><span class="s1">&#39;trajectory&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">mo</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relaxed lattice parameter is </span><span class="si">{</span><span class="n">final_structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2"> .3f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final energy is </span><span class="si">{</span><span class="n">final_energy</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2"> .3f</span><span class="si">}</span><span class="s2"> eV/atom&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relaxed lattice parameter is </span><span class="si">{</span><span class="n">final_structure</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> Å&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final energy is </span><span class="si">{</span><span class="n">final_energy_per_atom</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> eV/atom&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output is as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Relaxed</span> <span class="n">lattice</span> <span class="n">parameter</span> <span class="ow">is</span>  <span class="mf">3.169</span> <span class="n">Å</span>
-<span class="n">Final</span> <span class="n">energy</span> <span class="ow">is</span> <span class="o">-</span><span class="mf">10.859</span> <span class="n">eV</span><span class="o">/</span><span class="n">atom</span>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>Relaxed lattice parameter is  3.169 Å
+Final energy is -10.859 eV/atom
 </pre></div>
 </div>
 <p>The initial lattice parameter of 3.3 Å was successfully relaxed to 3.169 Å, close to the DFT value of 3.168 Å. The
@@ -161,17 +165,17 @@ final energy -10.859 eV/atom is also close to Materials Project DFT value of
 <p>The table below provides more comprehensive benchmarks for cubic crystals based on
 <a class="reference external" href="http://en.wikipedia.org/wiki/Lattice_constant">exp data on Wikipedia</a> and MP DFT data. The
 <span class="xref myst">Jupyter notebook</span> is in the <span class="xref myst">examples</span> folder. This benchmark is
-limited to cubic crystals for ease of comparison since there is only one lattice parameter. However, M3GNet is not
-limited to cubic systems of course (see <span class="xref myst">LiFePO4 example</span>).</p>
-<table class="docutils align-default">
+limited to cubic crystals for ease of comparison since there is only one lattice parameter. Of course, M3GNet is not
+limited to cubic systems (see <span class="xref myst">LiFePO4 example</span>).</p>
+<table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head text-left"><p>Material</p></th>
-<th class="head text-left"><p>Crystal structure</p></th>
-<th class="head text-right"><p>a</p></th>
-<th class="head text-right"><p>MP a</p></th>
-<th class="head text-right"><p>Predicted a</p></th>
-<th class="head text-left"><p>% error vs Expt</p></th>
-<th class="head text-left"><p>% error vs MP</p></th>
+<tr class="row-odd"><th class="text-left head"><p>Material</p></th>
+<th class="text-left head"><p>Crystal structure</p></th>
+<th class="text-right head"><p>a (Å)</p></th>
+<th class="text-right head"><p>MP a (Å)</p></th>
+<th class="text-right head"><p>M3GNet a (Å)</p></th>
+<th class="text-left head"><p>% error vs Expt</p></th>
+<th class="text-left head"><p>% error vs MP</p></th>
 </tr>
 </thead>
 <tbody>
@@ -920,7 +924,7 @@ may be due to the paucity of data in these chemical systems. It should be noted 
 the MP DFT value and not the experimental values, which are only provided as an additional point of reference.</p>
 <p>All relaxations take less than 1s on a M1 Max Mac.</p>
 <section id="cli-tool">
-<h3>CLI tool<a class="headerlink" href="#cli-tool" title="Permalink to this heading">¶</a></h3>
+<h3>CLI tool<a class="headerlink" href="#cli-tool" title="Permalink to this headline">¶</a></h3>
 <p>A simple CLI tool has been written. Right now, it supports just doing structure relaxations with M3GNet, which is
 immediately useful for quick testing of the capabilities of M3GNet itself. More features will be developed in future if
 there is user interest. Examples below.</p>
@@ -931,7 +935,7 @@ m3g relax --infile Li2O.cif --outfile Li2O_relaxed.cif  <span class="c1"># Outpu
 </section>
 </section>
 <section id="molecular-dynamics">
-<h2>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this heading">¶</a></h2>
+<h2>Molecular dynamics<a class="headerlink" href="#molecular-dynamics" title="Permalink to this headline">¶</a></h2>
 <p>Similarly, the universal IAP can be used to perform molecular dynamics (MD) simulations as well.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Structure</span><span class="p">,</span> <span class="n">Lattice</span>
 <span class="kn">from</span> <span class="nn">m3gnet.models</span> <span class="kn">import</span> <span class="n">MolecularDynamics</span>
@@ -972,7 +976,7 @@ m3g relax --infile Li2O.cif --outfile Li2O_relaxed.cif  <span class="c1"># Outpu
 </section>
 </section>
 <section id="model-training">
-<h1>Model training<a class="headerlink" href="#model-training" title="Permalink to this heading">¶</a></h1>
+<h1>Model training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h1>
 <p>You can also train your own IAP using the <code class="docutils literal notranslate"><span class="pre">PotentialTrainer</span></code> in <code class="docutils literal notranslate"><span class="pre">m3gnet.trainers</span></code>. The training dataset can include:</p>
 <ul class="simple">
 <li><p>structures, a list of pymatgen Structures</p></li>
@@ -1014,24 +1018,24 @@ VASP calculations (default unit is kBar) should be multiplied by -0.1 to work di
 </div>
 </section>
 <section id="matterverse">
-<h1>Matterverse<a class="headerlink" href="#matterverse" title="Permalink to this heading">¶</a></h1>
-<p>As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized
+<h1>Matterverse<a class="headerlink" href="#matterverse" title="Permalink to this headline">¶</a></h1>
+<p>As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-synthesized
 materials called <a class="reference external" href="https://matterverse.ai">matterverse.ai</a>. At the time of writing, matterverse.ai has 31 million
 structures, of which more than 1 million are predicted to be potentially stable. The initial candidate list was
 generated via combinatorial isovalent ionic substitutions based on the common oxidation states of non-noble-gas elements
 on 5,283 binary, ternary and quaternary structural prototypes in the 2019 version of the ICSD database.</p>
 </section>
 <section id="api-docs">
-<h1>API docs<a class="headerlink" href="#api-docs" title="Permalink to this heading">¶</a></h1>
+<h1>API docs<a class="headerlink" href="#api-docs" title="Permalink to this headline">¶</a></h1>
 <p>The API docs are available <a class="reference external" href="https://materialsvirtuallab.github.io/m3gnet/modules">here</a>.</p>
 </section>
 <section id="datasets">
-<h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">¶</a></h1>
+<h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h1>
 <p>The training data used to develop the universal M3GNet IAP is <code class="docutils literal notranslate"><span class="pre">MPF.2021.2.8</span></code> and is hosted on
 <a class="reference external" href="https://figshare.com/articles/dataset/MPF_2021_2_8/19470599">figshare</a> with DOI <code class="docutils literal notranslate"><span class="pre">10.6084/m9.figshare.19470599</span></code>.</p>
 </section>
 <section id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this heading">¶</a></h1>
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <p>Please cite the following work:</p>
 <div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>Chi Chen, and Shyue Ping Ong. &quot;A Universal Graph Deep Learning Interatomic Potential for the Periodic Table.&quot;
 arXiv preprint [arXiv:2202.02450](https://arxiv.org/abs/2202.02450) (2022).
@@ -1039,7 +1043,7 @@ arXiv preprint [arXiv:2202.02450](https://arxiv.org/abs/2202.02450) (2022).
 </div>
 </section>
 <section id="acknowledgements">
-<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading">¶</a></h1>
+<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h1>
 <p>This work was primarily supported by the Materials Project, funded by the U.S. Department of Energy, Office of Science,
 Office of Basic Energy Sciences, Materials Sciences and Engineering Division under contract no.
 DE-AC02-05-CH11231: Materials Project program KC23MP. This work used the Expanse supercomputing cluster at the Extreme
@@ -1081,7 +1085,7 @@ ACI-1548562.</p>
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -1098,7 +1102,7 @@ ACI-1548562.</p>
       &copy;2022, Chi Chen, Shyue Ping Ong.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
