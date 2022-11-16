@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.1.1
+- Stress bug fix in molecular potential training
+
 ## v0.1.0
 - Official first Zenodo release.
 

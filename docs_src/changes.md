@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.1
+- Stress bug fix in molecular potential training
+
+## v0.1.0
+- Official first Zenodo release.
+
+## v0.0.9
+- More flexible NPT-MD scheme to MolecularDynamics class (@VvVLzy)
+- Add early stopping support (@dgaines2)
+- Filter warnings for less verbose output (@janosh)
+
+## v0.0.8
+- Remove requirement for pymatgen>2022.
+
 ## v0.0.7
 - Simple CLI tool for relaxing crystals.
 

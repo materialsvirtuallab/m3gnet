@@ -188,10 +188,7 @@ class PotentialTrainer:
         @tf.function(experimental_relax_shapes=True)
         def train_one_step(potential, graph_list, target_list):
             with tf.GradientTape() as tape:
-                if has_stress:
-                    pred_list = potential.get_efs_tensor(graph_list, include_stresses=True)
-                else:
-                    pred_list = potential.get_ef_tensor(graph_list)
+                pred_list = potential.get_efs_tensor(graph_list, include_stresses=has_stress)
                 loss_val, emae, fmae, smae = _loss(target_list, pred_list, graph_list[Index.N_ATOMS])
             if "macOS" in PLATFORM and "arm64" in PLATFORM and tf.config.list_physical_devices("GPU"):
                 # This is a workaround for a bug in tensorflow-metal that fails when tape.gradient is called.
@@ -243,7 +240,7 @@ class PotentialTrainer:
                 graph_batch, target_batch = batch
                 lossval, emae, fmae, smae = _loss(
                     target_batch,
-                    self.potential.get_efs_tensor(graph_batch.as_tf().as_list(), True),
+                    self.potential.get_efs_tensor(graph_batch.as_tf().as_list(), has_stress),
                     graph_batch.n_atoms,
                 )
                 epoch_loss_avg.update_state(lossval)

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>m3gnet.layers package &#8212; m3gnet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -34,19 +33,19 @@
           <div class="body" role="main">
             
   <section id="m3gnet-layers-package">
-<h1>m3gnet.layers package<a class="headerlink" href="#m3gnet-layers-package" title="Permalink to this heading">¶</a></h1>
+<h1>m3gnet.layers package<a class="headerlink" href="#m3gnet-layers-package" title="Permalink to this headline">¶</a></h1>
 <section id="module-m3gnet.layers">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-m3gnet.layers" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-m3gnet.layers" title="Permalink to this headline">¶</a></h2>
 <p>Graph layers</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomNetwork">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomNetwork" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdate</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdate</span></code></a></p>
 <p>Atom network that takes a graph as input and then calculate new
 atom attributes</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomNetwork.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomNetwork.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomNetwork.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs:</p>
@@ -57,7 +56,7 @@ atom attributes</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomNetwork.update_atoms">
-<span class="sig-name descname"><span class="pre">update_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomNetwork.update_atoms" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomNetwork.update_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take a graph input and calculate the updated atom attributes
 Args:</p>
 <blockquote>
@@ -70,12 +69,12 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomReduceState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomReduceState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomReduceState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomReduceState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomReduceState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Reduce atom attributes to states via sum or mean</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomReduceState.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomReduceState.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.AtomReduceState.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main layer logic
 Args:</p>
 <blockquote>
@@ -96,14 +95,14 @@ Returns:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomRef">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomRef" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BaseAtomRef" title="m3gnet.layers._atom_ref.BaseAtomRef"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAtomRef</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">AtomRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BaseAtomRef" title="m3gnet.layers._atom_ref.BaseAtomRef"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._atom_ref.BaseAtomRef</span></code></a></p>
 <p>Atom reference values. For example, if the average H energy is -20.0, and
 the average O energy is -10.0, the AtomRef predicts -20 * 2 + (-10.) =
 -50.0 for the atom reference energy for H2O</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.AtomRef.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomRef.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.AtomRef.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): a list repr of a graph
 <a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs:</p>
@@ -187,12 +186,12 @@ properties (np.ndarray): array of extensive properties</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.BaseAtomRef">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">BaseAtomRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BaseAtomRef" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">BaseAtomRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BaseAtomRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Base AtomRef that predicts 0 correction</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.BaseAtomRef.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BaseAtomRef.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BaseAtomRef.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a graph
 <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs:</p>
@@ -205,13 +204,13 @@ properties (np.ndarray): array of extensive properties</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.BondNetwork">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">BondNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BondNetwork" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdate</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">BondNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.BondNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdate</span></code></a></p>
 <p>Edge network that takes a graph as input and then calculate new
 bond attributes</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.BondNetwork.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.BondNetwork.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.BondNetwork.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the bond and return a copy of the graph
 Args:</p>
 <blockquote>
@@ -223,7 +222,7 @@ Args:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.BondNetwork.update_bonds">
-<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.BondNetwork.update_bonds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.BondNetwork.update_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update bond info in the graph
 Args:</p>
 <blockquote>
@@ -236,8 +235,8 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.ConcatAtoms">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ConcatAtoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ConcatAtoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BondNetwork" title="m3gnet.layers._bond.BondNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">BondNetwork</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ConcatAtoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ConcatAtoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BondNetwork" title="m3gnet.layers._bond.BondNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._bond.BondNetwork</span></code></a></p>
 <div class="math notranslate nohighlight">
 \[eij^\prime = Update(vi⊕vj⊕eij⊕u)\]</div>
 <dl class="py method">
@@ -249,7 +248,7 @@ Returns: dict</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ConcatAtoms.update_bonds">
-<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ConcatAtoms.update_bonds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ConcatAtoms.update_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update bond information
 Args:</p>
 <blockquote>
@@ -263,8 +262,8 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.ConcatBondAtomState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ConcatBondAtomState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ConcatBondAtomState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.StateNetwork" title="m3gnet.layers._state.StateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">StateNetwork</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ConcatBondAtomState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ConcatBondAtomState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.StateNetwork" title="m3gnet.layers._state.StateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._state.StateNetwork</span></code></a></p>
 <p>u^prime = Update(bar e^prime⊕bar v^prime⊕u)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ConcatBondAtomState.get_config">
@@ -275,7 +274,7 @@ Returns: dict</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ConcatBondAtomState.update_states">
-<span class="sig-name descname"><span class="pre">update_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ConcatBondAtomState.update_states" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ConcatBondAtomState.update_states" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph</p>
 </dd>
@@ -287,12 +286,12 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.Embedding">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Embedding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Embedding</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.layers.embeddings.Embedding</span></code></p>
 <p>Thin wrapper for embedding atomic numbers into feature vectors</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.Embedding.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Embedding.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Embedding.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the layer call</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>inputs (list): list representation of graph</p>
@@ -305,8 +304,8 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GatedAtomUpdate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GatedAtomUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GatedAtomUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.AtomNetwork" title="m3gnet.layers._atom.AtomNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtomNetwork</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GatedAtomUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GatedAtomUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.AtomNetwork" title="m3gnet.layers._atom.AtomNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._atom.AtomNetwork</span></code></a></p>
 <p>Take the neighbor atom attributes and bond attributes, update them to the
 center atom</p>
 <dl class="py method">
@@ -318,7 +317,7 @@ Returns: dict</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GatedAtomUpdate.update_atoms">
-<span class="sig-name descname"><span class="pre">update_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.GatedAtomUpdate.update_atoms" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.GatedAtomUpdate.update_atoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update atom attributes
 Args:</p>
 <blockquote>
@@ -331,8 +330,8 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GatedMLP">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GatedMLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GatedMLP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GatedMLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GatedMLP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <dl class="simple">
 <dt>Gated MLP implementation. It implements the following</dt><dd><p><cite>out = MLP(x) * MLP_\sigmoid(x)</cite></p>
 </dd>
@@ -340,7 +339,7 @@ Args:</p>
 <p>where that latter changes the last layer activation function into sigmoid.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GatedMLP.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.GatedMLP.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.GatedMLP.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the layer call</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>inputs (list): list representation of graph</p>
@@ -360,8 +359,8 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphFeaturizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphFeaturizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphFeaturizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphNetworkLayer" title="m3gnet.layers._gn.GraphNetworkLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphNetworkLayer</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphFeaturizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphFeaturizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphNetworkLayer" title="m3gnet.layers._gn.GraphNetworkLayer"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._gn.GraphNetworkLayer</span></code></a></p>
 <p>Graph featurizer that does several things to convert an initial graph
 with atomic number atom attributes and bond distance bond attributes to
 a graph with proper feature dimensions</p>
@@ -376,8 +375,8 @@ Returns:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphFieldEmbedding">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphFieldEmbedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphFieldEmbedding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdateFunc" title="m3gnet.layers._base.GraphUpdateFunc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdateFunc</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphFieldEmbedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphFieldEmbedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdateFunc" title="m3gnet.layers._base.GraphUpdateFunc"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdateFunc</span></code></a></p>
 <p>Embedding the categorical field of a graph to continuous space</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphFieldEmbedding.get_config">
@@ -390,14 +389,14 @@ Returns:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphNetworkLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphNetworkLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphNetworkLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdate</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphNetworkLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphNetworkLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdate</span></code></a></p>
 <p>A graph network layer features bond/atom/state update in the sequence
 bond -&gt; atom -&gt; state. The input and output of each step are graphs/graph
 converted lists</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphNetworkLayer.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphNetworkLayer.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphNetworkLayer.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (List): a graph in list representation
 <a href="#id13"><span class="problematic" id="id14">**</span></a>kwargs:</p>
@@ -417,13 +416,13 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphUpdate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphUpdate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>A graph update takes a graph list representation as input and output a
 updated graph</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphUpdate.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphUpdate.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphUpdate.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list representation of a graph
 <a href="#id15"><span class="problematic" id="id16">**</span></a>kwargs:</p>
@@ -436,12 +435,12 @@ updated graph</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphUpdateFunc">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphUpdateFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphUpdateFunc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdate</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">GraphUpdateFunc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.GraphUpdateFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdate</span></code></a></p>
 <p>Update a graph with a function</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.GraphUpdateFunc.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphUpdateFunc.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.GraphUpdateFunc.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call logic of the layer
 Args:</p>
 <blockquote>
@@ -462,12 +461,12 @@ Returns: config dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.MLP">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">MLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.MLP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">MLP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.MLP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Multi-layer perceptron</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.MLP.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.MLP.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.MLP.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the layer call</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>inputs (list): list representation of graph</p>
@@ -487,12 +486,12 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.MultiFieldReadout">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">MultiFieldReadout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.MultiFieldReadout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOut</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">MultiFieldReadout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.MultiFieldReadout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._readout.ReadOut</span></code></a></p>
 <p>Read both bond and atom</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.MultiFieldReadout.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.MultiFieldReadout.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.MultiFieldReadout.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id19"><span class="problematic" id="id20">**</span></a>kwargs:</p>
@@ -512,13 +511,13 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.PairDistance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairDistance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Compute pair distances from atom positions, bond indices, lattices and
 periodic offsets.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.PairDistance.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairDistance.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairDistance.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the pair distance from a MaterialGraph.
 Args:</p>
 <blockquote>
@@ -532,12 +531,12 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.PairRadialBasisExpansion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairRadialBasisExpansion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BondNetwork" title="m3gnet.layers._bond.BondNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">BondNetwork</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairRadialBasisExpansion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.BondNetwork" title="m3gnet.layers._bond.BondNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._bond.BondNetwork</span></code></a></p>
 <p>Expand the radial distance onto a basis</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.PairRadialBasisExpansion.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>On top of the changing bond, also add bond weight for later use
 Args:</p>
 <blockquote>
@@ -556,7 +555,7 @@ Returns: dict</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.PairRadialBasisExpansion.update_bonds">
-<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion.update_bonds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.PairRadialBasisExpansion.update_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the bond info using RBF
 Args:</p>
 <blockquote>
@@ -569,12 +568,12 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.PairVector">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairVector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">PairVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Compute pair atom distance vectors from graph</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.PairVector.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairVector.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.PairVector.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the pair vector distance from a MaterialGraph.
 Args:</p>
 <blockquote>
@@ -588,12 +587,12 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.Pipe">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Pipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Pipe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Pipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Simple layer for consecutive layer calls, similar to Sequential</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.Pipe.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Pipe.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tensorflow.python.framework.ops.Tensor</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Pipe.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the inputs through the layers
 Args:</p>
 <blockquote>
@@ -605,7 +604,7 @@ Args:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.Pipe.from_config">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#m3gnet.layers.Pipe" title="m3gnet.layers._core.Pipe"><span class="pre">Pipe</span></a></span></span><a class="headerlink" href="#m3gnet.layers.Pipe.from_config" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#m3gnet.layers.Pipe" title="m3gnet.layers._core.Pipe"><span class="pre">m3gnet.layers._core.Pipe</span></a></span></span><a class="headerlink" href="#m3gnet.layers.Pipe.from_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct Pipe object from a config dict
 Args:</p>
 <blockquote>
@@ -625,12 +624,12 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.RadialBasisFunctions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">RadialBasisFunctions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.RadialBasisFunctions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">RadialBasisFunctions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.RadialBasisFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Radial distribution function basis</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.RadialBasisFunctions.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.RadialBasisFunctions.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.RadialBasisFunctions.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>r (tf.Tensor): 1D radial distance tensor
 <a href="#id29"><span class="problematic" id="id30">**</span></a>kwargs:</p>
@@ -650,12 +649,12 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.ReadOut">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ReadOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ReadOut" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ReadOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ReadOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Readout reduces a graph into a tensor</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ReadOut.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ReadOut.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ReadOut.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id31"><span class="problematic" id="id32">**</span></a>kwargs:</p>
@@ -668,13 +667,13 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.ReduceReadOut">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ReduceReadOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ReduceReadOut" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOut</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ReduceReadOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ReduceReadOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._readout.ReadOut</span></code></a></p>
 <p>Reduce atom or bond attributes into lower dimensional tensors as readout.
 This could be summing up the atoms or bonds, or taking the mean, etc.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ReduceReadOut.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ReduceReadOut.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.ReduceReadOut.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id33"><span class="problematic" id="id34">**</span></a>kwargs:</p>
@@ -694,12 +693,12 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.Set2Set">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Set2Set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Set2Set" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOut</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">Set2Set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.Set2Set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._readout.ReadOut</span></code></a></p>
 <p>The Set2Set readout function</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.Set2Set.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Set2Set.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.Set2Set.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id35"><span class="problematic" id="id36">**</span></a>kwargs:</p>
@@ -719,13 +718,13 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.SphericalBesselWithHarmonics">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">SphericalBesselWithHarmonics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.SphericalBesselWithHarmonics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">SphericalBesselWithHarmonics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.SphericalBesselWithHarmonics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Spherical bessel function as radial function and spherical harmonics as
 the angular function</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.SphericalBesselWithHarmonics.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.SphericalBesselWithHarmonics.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.SphericalBesselWithHarmonics.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): the list representation of a graph
 <a href="#id37"><span class="problematic" id="id38">**</span></a>kwargs:</p>
@@ -746,13 +745,13 @@ Returns: config dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.StateNetwork">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">StateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.StateNetwork" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphUpdate</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">StateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.StateNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.GraphUpdate" title="m3gnet.layers._base.GraphUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._base.GraphUpdate</span></code></a></p>
 <p>Edge network that takes a graph as input and then calculate new
 bond attributes</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.StateNetwork.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.StateNetwork.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.StateNetwork.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id39"><span class="problematic" id="id40">**</span></a>kwargs:</p>
@@ -763,7 +762,7 @@ bond attributes</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.StateNetwork.update_states">
-<span class="sig-name descname"><span class="pre">update_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.StateNetwork.update_states" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.StateNetwork.update_states" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the new state attributes
 Args:</p>
 <blockquote>
@@ -776,12 +775,12 @@ Args:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.ThreeDInteraction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ThreeDInteraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ThreeDInteraction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">ThreeDInteraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.ThreeDInteraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
 <p>Include 3D interactions to the bond update</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.ThreeDInteraction.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_basis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.ThreeDInteraction.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_basis</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_cutoff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="headerlink" href="#m3gnet.layers.ThreeDInteraction.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): graph list representation
 three_basis (tf.Tensor): three body basis expansion
@@ -803,13 +802,13 @@ Returns: dict</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.layers.WeightedReadout">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">WeightedReadout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.WeightedReadout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReadOut</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">WeightedReadout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#m3gnet.layers.WeightedReadout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#m3gnet.layers.ReadOut" title="m3gnet.layers._readout.ReadOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">m3gnet.layers._readout.ReadOut</span></code></a></p>
 <p>Perform a weighted average of the readout field. Weights are learnable
 from this layer</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.layers.WeightedReadout.call">
-<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.WeightedReadout.call" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.WeightedReadout.call" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Args:</dt><dd><p>graph (list): list repr of a MaterialGraph
 <a href="#id43"><span class="problematic" id="id44">**</span></a>kwargs:</p>
@@ -829,7 +828,7 @@ Returns: dict</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="m3gnet.layers.cosine">
-<span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">cosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.cosine" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">cosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.cosine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cosine cutoff function
 Args:</p>
 <blockquote>
@@ -841,7 +840,7 @@ cutoff (float): cutoff distance</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="m3gnet.layers.polynomial">
-<span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.polynomial" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">m3gnet.layers.</span></span><span class="sig-name descname"><span class="pre">polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensorflow.python.framework.ops.Tensor</span></span></span><a class="headerlink" href="#m3gnet.layers.polynomial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polynomial cutoff function
 Args:</p>
 <blockquote>
@@ -888,7 +887,7 @@ cutoff (float): cutoff distance</p>
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -905,7 +904,7 @@ cutoff (float): cutoff distance</p>
       &copy;2022, Chi Chen, Shyue Ping Ong.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

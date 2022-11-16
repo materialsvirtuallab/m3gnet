@@ -34,7 +34,7 @@ API documentation is available via the [Github Page](http://materialsvirtuallab.
 - [Matterverse](#matterverse)
 - [API docs](#api-docs)
 - [Datasets](#datasets)
-- [References](#references)
+- [References](#reference)
 
 # System requirements
 
@@ -148,7 +148,7 @@ limited to cubic crystals for ease of comparison since there is only one lattice
 limited to cubic systems (see [LiFePO4 example](/examples/Relaxation%20of%20LiFePO4.ipynb)).
 
 | Material    | Crystal structure |   a (Å) | MP a (Å) | M3GNet a (Å) | % error vs Expt | % error vs MP |
-| :---------- | :---------------- |--------:|---------:|-------------:| :-------------- | :------------ |
+| :---------- | :---------------- | ------: | -------: | -----------: | :-------------- | :------------ |
 | Ac          | FCC               |    5.31 |  5.66226 |       5.6646 | 6.68%           | 0.04%         |
 | Ag          | FCC               |   4.079 |  4.16055 |      4.16702 | 2.16%           | 0.16%         |
 | Al          | FCC               |   4.046 |  4.03893 |      4.04108 | -0.12%          | 0.05%         |
@@ -352,7 +352,7 @@ trainer.train(
 
 # Matterverse
 
-As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-sythesized
+As an example of the power of M3GNet for materials discovery, we have created a database of yet-to-be-synthesized
 materials called [matterverse.ai](https://matterverse.ai). At the time of writing, matterverse.ai has 31 million
 structures, of which more than 1 million are predicted to be potentially stable. The initial candidate list was
 generated via combinatorial isovalent ionic substitutions based on the common oxidation states of non-noble-gas elements

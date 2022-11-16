@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>m3gnet.config module &#8212; m3gnet  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,7 +12,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,26 +32,26 @@
           <div class="body" role="main">
             
   <section id="module-m3gnet.config">
-<span id="m3gnet-config-module"></span><h1>m3gnet.config module<a class="headerlink" href="#module-m3gnet.config" title="Permalink to this heading">¶</a></h1>
+<span id="m3gnet-config-module"></span><h1>m3gnet.config module<a class="headerlink" href="#module-m3gnet.config" title="Permalink to this headline">¶</a></h1>
 <p>Data types</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="m3gnet.config.DataType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">m3gnet.config.</span></span><span class="sig-name descname"><span class="pre">DataType</span></span><a class="headerlink" href="#m3gnet.config.DataType" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">m3gnet.config.</span></span><span class="sig-name descname"><span class="pre">DataType</span></span><a class="headerlink" href="#m3gnet.config.DataType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Tensorflow and numpy data types. Used to choose between float16 and float32</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="m3gnet.config.DataType.np_float">
-<span class="sig-name descname"><span class="pre">np_float</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.np_float" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">np_float</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'float32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.np_float" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="m3gnet.config.DataType.np_int">
-<span class="sig-name descname"><span class="pre">np_int</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'int32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.np_int" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">np_int</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'int32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.np_int" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="m3gnet.config.DataType.set_dtype">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#m3gnet.config.DataType.set_dtype" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">set_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#m3gnet.config.DataType.set_dtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method to set the data types
 Args:</p>
 <blockquote>
@@ -62,12 +61,12 @@ Args:</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="m3gnet.config.DataType.tf_float">
-<span class="sig-name descname"><span class="pre">tf_float</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'float32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.tf_float" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tf_float</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'float32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.tf_float" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="m3gnet.config.DataType.tf_int">
-<span class="sig-name descname"><span class="pre">tf_int</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'int32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.tf_int" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tf_int</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'int32'</span></em><a class="headerlink" href="#m3gnet.config.DataType.tf_int" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -119,7 +118,7 @@ Args:</p>
     </form>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -136,7 +135,7 @@ Args:</p>
       &copy;2022, Chi Chen, Shyue Ping Ong.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
