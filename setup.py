@@ -6,8 +6,7 @@ import os
 import re
 
 import numpy as np
-from Cython.Build import cythonize
-from setuptools import Extension, find_packages, setup
+from setuptools import find_packages, setup
 
 this_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,13 +20,6 @@ with open("m3gnet/__init__.py", encoding="utf-8") as fd:
             version = m.group(1)
             break
 
-extension = [
-    Extension(
-        "m3gnet.graph._threebody_indices",
-        ["m3gnet/graph/_threebody_indices.pyx"],
-    )
-]
-
 setup(
     name="m3gnet",
     version=version,
@@ -37,7 +29,6 @@ setup(
         "numpy",
         "monty",
         "sympy",
-        "cython",
         "ase",
     ],
     description="Materials Graph with Three-body Interactions",
@@ -56,7 +47,6 @@ setup(
         "m3gnet": ["*.json", "*.md"],
     },
     include_package_data=True,
-    ext_modules=cythonize(extension),
     include_dirs=np.get_include(),
     keywords=[
         "materials",
