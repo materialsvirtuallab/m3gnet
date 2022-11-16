@@ -15,7 +15,7 @@ from m3gnet.utils import get_length, get_segment_indices_from_n
 from ._types import Index, MaterialGraph
 
 
-def _compute_threebody(bond_atom_indices: np.array, n_atoms: np.array):
+def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
     """
     Calculate the three body indices from pair atom indices
 
@@ -151,7 +151,7 @@ def _list_include_threebody_indices(graph: list, threebody_cutoff: float | None 
         original_index = np.arange(n_bond)
     if bond_atom_indices.shape[0] > 0:
 
-        bond_indices, n_triple_ij, n_triple_i, n_triple_s = _compute_threebody(
+        bond_indices, n_triple_ij, n_triple_i, n_triple_s = _compute_3body(
             bond_atom_indices,
             graph[Index.N_ATOMS],
         )
