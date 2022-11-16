@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.0
+- Pure Python m3gnet without extensions (though some dependencies require extensions).
+  This makes it easier to install.
+
 ## v0.1.1
 - Stress bug fix in molecular potential training
 
