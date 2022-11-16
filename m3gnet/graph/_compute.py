@@ -37,18 +37,27 @@ def _compute_threebody(bond_atom_indices, n_atoms):
     n_triple_i = np.zeros(n_atom, dtype=np.int32)
     n_triple_ij = np.zeros(n_bond, dtype=np.int32)
     n_triple_s = np.zeros(n_struct, dtype=np.int32)
-    triple_bond_indices = []
 
     n_triple = 0
     start = 0
 
     for i, bpa in enumerate(n_bond_per_atom):
         n_triple_temp = bpa * (bpa - 1)
-        n_triple_ij[start : start + bpa] = bpa - 1
+        for j in range(bpa):
+            n_triple_ij[start : start + bpa] = bpa - 1
         n_triple += n_triple_temp
         n_triple_i[i] = n_triple_temp
+        start += bpa
+
+    triple_bond_indices = np.empty(shape=(n_triple, 2), dtype=np.int32)
+
+    start = 0
+    index = 0
+    for i in range(n_atom):
+        bpa = n_bond_per_atom[i]
         for j, k in itertools.permutations(range(bpa), 2):
-            triple_bond_indices.append([start + j, start + k])
+            triple_bond_indices[index] = [start + j, start + k]
+            index += 1
         start += bpa
 
     start = 0
@@ -58,7 +67,7 @@ def _compute_threebody(bond_atom_indices, n_atoms):
             n_triple_s[i] += n_triple_i[j]
         start = end
 
-    return np.array(triple_bond_indices), n_triple_ij, n_triple_i, n_triple_s
+    return triple_bond_indices, n_triple_ij, n_triple_i, n_triple_s
 
 
 def get_pair_vector_from_graph(graph: List):
