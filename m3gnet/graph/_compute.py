@@ -159,8 +159,8 @@ def _list_include_threebody_indices(graph: list, threebody_cutoff: float | None 
     if bond_atom_indices.shape[0] > 0:
 
         bond_indices, n_triple_ij, n_triple_i, n_triple_s = _compute_threebody(
-            np.ascontiguousarray(bond_atom_indices, dtype="int32"),
-            np.array(graph[Index.N_ATOMS], dtype="int32"),
+            bond_atom_indices,
+            graph[Index.N_ATOMS],
         )
 
         if ij_reverse_map is not None:
