@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2.0
+## v0.2.1
 - Pure Python m3gnet without extensions (though some dependencies require extensions).
   This makes it easier to install.
 

@@ -175,7 +175,6 @@ def _list_include_threebody_indices(graph: list, threebody_cutoff: float | None 
             n_triple_ij = np.array([], dtype="int32")
         else:
             n_triple_ij = np.array([0] * n_bond, dtype="int32")
-        n_triple_ij = np.array([], dtype="int32")
         n_triple_i = np.array([0] * len(graph[Index.ATOMS]), dtype="int32")
         n_triple_s = np.array([0], dtype="int32")
     graph[Index.TRIPLE_BOND_INDICES] = bond_indices
