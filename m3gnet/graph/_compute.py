@@ -33,7 +33,7 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
     n_struct = len(n_atoms)
     n_atoms_total = np.sum(n_atoms)
 
-    n_bond_per_atom = np.array([np.sum(bond_atom_indices[:, 0] == i) for i in range(n_atoms_total)])
+    n_bond_per_atom = np.array([np.count_nonzero(bond_atom_indices[:, 0] == i) for i in range(n_atoms_total)])
 
     n_triple_i = n_bond_per_atom * (n_bond_per_atom - 1)
     n_triple_ij = np.zeros(n_bonds, dtype=np.int32)
