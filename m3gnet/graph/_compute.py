@@ -4,7 +4,6 @@ Computing various graph based operations
 
 from __future__ import annotations
 
-import itertools
 
 import numpy as np
 import tensorflow as tf
@@ -29,34 +28,36 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
         n_triple_i (np.ndarray): number of three-body angles each atom
         n_triple_s (np.ndarray): number of three-body angles for each structure
     """
-    n_bonds = len(bond_atom_indices)
-    n_struct = len(n_atoms)
     n_atoms_total = np.sum(n_atoms)
-
-    n_bond_per_atom = np.array([np.count_nonzero(bond_atom_indices[:, 0] == i) for i in range(n_atoms_total)])
-
+    first_col = bond_atom_indices[:, 0].reshape(-1, 1)
+    all_indices = np.arange(n_atoms_total).reshape(1, -1)
+    n_bond_per_atom = np.count_nonzero(first_col == all_indices, axis=0)
+    n_struct = len(n_atoms)
     n_triple_i = n_bond_per_atom * (n_bond_per_atom - 1)
-    n_triple_ij = np.zeros(n_bonds, dtype=np.int32)
-    n_triple_s = np.zeros(n_struct, dtype=np.int32)
     n_triple = np.sum(n_triple_i)
-
+    n_triple_ij = np.repeat(n_bond_per_atom - 1, n_bond_per_atom)
     triple_bond_indices = np.empty(shape=(n_triple, 2), dtype=np.int32)
 
     start = 0
-    index = 0
-
+    cs = 0
     for i, bpa in enumerate(n_bond_per_atom):
-        n_triple_ij[start : start + bpa] = bpa - 1
-        for j, k in itertools.permutations(range(bpa), 2):
-            triple_bond_indices[index] = [start + j, start + k]
-            index += 1
-        start += bpa
+        N = bpa
+        r = np.arange(N)
+        A = np.repeat(r, N)
+        B = np.tile(r, N)
+        C = ((A + B) % N).reshape(N, N)
+        index = np.repeat(C[:, 0], N - 1)
+        paired_up = C[:, 1:].ravel()
+        final = np.stack((index, paired_up), axis=1)
+        triple_bond_indices[start : start + (N * (N - 1)), :] = final + cs
+        start += N * (N - 1)
+        cs += bpa
 
+    n_triple_s = np.zeros(n_struct, dtype=np.int32)
     start = 0
     for i, n in enumerate(n_atoms):
         end = start + n
-        for j in range(start, end):
-            n_triple_s[i] += n_triple_i[j]
+        n_triple_s[i] += np.sum(n_triple_i[start:end])
         start = end
 
     return triple_bond_indices, n_triple_ij, n_triple_i, n_triple_s
