@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.2.3
+- Minor speed up.
+
 ## v0.2.2
 - Minor bug fix and efficiency improvements.
 
