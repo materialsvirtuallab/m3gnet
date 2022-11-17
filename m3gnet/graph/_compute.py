@@ -46,8 +46,7 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
     index = 0
 
     for i, bpa in enumerate(n_bond_per_atom):
-        for j in range(bpa):
-            n_triple_ij[start : start + bpa] = bpa - 1
+        n_triple_ij[start : start + bpa] = bpa - 1
         for j, k in itertools.permutations(range(bpa), 2):
             triple_bond_indices[index] = [start + j, start + k]
             index += 1
