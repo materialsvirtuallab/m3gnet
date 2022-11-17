@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.2.4
+- Speed up threebody computation.
+
 ## v0.2.3
 - Minor speed up.
 
