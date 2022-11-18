@@ -42,6 +42,16 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
     cs = 0
     for i, n in enumerate(n_bond_per_atom):
         if n > 0:
+            """
+            triple_bond_indices is generated from all pair permutations of atom indices. The
+            numpy version below does this with much greater efficiency. The equivalent slow
+            code is:
+
+            ```
+            for j, k in itertools.permutations(range(n), 2):
+                triple_bond_indices[index] = [start + j, start + k]
+            ```
+            """
             r = np.arange(n)
             x, y = np.meshgrid(r, r)
             c = np.stack([y.ravel(), x.ravel()], axis=1)
