@@ -32,7 +32,6 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
     first_col = bond_atom_indices[:, 0].reshape(-1, 1)
     all_indices = np.arange(n_atoms_total).reshape(1, -1)
     n_bond_per_atom = np.count_nonzero(first_col == all_indices, axis=0)
-    n_struct = len(n_atoms)
     n_triple_i = n_bond_per_atom * (n_bond_per_atom - 1)
     n_triple = np.sum(n_triple_i)
     n_triple_ij = np.repeat(n_bond_per_atom - 1, n_bond_per_atom)
@@ -60,14 +59,14 @@ def _compute_3body(bond_atom_indices: np.array, n_atoms: np.array):
             start += n * (n - 1)
             cs += n
 
-    n_triple_s = np.zeros(n_struct, dtype=np.int32)
-    start = 0
-    for i, n in enumerate(n_atoms):
-        end = start + n
-        n_triple_s[i] += np.sum(n_triple_i[start:end])
-        start = end
+    n_triple_s = []
+    i = 0
+    for n in n_atoms:
+        j = i + n
+        n_triple_s.append(np.sum(n_triple_i[i:j]))
+        i = j
 
-    return triple_bond_indices, n_triple_ij, n_triple_i, n_triple_s
+    return triple_bond_indices, n_triple_ij, n_triple_i, np.array(n_triple_s, dtype=np.int32)
 
 
 def get_pair_vector_from_graph(graph: list):
