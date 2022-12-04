@@ -5,7 +5,7 @@
 
 # M3GNet
 
-M3GNet is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference
+[M3GNet](https://www.nature.com/articles/s43588-022-00349-3) is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference
 with prior materials graph implementations such as [MEGNet](https://github.com/materialsvirtuallab/megnet) is the
 addition of the coordinates for atoms and the 3×3 lattice matrix in crystals, which are necessary for obtaining
 tensorial quantities such as forces and stresses via auto-differentiation.
@@ -372,8 +372,7 @@ The training data used to develop the universal M3GNet IAP is `MPF.2021.2.8` and
 Please cite the following work:
 
 ```txt
-Chi Chen, and Shyue Ping Ong. "A Universal Graph Deep Learning Interatomic Potential for the Periodic Table."
-arXiv preprint [arXiv:2202.02450](https://arxiv.org/abs/2202.02450) (2022).
+Chen, C., Ong, S.P. A universal graph deep learning interatomic potential for the periodic table. Nat Comput Sci 2, 718–728 (2022). https://doi.org/10.1038/s43588-022-00349-3.
 ```
 
 # Acknowledgements
