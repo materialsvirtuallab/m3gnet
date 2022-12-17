@@ -368,9 +368,7 @@ The training data used to develop the universal M3GNet IAP is `MPF.2021.2.8` and
 
 Please cite the following work:
 
-```txt
-Chen, C., Ong, S.P. A universal graph deep learning interatomic potential for the periodic table. Nat Comput Sci 2, 718–728 (2022). https://doi.org/10.1038/s43588-022-00349-3.
-```
+> Chen, C., Ong, S.P. A universal graph deep learning interatomic potential for the periodic table. Nat Comput Sci 2, 718–728 (2022). https://doi.org/10.1038/s43588-022-00349-3.
 
 # Acknowledgements
 
