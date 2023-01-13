@@ -49,7 +49,7 @@ class TestModel(unittest.TestCase):
 
     def test_single_atoms(self):
         self.potential.get_efs(self.structure)
-        e, f, s =  self.potential.get_efs(self.single_atoms)
+        e, f, s = self.potential.get_efs(self.single_atoms)
         shapes = f.numpy().shape
         self.assertTupleEqual(shapes, (1, 3))
 
