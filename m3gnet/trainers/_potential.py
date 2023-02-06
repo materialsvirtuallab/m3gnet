@@ -54,14 +54,14 @@ class PotentialTrainer:
         """
         Args:
             graphs_or_structures (list): a list of MaterialGraph or structures
-            energies (list): list of train energies
-            forces (list): list of train forces
-            stresses (list): list of train stresses
+            energies (list): list of train energies with unit of eV
+            forces (list): list of train forces with unit of eV/Å
+            stresses (list): list of train stresses with unit of GPa
             validation_graphs_or_structures (list): optional list of validation
                 graphs or structures
-            val_energies (list): list of val energies
-            val_forces (list): list of val forces
-            val_stresses (list): list of val stresses
+            val_energies (list): list of val energies with unit of eV
+            val_forces (list): list of val forces with unit of eV/Å
+            val_stresses (list): list of val stresses with unit of GPa
             loss (tf.keras.losses.Loss): loss object
             force_loss_ratio (float): the ratio of forces in loss
             stress_loss_ratio (float): the ratio of stresses in loss
