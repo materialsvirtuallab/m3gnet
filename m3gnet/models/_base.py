@@ -199,7 +199,7 @@ class BasePotential(tf.keras.Model, ABC):
         results: tuple = (energies, forces)
         # eV/A^3 to GPa
         if include_stresses:
-            stresses = 1 / volume[:, None, None] * derivatives["stresses"] * 160.21766208
+            stresses = -1 / volume[:, None, None] * derivatives["stresses"] * 160.21766208
             stresses = tf.cast(tf.convert_to_tensor(stresses), DataType.tf_float)
             results += (stresses,)
         return results
