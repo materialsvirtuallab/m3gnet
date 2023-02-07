@@ -19,7 +19,6 @@ class TestModel(unittest.TestCase):
         cls.atoms = Atoms(["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]], cell=np.eye(3) * 3.30, pbc=True)
 
     def test_m3gnet(self):
-
         g = self.model.graph_converter(self.mol)
 
         val = self.model.predict_structure(self.mol).numpy().ravel()
