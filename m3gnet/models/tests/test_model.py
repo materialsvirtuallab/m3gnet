@@ -20,7 +20,6 @@ class TestModel(unittest.TestCase):
         cls.single_atoms = Structure(Lattice.cubic(6.0), ["Mo"], [[0, 0, 0]])
 
     def test_m3gnet(self):
-
         g = self.model.graph_converter(self.mol)
 
         val = self.model.predict_structure(self.mol).numpy().ravel()
