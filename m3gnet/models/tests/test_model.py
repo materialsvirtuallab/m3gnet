@@ -17,6 +17,7 @@ class TestModel(unittest.TestCase):
         cls.mol = Molecule(["C", "O"], [[0, 0, 0], [1.5, 0, 0]])
         cls.structure = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         cls.atoms = Atoms(["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]], cell=np.eye(3) * 3.30, pbc=True)
+        cls.single_atoms = Structure(Lattice.cubic(6.0), ["Mo"], [[0, 0, 0]])
 
     def test_m3gnet(self):
 
@@ -45,6 +46,12 @@ class TestModel(unittest.TestCase):
                 atol=1e-2,
             )
         )
+
+    def test_single_atoms(self):
+        self.potential.get_efs(self.structure)
+        e, f, s = self.potential.get_efs(self.single_atoms)
+        shapes = f.numpy().shape
+        self.assertTupleEqual(shapes, (1, 3))
 
     def test_relaxer(self):
         relaxer = Relaxer()  # this loads the default model
