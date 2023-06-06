@@ -3,6 +3,11 @@
 [![Testing](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing%20-%20main/badge.svg)](https://github.com/materialsvirtuallab/m3gnet/workflows/Testing/badge.svg)
 [![Downloads](https://pepy.tech/badge/m3gnet)](https://pepy.tech/project/m3gnet)
 
+> **_NOTE:_**  A new implementation based on the Deep Graph Library and PyTorch called the
+> [Materials Graph Library (MatGL)](https://github.com/materialsvirtuallab/matgl) has replaced this implementation.
+> This repository has been archived and will no longer be maintained. It will be kept purely as a reference
+> implementation. Users are recommended to use matgl instead.
+
 # M3GNet
 
 M3GNet is a new materials graph neural network architecture that incorporates 3-body interactions. A key difference
