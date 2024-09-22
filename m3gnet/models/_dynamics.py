@@ -47,19 +47,23 @@ class M3GNetCalculator(Calculator):
 
     implemented_properties = ["energy", "free_energy", "forces", "stress"]
 
-    def __init__(self, potential: Potential, compute_stress: bool = True, stress_weight: float = 1.0, **kwargs):
+    def __init__(
+        self, potential: Potential, compute_stress: bool = True, stress_weight: float = 1.0, state_attr=None, **kwargs
+    ):
         """
 
         Args:
             potential (Potential): m3gnet.models.Potential
             compute_stress (bool): whether to calculate the stress
             stress_weight (float): the stress weight.
+            state_attr: global state attribute (e.g. fidelity of data)
             **kwargs:
         """
         super().__init__(**kwargs)
         self.potential = potential
         self.compute_stress = compute_stress
         self.stress_weight = stress_weight
+        self.state_attr = state_attr
 
     def calculate(
         self,
@@ -81,7 +85,7 @@ class M3GNetCalculator(Calculator):
         system_changes = system_changes or all_changes
         super().calculate(atoms=atoms, properties=properties, system_changes=system_changes)
 
-        graph = self.potential.graph_converter(atoms)
+        graph = self.potential.graph_converter(atoms, self.state_attr)
         graph_list = graph.as_tf().as_list()
         results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
         self.results.update(
@@ -104,6 +108,7 @@ class Relaxer:
         optimizer: Union[Optimizer, str] = "FIRE",
         relax_cell: bool = True,
         stress_weight: float = 0.01,
+        state_attr=None,
     ):
         """
 
@@ -115,6 +120,7 @@ class Relaxer:
                 Defaults to "FIRE"
             relax_cell (bool): whether to relax the lattice cell
             stress_weight (float): the stress weight for relaxation
+            state_attr: global state attribute (e.g. fidelity of data)
         """
         if isinstance(potential, str):
             potential = Potential(M3GNet.load(potential))
@@ -129,10 +135,11 @@ class Relaxer:
             optimizer_obj = optimizer
 
         self.opt_class: Optimizer = optimizer_obj
-        self.calculator = M3GNetCalculator(potential=potential, stress_weight=stress_weight)
+        self.calculator = M3GNetCalculator(potential=potential, stress_weight=stress_weight, state_attr=state_attr)
         self.relax_cell = relax_cell
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
+        self.state_attr = state_attr
 
     def relax(
         self,
@@ -257,6 +264,8 @@ class MolecularDynamics:
         logfile: Optional[str] = None,
         loginterval: int = 1,
         append_trajectory: bool = False,
+        stress_weight: float = 1.0,
+        state_attr=None,
     ):
         """
 
@@ -276,6 +285,7 @@ class MolecularDynamics:
             logfile (str): open this file for recording MD outputs
             loginterval (int): write to log file every interval steps
             append_trajectory (bool): Whether to append to prev trajectory
+            state_attr: global state attribute (e.g. fidelity of data)
         """
 
         if isinstance(potential, str):
@@ -284,7 +294,9 @@ class MolecularDynamics:
         if isinstance(atoms, (Structure, Molecule)):
             atoms = AseAtomsAdaptor().get_atoms(atoms)
         self.atoms = atoms
-        self.atoms.set_calculator(M3GNetCalculator(potential=potential))
+        self.atoms.set_calculator(
+            M3GNetCalculator(potential=potential, stress_weight=stress_weight, state_attr=state_attr)
+        )
 
         if taut is None:
             taut = 100 * timestep * units.fs

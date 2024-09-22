@@ -60,7 +60,12 @@ class AtomRef(BaseAtomRef):
         if property_per_element is None:
             self.property_per_element = np.zeros(shape=(max_z + 1,))
         else:
-            self.property_per_element = np.array(property_per_element).ravel()
+            self.property_per_element = np.array(property_per_element)
+            if self.property_per_element.ndim > 1:
+                self.n_state = self.property_per_element.shape[-1]
+            else:
+                self.property_per_element = np.array(property_per_element).ravel()
+                self.n_state = 1
         self.max_z = max_z
 
     def _get_feature_matrix(self, structs_or_graphs):
@@ -144,7 +149,11 @@ class AtomRef(BaseAtomRef):
         Returns:
         """
         atomic_numbers = graph[Index.ATOMS][:, 0]
-        atom_energies = tf.gather(tf.cast(self.property_per_element, DataType.tf_float), atomic_numbers)
+        if self.n_state == 1:
+            atom_energies = tf.gather(tf.cast(self.property_per_element, DataType.tf_float), atomic_numbers)
+        else:
+            state_property_per_element = self.property_per_element[:, int(graph[Index.STATES])]
+            atom_energies = tf.gather(tf.cast(state_property_per_element, DataType.tf_float), atomic_numbers)
         res = tf.math.segment_sum(atom_energies, get_segment_indices_from_n(graph[Index.N_ATOMS]))
         return tf.reshape(res, (-1, 1))
 

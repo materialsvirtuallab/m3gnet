@@ -1,6 +1,7 @@
 """
 Classes to convert a structure into a graph
 """
+
 import logging
 from abc import abstractmethod
 from typing import Dict, List, Optional
@@ -98,17 +99,18 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         graphs = [self.convert(structure, **kwargs) for structure in structures]
         return assemble_material_graph(graphs)
 
-    def __call__(self, structure: StructureOrMolecule, *args, **kwargs) -> MaterialGraph:
+    def __call__(self, structure: StructureOrMolecule, state_attr=None, *args, **kwargs) -> MaterialGraph:
         """
         A thin wrapper for calling `convert` method
         Args:
             structure:
+            state_attr:
             *args:
             **kwargs:
         Returns:
 
         """
-        return self.convert(structure)
+        return self.convert(structure, state_attr)
 
 
 @register
@@ -145,11 +147,12 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
 
         super().__init__(**kwargs)
 
-    def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, state_attr=None, **kwargs) -> MaterialGraph:
         """
         Convert the structure into graph
         Args:
             structure: Structure or Molecule
+            state_attr: Global state attribute (e.g.Fidelity of data)
         Returns
             MaterialGraph
         """
@@ -158,7 +161,7 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
             atom_positions = np.asarray(structure.get_positions(), dtype=DataType.np_float)
         else:
             atom_positions = np.array(structure.cart_coords, dtype=DataType.np_float)
-        state_attributes = self.get_states(structure)
+        state_attributes = state_attr if state_attr is not None else self.get_states(structure)
 
         sender_indices, receiver_indices, images, distances = get_fixed_radius_bonding(structure, self.cutoff)
 

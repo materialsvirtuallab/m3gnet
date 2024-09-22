@@ -1,6 +1,7 @@
 """
 The core m3gnet model
 """
+
 import json
 import logging
 import os
@@ -94,10 +95,13 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         cutoff: float = 5.0,
         threebody_cutoff: float = 4.0,
         n_atom_types: int = 94,
+        n_state_types: Optional[int] = None,
+        state_embedding_dim: Optional[int] = None,
         include_states: bool = False,
         readout: str = "weighted_atom",
         task_type: str = "regression",
         is_intensive: bool = True,
+        output_latent_feats: bool = False,
         mean: float = 0.0,
         std: float = 1.0,
         element_refs: Optional[np.ndarray] = None,
@@ -112,6 +116,8 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             cutoff (float): cutoff radius of the graph
             threebody_cutoff (float): cutoff radius for 3 body interaction
             n_atom_types (int): number of atom types
+            n_state_types (int): number of state types
+            state_embedding_dim (int): dimension of state embedding
             include_states (bool): whether to include states calculation
             readout (str): the readout function type. choose from `set2set`,
                 `weighted_atom` and `reduce_atom`, default to `weighted_atom`
@@ -121,6 +127,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
             mean (float): optional `mean` value of the target
             std (float): optional `std` of the target
             element_refs (np.ndarray): element reference values for each
+            output_latent_feats: whether output latent atomic features
                 element
             **kwargs:
         """
@@ -137,7 +144,9 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
 
         self.featurizer = GraphFeaturizer(
             n_atom_types=n_atom_types,
+            n_state_types=n_state_types,
             atom_embedding_dim=units,
+            state_embedding_dim=state_embedding_dim,
             rbf_type="SphericalBessel",
             max_n=max_n,
             max_l=max_l,
@@ -217,7 +226,7 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                     )
                 )
             )
-            final_layers.append(ReduceReadOut(method="sum", field="atoms"))
+            final_layers.append(ReduceReadOut(method="sum", field="atoms", output_latent_feats=output_latent_feats))
             self.final = Pipe(layers=final_layers)
 
         if element_refs is None:
@@ -239,6 +248,9 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         self.mean = mean
         self.std = std
         self.element_refs = element_refs
+        self.n_state_types = n_state_types
+        self.state_embedding_dim = state_embedding_dim
+        self.output_latent_feats = output_latent_feats
 
     def call(self, graph: List, **kwargs) -> tf.Tensor:
         """
@@ -257,10 +269,17 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
         for i in range(self.n_blocks):
             g = self.three_interactions[i](g, three_basis, three_cutoff)
             g = self.graph_layers[i](g)
-        g = self.final(g)
+        if self.output_latent_feats is True:
+            latent_feats = g[Index.ATOMS]
+            node_out, g = self.final(g)
+        else:
+            g = self.final(g)
         g = g * self.std + self.mean
         g += property_offset
-        return g
+        if self.output_latent_feats is True:
+            return g, latent_feats, node_out
+        else:
+            return g
 
     def get_config(self):
         """
