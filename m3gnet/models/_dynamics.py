@@ -264,7 +264,7 @@ class MolecularDynamics:
         logfile: Optional[str] = None,
         loginterval: int = 1,
         append_trajectory: bool = False,
-        stress_weight: float = 1.0,
+        stress_weight: float = 1 / 160.21766208,
         state_attr=None,
     ):
         """
@@ -285,7 +285,8 @@ class MolecularDynamics:
             logfile (str): open this file for recording MD outputs
             loginterval (int): write to log file every interval steps
             append_trajectory (bool): Whether to append to prev trajectory
-            state_attr: global state attribute (e.g. fidelity of data)
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            stress_weight (float): unit conversion from GPa to eV/A^3
         """
 
         if isinstance(potential, str):
