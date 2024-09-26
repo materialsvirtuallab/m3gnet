@@ -78,7 +78,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         return states
 
     @abstractmethod
-    def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, state_attr=None, *args, **kwargs) -> MaterialGraph:
         """
         Convert the structure into a graph
         Args:
