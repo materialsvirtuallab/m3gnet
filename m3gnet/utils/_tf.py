@@ -1,6 +1,7 @@
 """
 Tensorflow related utility
 """
+
 from typing import List
 
 import tensorflow as tf

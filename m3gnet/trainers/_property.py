@@ -1,6 +1,7 @@
 """
 Training graph network property models
 """
+
 import logging
 import os
 import platform

@@ -1,6 +1,7 @@
 """
 Materials Graph Network
 """
+
 from copy import deepcopy
 from typing import List, Optional
 
