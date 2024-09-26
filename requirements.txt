@@ -1,4 +1,3 @@
 pymatgen==2022.11.7
 tensorflow==2.11.1
 ase==3.22.1
-pip==22.0.4
