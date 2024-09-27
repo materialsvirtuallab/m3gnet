@@ -145,12 +145,12 @@ def _concatenate(list_of_arrays: List, name: AnyStr) -> Optional[np.ndarray]:
 
 @overload
 def assemble_material_graph(graphs: List[MaterialGraph]) -> MaterialGraph:
-    ...
+    raise NotImplementedError
 
 
 @overload
 def assemble_material_graph(graphs: List[List]) -> List:
-    ...
+    raise NotImplementedError
 
 
 def assemble_material_graph(graphs):
