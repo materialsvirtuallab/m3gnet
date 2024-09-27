@@ -7,7 +7,7 @@ from monty.tempfile import ScratchDir
 from pymatgen.core.structure import Lattice, Molecule, Structure
 
 from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer, M3GNetCalculator
-
+import pytest 
 
 class TestModel(unittest.TestCase):
     @classmethod
@@ -46,7 +46,7 @@ class TestModel(unittest.TestCase):
             )
         )
 
-    @pytest.mark.skip(reason="Due to the upgrade of tensorflow, test_single_atoms will fail.")
+    @unittest.skip("Due to the upgrade of tensorflow, test_single_atoms will fail.")
     def test_single_atoms(self):
         self.potential.get_efs(self.structure)
         e, f, s = self.potential.get_efs(self.single_atoms)
