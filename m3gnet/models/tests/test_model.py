@@ -45,6 +45,7 @@ class TestModel(unittest.TestCase):
                 atol=1e-2,
             )
         )
+
     @pytest.mark.skip(reason="Due to the upgrade of tensorflow, test_single_atoms will fail.")
     def test_single_atoms(self):
         self.potential.get_efs(self.structure)
