@@ -231,7 +231,7 @@ class SphericalHarmonicsFunction:
         funcs = [i.subs({theta: sympy.acos(costheta)}) for i in funcs]
         self.orig_funcs = [sympy.simplify(i).evalf() for i in funcs]
         results = [
-            sympy.lambdify([costheta, phi], i, [{"conjugate": _conjugate}, "tensorflow"]) for i in self.orig_funcs
+            sympy.lambdify([costheta, phi], i, [{"conjugate": sympy.conjugate}, "tensorflow"]) for i in self.orig_funcs
         ]
         results[0] = _y00
         return results
