@@ -248,7 +248,7 @@ class SphericalHarmonicsFunction:
         """
         costheta = tf.cast(costheta, dtype=tf.dtypes.complex64)
         phi = tf.cast(phi, dtype=tf.dtypes.complex64)
-        results = tf.stack([func(costheta, phi) for func in self.funcs], axis=1)
+        results = tf.stack([func(costheta, phi).ref() for func in self.funcs], axis=1)
         results = tf.cast(results, dtype=DataType.tf_float)
         return results
 
