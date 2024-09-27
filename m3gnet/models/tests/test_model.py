@@ -7,7 +7,8 @@ from monty.tempfile import ScratchDir
 from pymatgen.core.structure import Lattice, Molecule, Structure
 
 from m3gnet.models import M3GNet, MolecularDynamics, Potential, Relaxer, M3GNetCalculator
-import pytest 
+import pytest
+
 
 class TestModel(unittest.TestCase):
     @classmethod
