@@ -1,6 +1,7 @@
 """
 Common metrics used in M3GNet
 """
+
 from typing import Callable
 
 import tensorflow as tf

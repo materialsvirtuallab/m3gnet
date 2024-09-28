@@ -1,4 +1,5 @@
 """Aggregate classes. Aggregating happens when bond attributes """
+
 from typing import Callable, List, Union
 
 import tensorflow as tf

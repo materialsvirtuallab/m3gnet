@@ -1,6 +1,7 @@
 """
 M3GNet potential trainer
 """
+
 from typing import List, Optional
 import platform
 

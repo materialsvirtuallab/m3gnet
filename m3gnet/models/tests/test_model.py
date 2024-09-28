@@ -19,6 +19,10 @@ class TestModel(unittest.TestCase):
         cls.atoms = Atoms(["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]], cell=np.eye(3) * 3.30, pbc=True)
         cls.single_atoms = Structure(Lattice.cubic(6.0), ["Mo"], [[0, 0, 0]])
 
+        cls.mfi_model = M3GNet(is_intensive=False, state_embedding_dim=16, n_type_states=2)
+        cls.mfi_potential = Potential(model=cls.mfi_model)
+        cls.state_attr = np.array([1])
+
     def test_m3gnet(self):
         g = self.model.graph_converter(self.mol)
 
@@ -34,6 +38,22 @@ class TestModel(unittest.TestCase):
         self.assertTrue(np.allclose(vals, [val, val]))
         self.assertTrue(np.allclose(vals_graph, [val, val]))
 
+    def test_mfi_m3gnet(self):
+        self.structure.states = self.state_attr
+        g = self.mfi_model.graph_converter(self.structure)
+
+        val = self.mfi_model.predict_structure(self.structure).numpy().ravel()
+        val_graph = self.mfi_model.predict_graph(g).numpy().ravel()
+
+        self.assertTrue(val.size == 1)
+        self.assertAlmostEqual(val, val_graph)
+
+        vals = self.mfi_model.predict_structures([self.structure, self.structure]).numpy().ravel()
+        vals_graph = self.mfi_model.predict_graphs([g, g]).numpy().ravel()
+
+        self.assertTrue(np.allclose(vals, [val, val]))
+        self.assertTrue(np.allclose(vals_graph, [val, val]))
+
     def test_potential(self):
         e, f, s = self.potential.get_efs(self.structure)
         self.assertAlmostEqual(e.numpy().item(), -21.3307, 3)
@@ -45,6 +65,12 @@ class TestModel(unittest.TestCase):
                 atol=1e-2,
             )
         )
+
+    def test_mfi_potential(self):
+        self.structure.states = self.state_attr
+        e, f, s = self.mfi_potential.get_efs(self.structure)
+        shapes = f.numpy().shape
+        self.assertTupleEqual(shapes, (1, 3))
 
     def test_single_atoms(self):
         self.potential.get_efs(self.structure)
@@ -84,6 +110,16 @@ class TestModel(unittest.TestCase):
                 atol=1e-2,
             )
         )
+
+        self.assertEqual(np.shape(energy), ())
+        self.assertEqual(np.shape(forces), (2, 3))
+
+    def test_mfi_calculator(self):
+        atoms = self.atoms.copy()
+        atoms.calc = M3GNetCalculator(potential=self.mfi_potential, state_attr=self.state_attr)
+
+        energy = atoms.get_potential_energy()
+        forces = atoms.get_forces()
 
         self.assertEqual(np.shape(energy), ())
         self.assertEqual(np.shape(forces), (2, 3))

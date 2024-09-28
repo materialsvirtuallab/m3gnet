@@ -298,10 +298,13 @@ class M3GNet(GraphModelMixin, tf.keras.models.Model):
                 "include_states": self.include_states,
                 "readout": self.readout,
                 "n_atom_types": self.n_atom_types,
+                "n_state_types": self.n_state_types,
+                "state_embedding_dim": self.state_embedding_dim,
                 "task_type": self.task_type,
                 "is_intensive": self.is_intensive,
                 "mean": self.mean,
                 "std": self.std,
+                "output_latent_feats": self.output_latent_feats,
                 "element_refs": self.element_refs,
             }
         )

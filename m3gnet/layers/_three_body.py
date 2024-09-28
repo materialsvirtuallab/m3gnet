@@ -1,6 +1,7 @@
 """
 Three body basis expansion
 """
+
 from typing import List
 
 import tensorflow as tf

@@ -62,7 +62,7 @@ class AtomRef(BaseAtomRef):
         else:
             self.property_per_element = np.array(property_per_element)
             if self.property_per_element.ndim > 1:
-                self.n_state = self.property_per_element.shape[-1]
+                self.n_state = self.property_per_element.shape[0]
             else:
                 self.property_per_element = np.array(property_per_element).ravel()
                 self.n_state = 1
