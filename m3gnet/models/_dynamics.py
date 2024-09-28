@@ -27,7 +27,7 @@ from pymatgen.io.ase import AseAtomsAdaptor
 
 from ._base import Potential
 from ._m3gnet import M3GNet
-from ._m3gnet.layers import AtomRef
+from m3gnet.layers import AtomRef
 
 OPTIMIZERS = {
     "FIRE": FIRE,
