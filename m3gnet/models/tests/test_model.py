@@ -67,16 +67,13 @@ class TestModel(unittest.TestCase):
             )
         )
 
-<<<<<<< HEAD
     def test_mfi_potential(self):
         self.structure.states = self.state_attr
         e, f, s = self.mfi_potential.get_efs(self.structure)
         shapes = f.numpy().shape
         self.assertTupleEqual(shapes, (1, 3))
 
-=======
     @unittest.skip("Due to the upgrade of tensorflow, test_single_atoms will fail.")
->>>>>>> abce38e670a42d4d6322c3173814020c12e37d25
     def test_single_atoms(self):
         self.potential.get_efs(self.structure)
         e, f, s = self.potential.get_efs(self.single_atoms)
