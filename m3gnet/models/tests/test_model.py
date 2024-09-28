@@ -56,7 +56,7 @@ class TestModel(unittest.TestCase):
         self.assertTrue(np.allclose(vals_graph, [val, val]))
 
     def test_potential(self):
-        self.structure.states = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
+        self.structure = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         e, f, s = self.potential.get_efs(self.structure)
         self.assertAlmostEqual(e.numpy().item(), -21.3307, 3)
         self.assertTrue(np.allclose(f.numpy().ravel(), np.zeros(shape=(2, 3)).ravel(), atol=1e-3))
