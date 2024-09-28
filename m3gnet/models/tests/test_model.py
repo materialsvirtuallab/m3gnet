@@ -56,6 +56,7 @@ class TestModel(unittest.TestCase):
         self.assertTrue(np.allclose(vals_graph, [val, val]))
 
     def test_potential(self):
+        self.structure.states = Structure(Lattice.cubic(3.30), ["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]])
         e, f, s = self.potential.get_efs(self.structure)
         self.assertAlmostEqual(e.numpy().item(), -21.3307, 3)
         self.assertTrue(np.allclose(f.numpy().ravel(), np.zeros(shape=(2, 3)).ravel(), atol=1e-3))
@@ -71,7 +72,7 @@ class TestModel(unittest.TestCase):
         self.structure.states = self.state_attr
         e, f, s = self.mfi_potential.get_efs(self.structure)
         shapes = f.numpy().shape
-        self.assertTupleEqual(shapes, (1, 3))
+        self.assertTupleEqual(shapes, (2, 3))
 
     @unittest.skip("Due to the upgrade of tensorflow, test_single_atoms will fail.")
     def test_single_atoms(self):
