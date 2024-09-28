@@ -25,9 +25,9 @@ from ase.optimize.sciopt import SciPyFminBFGS, SciPyFminCG
 from pymatgen.core.structure import Molecule, Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 
+from m3gnet.layers import AtomRef
 from ._base import Potential
 from ._m3gnet import M3GNet
-from m3gnet.layers import AtomRef
 
 OPTIMIZERS = {
     "FIRE": FIRE,

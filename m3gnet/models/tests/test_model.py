@@ -20,7 +20,7 @@ class TestModel(unittest.TestCase):
         cls.atoms = Atoms(["Mo", "Mo"], [[0, 0, 0], [0.5, 0.5, 0.5]], cell=np.eye(3) * 3.30, pbc=True)
         cls.single_atoms = Structure(Lattice.cubic(6.0), ["Mo"], [[0, 0, 0]])
 
-        cls.mfi_model = M3GNet(is_intensive=False, state_embedding_dim=16, n_type_states=2)
+        cls.mfi_model = M3GNet(is_intensive=False, state_embedding_dim=16, n_state_types=2)
         cls.mfi_potential = Potential(model=cls.mfi_model)
         cls.state_attr = np.array([1])
 
