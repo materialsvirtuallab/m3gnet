@@ -78,7 +78,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         return states
 
     @abstractmethod
-    def convert(self, structure: StructureOrMolecule, **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, state_attr=None, *args, **kwargs) -> MaterialGraph:
         """
         Convert the structure into a graph
         Args:
@@ -110,7 +110,7 @@ class BaseGraphConverter(tf.keras.layers.Layer):
         Returns:
 
         """
-        return self.convert(structure, state_attr)
+        return self.convert(structure, state_attr, *args, **kwargs)
 
 
 @register
@@ -147,7 +147,7 @@ class RadiusCutoffGraphConverter(BaseGraphConverter):
 
         super().__init__(**kwargs)
 
-    def convert(self, structure: StructureOrMolecule, state_attr=None, **kwargs) -> MaterialGraph:
+    def convert(self, structure: StructureOrMolecule, state_attr=None, *args, **kwargs) -> MaterialGraph:
         """
         Convert the structure into graph
         Args:

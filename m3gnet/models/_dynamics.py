@@ -62,8 +62,8 @@ class M3GNetCalculator(Calculator):
             potential (Potential): m3gnet.models.Potential
             compute_stress (bool): whether to calculate the stress
             stress_weight (float): the stress weight.
-            state_attr: global state attribute (e.g. fidelity of data)
-            element_refs: elemental energy offsets.
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
             **kwargs:
         """
         super().__init__(**kwargs)
@@ -142,8 +142,8 @@ class Relaxer:
                 Defaults to "FIRE"
             relax_cell (bool): whether to relax the lattice cell
             stress_weight (float): the stress weight for relaxation
-            state_attr: global state attribute (e.g. fidelity of data)
-            element_refs: elemental energy offsets.
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
         """
         if isinstance(potential, str):
             potential = Potential(M3GNet.load(potential))
@@ -288,7 +288,7 @@ class MolecularDynamics:
         logfile: Optional[str] = None,
         loginterval: int = 1,
         append_trajectory: bool = False,
-        stress_weight: float = 1.0,
+        stress_weight: float = 1 / 160.21766208,
         state_attr=None,
         element_refs=None,
     ):
@@ -310,8 +310,9 @@ class MolecularDynamics:
             logfile (str): open this file for recording MD outputs
             loginterval (int): write to log file every interval steps
             append_trajectory (bool): Whether to append to prev trajectory
-            state_attr: global state attribute (e.g. fidelity of data)
-            element_refs: elemental energy offsets.
+            stress_weight (float): unit conversion from GPa to eV/A^3
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
         """
 
         if isinstance(potential, str):
