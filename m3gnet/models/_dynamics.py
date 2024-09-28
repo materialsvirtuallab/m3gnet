@@ -27,6 +27,7 @@ from pymatgen.io.ase import AseAtomsAdaptor
 
 from ._base import Potential
 from ._m3gnet import M3GNet
+from ._m3gnet.layers import AtomRef
 
 OPTIMIZERS = {
     "FIRE": FIRE,
@@ -96,7 +97,7 @@ class M3GNetCalculator(Calculator):
         graph = self.potential.graph_converter(atoms, self.state_attr)
         graph_list = graph.as_tf().as_list()
         results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
-
+        offset = None
         if self.element_refs is not None:
             offset = self.element_refs(graph_list)
 
