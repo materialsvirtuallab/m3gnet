@@ -1,6 +1,7 @@
 """
 Graph layers
 """
+
 from ._aggregate import AtomReduceState
 from ._atom import AtomNetwork, GatedAtomUpdate
 from ._atom_ref import AtomRef, BaseAtomRef

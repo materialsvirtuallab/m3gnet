@@ -1,6 +1,7 @@
 """
 Calculate distance from atom positions and indices
 """
+
 from typing import List
 
 import tensorflow as tf

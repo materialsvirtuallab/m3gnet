@@ -1,6 +1,7 @@
 """
 Training graph network property models
 """
+
 import logging
 import os
 import platform
@@ -112,6 +113,7 @@ class Trainer:
 
         val_metrics = val_metrics or ["mae"]
         mgb = MaterialGraphBatch(graphs, targets, batch_size=batch_size)
+        mgb_val = None
 
         if train_metrics is not None:
             train_metrics = [_get_metric(metric) for metric in train_metrics]

@@ -1,6 +1,7 @@
 """
 Readout compress a graph into a vector
 """
+
 from typing import List, Optional
 
 import tensorflow as tf
@@ -109,15 +110,17 @@ class ReduceReadOut(ReadOut):
     This could be summing up the atoms or bonds, or taking the mean, etc.
     """
 
-    def __init__(self, method: str = "mean", field="atoms", **kwargs):
+    def __init__(self, method: str = "mean", field="atoms", output_latent_feats: bool = False, **kwargs):
         """
         Args:
             method (str): method for the reduction
             field (str): the field of MaterialGraph to perform the reduction
+            output_latent_feats (bool): whether output latent atomic features
             **kwargs:
         """
         self.method = method
         self.field = field
+        self.output_latent_feats = output_latent_feats
         super().__init__(**kwargs)
         self.method_func = METHOD_MAPPING.get(method)
 
@@ -131,6 +134,12 @@ class ReduceReadOut(ReadOut):
         """
         field = graph[getattr(Index, self.field.upper())]
         n_field = graph[getattr(Index, f"n_{self.field}".upper())]
+        if self.output_latent_feats is True:
+            return field, self.method_func(
+                field,
+                get_segment_indices_from_n(n_field),
+                num_segements=tf.shape(n_field)[0],
+            )
         return self.method_func(  # type: ignore
             field,
             get_segment_indices_from_n(n_field),

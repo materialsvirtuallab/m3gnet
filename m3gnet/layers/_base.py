@@ -1,6 +1,7 @@
 """
 Base layer classes
 """
+
 from typing import Callable, List, Optional
 
 import tensorflow as tf

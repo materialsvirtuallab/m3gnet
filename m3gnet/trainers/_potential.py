@@ -1,6 +1,7 @@
 """
 M3GNet potential trainer
 """
+
 from typing import List, Optional
 import platform
 
@@ -101,7 +102,7 @@ class PotentialTrainer:
             stresses=stresses,
             batch_size=batch_size,
         )
-
+        mgb_val = None
         if validation_graphs_or_structures is not None and val_energies is not None:
             has_validation = True
             if isinstance(validation_graphs_or_structures[0], MaterialGraph):

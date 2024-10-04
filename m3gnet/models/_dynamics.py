@@ -25,6 +25,7 @@ from ase.optimize.sciopt import SciPyFminBFGS, SciPyFminCG
 from pymatgen.core.structure import Molecule, Structure
 from pymatgen.io.ase import AseAtomsAdaptor
 
+from m3gnet.layers import AtomRef
 from ._base import Potential
 from ._m3gnet import M3GNet
 
@@ -47,19 +48,31 @@ class M3GNetCalculator(Calculator):
 
     implemented_properties = ["energy", "free_energy", "forces", "stress"]
 
-    def __init__(self, potential: Potential, compute_stress: bool = True, stress_weight: float = 1.0, **kwargs):
+    def __init__(
+        self,
+        potential: Potential,
+        compute_stress: bool = True,
+        stress_weight: float = 1.0,
+        state_attr=None,
+        element_refs=None,
+        **kwargs,
+    ):
         """
 
         Args:
             potential (Potential): m3gnet.models.Potential
             compute_stress (bool): whether to calculate the stress
             stress_weight (float): the stress weight.
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
             **kwargs:
         """
         super().__init__(**kwargs)
         self.potential = potential
         self.compute_stress = compute_stress
         self.stress_weight = stress_weight
+        self.state_attr = state_attr
+        self.element_refs = AtomRef(property_per_element=element_refs) if element_refs is not None else element_refs
 
     def calculate(
         self,
@@ -81,14 +94,27 @@ class M3GNetCalculator(Calculator):
         system_changes = system_changes or all_changes
         super().calculate(atoms=atoms, properties=properties, system_changes=system_changes)
 
-        graph = self.potential.graph_converter(atoms)
+        graph = self.potential.graph_converter(atoms, self.state_attr)
         graph_list = graph.as_tf().as_list()
         results = self.potential.get_efs_tensor(graph_list, include_stresses=self.compute_stress)
+        offset = None
+        if self.element_refs is not None:
+            offset = self.element_refs(graph_list)
+
         self.results.update(
-            energy=results[0].numpy().ravel()[0],
-            free_energy=results[0].numpy().ravel()[0],
+            energy=(
+                results[0].numpy().ravel()[0] + offset.numpy().ravel()[0]
+                if self.element_refs is not None
+                else results[0].numpy().ravel()[0]
+            ),
+            free_energy=(
+                results[0].numpy().ravel()[0] + offset.numpy().ravel()[0]
+                if self.element_refs is not None
+                else results[0].numpy().ravel()[0]
+            ),
             forces=results[1].numpy(),
         )
+
         if self.compute_stress:
             self.results.update(stress=results[2].numpy()[0] * self.stress_weight)
 
@@ -104,6 +130,8 @@ class Relaxer:
         optimizer: Union[Optimizer, str] = "FIRE",
         relax_cell: bool = True,
         stress_weight: float = 0.01,
+        state_attr=None,
+        element_refs=None,
     ):
         """
 
@@ -111,10 +139,12 @@ class Relaxer:
             potential (Optional[Union[Potential, str]]): a potential,
                 a str path to a saved model or a short name for saved model
                 that comes with M3GNet distribution
-            optimizer (str or ase Optimizer): the optimization algorithm.
+            optimizer (str or ase Optimizer): the optimization algorithm
                 Defaults to "FIRE"
             relax_cell (bool): whether to relax the lattice cell
             stress_weight (float): the stress weight for relaxation
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
         """
         if isinstance(potential, str):
             potential = Potential(M3GNet.load(potential))
@@ -129,7 +159,9 @@ class Relaxer:
             optimizer_obj = optimizer
 
         self.opt_class: Optimizer = optimizer_obj
-        self.calculator = M3GNetCalculator(potential=potential, stress_weight=stress_weight)
+        self.calculator = M3GNetCalculator(
+            potential=potential, stress_weight=stress_weight, state_attr=state_attr, element_refs=element_refs
+        )
         self.relax_cell = relax_cell
         self.potential = potential
         self.ase_adaptor = AseAtomsAdaptor()
@@ -152,7 +184,7 @@ class Relaxer:
                 Here fmax is a sum of force and stress forces
             steps (int): max number of steps for relaxation
             traj_file (str): the trajectory file for saving
-            interval (int): the step interval for saving the trajectories
+            interval (int): the step interval for saving the trajectories.
             **kwargs:
         Returns:
         """
@@ -257,6 +289,9 @@ class MolecularDynamics:
         logfile: Optional[str] = None,
         loginterval: int = 1,
         append_trajectory: bool = False,
+        stress_weight: float = 1 / 160.21766208,
+        state_attr=None,
+        element_refs=None,
     ):
         """
 
@@ -276,6 +311,9 @@ class MolecularDynamics:
             logfile (str): open this file for recording MD outputs
             loginterval (int): write to log file every interval steps
             append_trajectory (bool): Whether to append to prev trajectory
+            stress_weight (float): unit conversion from GPa to eV/A^3
+            state_attr (np.ndarray): global state attribute (e.g. fidelity of data)
+            element_refs (np.ndarray): elemental energy offsets.
         """
 
         if isinstance(potential, str):
@@ -284,7 +322,11 @@ class MolecularDynamics:
         if isinstance(atoms, (Structure, Molecule)):
             atoms = AseAtomsAdaptor().get_atoms(atoms)
         self.atoms = atoms
-        self.atoms.set_calculator(M3GNetCalculator(potential=potential))
+        self.atoms.set_calculator(
+            M3GNetCalculator(
+                potential=potential, stress_weight=stress_weight, state_attr=state_attr, element_refs=element_refs
+            )
+        )
 
         if taut is None:
             taut = 100 * timestep * units.fs
