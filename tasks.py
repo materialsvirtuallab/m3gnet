@@ -2,7 +2,6 @@
 Pyinvoke tasks.py file for automating releases and admin stuff.
 """
 
-
 import glob
 import json
 import os
