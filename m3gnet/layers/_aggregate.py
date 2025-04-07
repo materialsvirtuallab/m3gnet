@@ -1,4 +1,4 @@
-"""Aggregate classes. Aggregating happens when bond attributes """
+"""Aggregate classes. Aggregating happens when bond attributes"""
 
 from typing import Callable, List, Union
 
